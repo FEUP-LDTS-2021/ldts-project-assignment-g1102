@@ -31,7 +31,7 @@ public class Game {
     }
     private void draw() throws IOException {
         screen.clear();
-        maze.draw(screen);
+        maze.draw(screen.newTextGraphics());
         screen.refresh();
     }
     public void run() {
