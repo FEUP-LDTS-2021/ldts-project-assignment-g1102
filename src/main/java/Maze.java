@@ -4,7 +4,8 @@ import com.googlecode.lanterna.screen.Screen;
 
 public class Maze {
     int width, height;
-    PacMan pacman = new PacMan(15,19);
+    Position pos = new Position(15,19);
+    PacMan pacman = new PacMan(pos);
     public Maze(int w, int h){
         width = w;
         height = h;

@@ -1,35 +1,34 @@
 public class PacMan {
-    public int x, y;
-    public PacMan(int a, int b){
-        x = a;
-        y = b;
+    public Position pos;
+    public PacMan(Position p){
+        pos = p;
     }
 
     public int getX() {
-        return x;
+        return pos.getX();
     }
 
     public int getY() {
-        return y;
+        return pos.getY();
     }
 
     public void setX(int x) {
-        this.x = x;
+        pos.setX(x);
     }
 
     public void setY(int y) {
-        this.y = y;
+        pos.setY(y);
     }
     public void moveUp(){
-        y -=1;
+        pos.setY(pos.getY()-1);
     }
     public void moveDown(){
-        y+=1;
+        pos.setY(pos.getY()+1);
     }
     public void moveLeft(){
-        x-=1;
+        pos.setX(pos.getX()-1);
     }
     public void moveRight(){
-        x+=1;
+        pos.setX(pos.getX()+1);
     }
 }
