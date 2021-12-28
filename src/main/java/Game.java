@@ -16,11 +16,11 @@ public class Game {
     private Screen screen;
     private Terminal terminal;
     private TerminalSize terminalSize;
-    private int nRows =36, nColumns = 29, x= 15, y=19;
+    private Maze maze = new Maze(36,29);
     KeyStroke key;
 
     public Game() throws IOException {
-        terminalSize = new TerminalSize(nColumns, nRows);
+        terminalSize = new TerminalSize(maze.getWidth(), maze.getHeight());
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         terminal = terminalFactory.createTerminal();
         screen = new TerminalScreen(terminal);
@@ -31,7 +31,7 @@ public class Game {
     }
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        maze.draw(screen);
         screen.refresh();
     }
     public void run() {
@@ -40,7 +40,7 @@ public class Game {
                 draw();
                 key = screen.readInput();
                 processKey(key);
-                if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
+                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {       //caso o user pressione q ou Q, o jogo fecha
                     screen.close();
                 }
                 if (key.getKeyType() == EOF) {
@@ -52,19 +52,6 @@ public class Game {
         }
     }
     private void processKey(KeyStroke key) throws IOException {
-        switch (key.getKeyType()) {
-            case ArrowUp:
-                y -= 1;
-                break;
-            case ArrowDown:
-                y += 1;
-                break;
-            case ArrowLeft:
-                x -= 1;
-                break;
-            case ArrowRight:
-                x += 1;
-                break;
-        }
+        maze.processKey(key);
     }
 }
