@@ -1,3 +1,7 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
 public class PacMan {
     public Position pos;
     public PacMan(Position p){
@@ -31,5 +35,10 @@ public class PacMan {
     }
     public void moveHero(Position pos){
         this.pos = pos;
+    }
+
+    public void draw (TextGraphics screen){
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+        screen.putString(new TerminalPosition(pos.getX(),pos.getY()),"C");
     }
 }
