@@ -16,7 +16,7 @@ public class Game {
     private Screen screen;
     private Terminal terminal;
     private TerminalSize terminalSize;
-    private Maze maze = new Maze(36,29);
+    private Maze maze = new Maze(29,36);
     KeyStroke key;
 
     public Game() throws IOException {
