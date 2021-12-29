@@ -19,9 +19,7 @@ public class PacMan {
     public void setY(int y) {
         pos.setY(y);
     }
-    public void moveUp(){
-        pos.setY(pos.getY()-1);
-    }
+    public void moveUp(){pos.setY(pos.getY()-1);}
     public void moveDown(){
         pos.setY(pos.getY()+1);
     }
@@ -30,5 +28,8 @@ public class PacMan {
     }
     public void moveRight(){
         pos.setX(pos.getX()+1);
+    }
+    public void moveHero(Position pos){
+        this.pos = pos;
     }
 }
