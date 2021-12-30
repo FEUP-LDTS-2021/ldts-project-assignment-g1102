@@ -55,6 +55,7 @@ public class Menu {
             case 'G':
                 Game game = new Game();
                 game.run();
+                break;
             case 'L':
                 Leaderboard leaderboard = new Leaderboard();
                 break;
