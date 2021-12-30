@@ -2,6 +2,8 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.screen.Screen;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,13 +16,14 @@ import java.util.Scanner;
 
 public class Maze {
     int width, height;
-    Position pos = new Position(14,20);
-    PacMan pacman = new PacMan(pos);
+    int score = 0, lives = 5;
+    private PacMan pacman;
     List<Wall> walls = new ArrayList<Wall>();
     List<Food> foods = new ArrayList<>();
     public Maze(int w, int h){
         width = w;
         height = h;
+        pacman = new PacMan(14, 20);
         this.walls = createWalls();
         this.foods = createFoods();
     }
@@ -42,6 +45,8 @@ public class Maze {
     }
 
     public void draw(TextGraphics screen){
+        screen.putString(0,0, "Score: " + score);
+        screen.putString(0, 34, "Lives: " + lives);
         pacman.draw(screen);
 
         for (Wall w : walls){
@@ -57,10 +62,10 @@ public class Maze {
     }*/
     public boolean isWall(Position p){  //verifica se determinada posição é uma parede
         for (Wall w : walls){
-            if (w.getY() > p.getY()){
+            if (w.getPosition().getY() > p.getY()){
                 break;
             }
-            if (p.getX()== w.getX() && p.getY()== w.getY()) {
+            if (p.getX()== w.getPosition().getX() && p.getY()== w.getPosition().getY()) {
                 return true;
             }
         }
@@ -94,7 +99,7 @@ public class Maze {
         Position newP = null;
         switch (key.getKeyType()) {
             case ArrowUp:
-                newP = new Position(pacman.getX(),pacman.getY()-1);
+                newP = new Position(pacman.getPosition().getX(),pacman.getPosition().getY()-1);
                 if (isWall(newP)){
                     break;
                 }
@@ -104,7 +109,7 @@ public class Maze {
                 pacman.moveHero(newP);
                 break;
             case ArrowDown:
-                newP = new Position(pacman.getX(),pacman.getY()+1);
+                newP = new Position(pacman.getPosition().getX(),pacman.getPosition().getY()+1);
                 if (isWall(newP)){
                     break;
                 }
@@ -114,7 +119,7 @@ public class Maze {
                 pacman.moveHero(newP);
                 break;
             case ArrowLeft:
-                newP = new Position(pacman.getX()-1,pacman.getY());
+                newP = new Position(pacman.getPosition().getX()-1,pacman.getPosition().getY());
                 if (isWall(newP)){
                     break;
                 }
@@ -124,7 +129,7 @@ public class Maze {
                 pacman.moveHero(newP);
                 break;
             case ArrowRight:
-                newP = new Position(pacman.getX()+1,pacman.getY());
+                newP = new Position(pacman.getPosition().getX()+1,pacman.getPosition().getY());
                 if (isWall(newP)){
                     break;
                 }
@@ -174,9 +179,8 @@ public class Maze {
                 String data = mazeReader.nextLine();
                 int column = 0;
                 while (column < data.length()) {
-                    Position pos = new Position(column, line);
                     if (data.charAt(column) == '.' || data.charAt(column) == 'o') {
-                        Food f = new Food(pos,  data.charAt(column));
+                        Food f = new Food(column, line, data.charAt(column));
                         foods.add(f);
                     }
                     column++;
@@ -194,17 +198,24 @@ public class Maze {
 
     private void retrieveFood(){ //also, don't forget to increase score
         for (Food f : foods){
-            if (f.getX() == pacman.getX() && f.getY() == pacman.getY()){
+            if (f.getPosition().getX() == pacman.getPosition().getX() && f.getPosition().getY() == pacman.getPosition().getY()){
+                if (f.getCharacter() == '.'){
+                    score += 10;
+                }
+                else if(f.getCharacter() == 'o'){
+                    score += 50;
+                }
                 foods.remove(f);
                 break;
             }
         }
     }
 
-    private void endOfFood() throws IOException { //when food ends, the map has to be loaded again, and the game continues with the same score and the same number of lives (this only restarts, it does not mantain the future score and the number of lives I think)
+    private void endOfFood() throws IOException { //when food ends, the map has to be loaded again, and the game continues with the same score and the same number of lives (and pacman returns to its initial position)
         if (foods.isEmpty()){
-            Game game = new Game();
-            game.run();
+            this.walls = createWalls();
+            this.foods = createFoods();
+            pacman = new PacMan(14, 20);
         }
     }
 }

@@ -2,28 +2,20 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class PacMan {
-    public Position pos;
-    public PacMan(Position p){
-        pos = p;
+public class PacMan extends Element{
+    public PacMan(int x, int y){
+        super(x, y);
     }
 
-    public int getX() {
-        return pos.getX();
+    public void setPosition(Position position){
+        pos = position;
     }
-
-    public int getY() {
-        return pos.getY();
+    public Position getPosition() {
+        return pos;
     }
-
-    public void setX(int x) {
-        pos.setX(x);
+    public void moveUp(){
+        pos.setY(pos.getY()-1);
     }
-
-    public void setY(int y) {
-        pos.setY(y);
-    }
-    public void moveUp(){pos.setY(pos.getY()-1);}
     public void moveDown(){
         pos.setY(pos.getY()+1);
     }

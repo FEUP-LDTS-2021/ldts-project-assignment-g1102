@@ -40,7 +40,7 @@ public class Game {
                 draw();
                 key = screen.readInput();
                 processKey(key);
-                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {       //caso o user pressione q ou Q, o jogo fecha
+                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {//caso o user pressione q ou Q, o jogo fecha
                     screen.close();
                 }
                 if (key.getKeyType() == EOF) {

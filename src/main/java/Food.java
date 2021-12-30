@@ -2,28 +2,26 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Food {
-    private Position pos;
+public class Food extends Element{
     private char character;
-    public Food (Position p, char c){
-        pos = p;
+    public Food (int x, int y, char c){
+        super(x, y);
         character = c;
     }
 
-    public int getX(){
-        return pos.getX();
+    public void setPosition(Position position){
+        pos = position;
+    }
+    public Position getPosition() {
+        return pos;
     }
 
-    public int getY(){
-        return pos.getY();
+    public char getCharacter(){
+        return character;
     }
 
-    public void setX(int x){
-        pos.setX(x);
-    }
-
-    public void setY(int y){
-        pos.setY(y);
+    public void setCharacter(char c){
+        character = c;
     }
 
     public void draw (TextGraphics screen){

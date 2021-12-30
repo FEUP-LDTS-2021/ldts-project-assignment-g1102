@@ -2,27 +2,25 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Wall {
-    Position pos;
-    char caracter;
-    public Wall(int x, int y, char caracter){
-        pos = new Position(x,y);
-        this.caracter = caracter;
+public class Wall extends Element{
+    char character;
+    public Wall(int x, int y, char c){
+        super(x, y);
+        character = c;
     }
 
-    public int getX() {
-        return pos.getX();
+    public void setPosition(Position position){
+        pos = position;
     }
-
-    public int getY() {
-        return pos.getY();
+    public Position getPosition() {
+        return pos;
     }
 
     public char getCaracter() {
-        return caracter;
+        return character;
     }
     public void draw(TextGraphics screen){
         screen.setForegroundColor(TextColor.Factory.fromString("#1919A6"));
-        screen.putString(new TerminalPosition(pos.getX(),pos.getY()),String.valueOf(caracter));
+        screen.putString(new TerminalPosition(pos.getX(),pos.getY()),String.valueOf(character));
     }
 }
