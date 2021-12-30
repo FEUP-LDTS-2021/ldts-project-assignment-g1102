@@ -23,11 +23,44 @@ public class Menu {
 
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        screen.putString(new TerminalPosition(0, 1), "PAC-MAN");
-        screen.putString(0, 4, "Menu");
-        screen.putString(0, 6, "G - Game");
-        screen.putString(0, 7, "L - Leaderboard");
-        screen.putString(0, 8, "E - Exit");
+        screen.putString(23, 4, "Character / Nickname");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        screen.putString(20, 6, "F -SHADOW         BLINKY");
+        screen.setForegroundColor(TextColor.Factory.fromString("#ED5AAB"));
+        screen.putString(20, 7, "F -SPEEDY         PINKY");
+        screen.setForegroundColor(TextColor.Factory.fromString("#6ED2EB"));
+        screen.putString(20, 8, "F -BASHFUL        INKY");
+        screen.setForegroundColor(TextColor.Factory.fromString("#ECF54C"));
+        screen.putString(20, 9, "F -POKEY          CLYDE");
+        screen.setForegroundColor(TextColor.Factory.fromString("#0C14F2"));
+        screen.putString(25, 11, "1st F");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(35, 11, "200 PTS");
+        screen.setForegroundColor(TextColor.Factory.fromString("#0C14F2"));
+        screen.putString(25, 12, "2nd F");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(35, 12, "400 PTS");
+        screen.setForegroundColor(TextColor.Factory.fromString("#0C14F2"));
+        screen.putString(25, 13, "3rd F");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(35, 13, "800 PTS");
+        screen.setForegroundColor(TextColor.Factory.fromString("#0C14F2"));
+        screen.putString(25, 14, "4th F");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(34, 14, "1600 PTS");
+        screen.putString(30, 16, ".");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(32, 16, "10 PTS");
+        screen.setForegroundColor(TextColor.Factory.fromString("#ECF54C"));
+        screen.putString(30, 17, "o");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(32, 17, "50 PTS");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(22, 19, "Press G to play");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(22, 20, "Press L to see leaderboard");
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(22, 21, "Press E to exit");
     }
 
     public Menu() throws IOException {
@@ -51,7 +84,7 @@ public class Menu {
     }
 
     public void processKey(KeyStroke key) throws IOException {
-        switch (key.getCharacter()) {
+        switch (Character.toUpperCase(key.getCharacter())) {
             case 'G':
                 Game game = new Game();
                 game.run();

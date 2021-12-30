@@ -54,7 +54,7 @@ public class Leaderboard {
                 row++;
             }
 
-            screen.putString(0, row+2, "Press X for close this window");
+            screen.putString(0, row+2, "Press X for close this window"); //press key x and close
 
         }
 
