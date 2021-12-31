@@ -11,67 +11,101 @@ import com.googlecode.lanterna.input.KeyStroke;
 import javax.swing.*;
 import java.io.*;
 import java.security.Key;
-import java.util.ArrayList;
+import java.util.*;
 
-public class Leaderboard {
+class Person{
+    String name; Integer score;
+    public Person(String name, Integer score){
+        this.name = name;
+        this.score = score;
+    }
 
-        private TerminalSize terminalSize;
-        private Terminal terminal;
-        private Screen screen;
-        KeyStroke key;
+    public String getName() {
+        return name;
+    }
 
-        public Leaderboard() throws IOException {
-            terminalSize = new TerminalSize(80, 60);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            terminal = terminalFactory.createTerminal();
-            Screen screen = new TerminalScreen(terminal);
+    public Integer getScore() {
+        return score;
+    }
 
-            screen.setCursorPosition(null); // we don't need a cursor
-            screen.startScreen(); // screens must be started
-            screen.doResizeIfNecessary(); // resize screen if necessary
+    public void setName(String name) {
+        this.name = name;
+    }
 
-            displayLeaderboard(screen.newTextGraphics());
-            screen.refresh();
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+}
 
-            key = screen.readInput();
+public class Leaderboard{
 
-            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'X')
-                screen.close();
+    private TerminalSize terminalSize;
+    private Terminal terminal;
+    private Screen screen;
+    KeyStroke key;
 
+    List<Person> persons = new ArrayList<>();
+
+    public Leaderboard() throws IOException {
+        terminalSize = new TerminalSize(80, 60);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+        terminal = terminalFactory.createTerminal();
+        Screen screen = new TerminalScreen(terminal);
+
+        screen.setCursorPosition(null); // we don't need a cursor
+        screen.startScreen(); // screens must be started
+        screen.doResizeIfNecessary(); // resize screen if necessary
+
+        readLearderBoard();
+        displayLeaderboard(screen.newTextGraphics());
+        screen.refresh();
+
+        key = screen.readInput();
+
+        if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'x')
+            screen.close();
         }
 
 
-        public void displayLeaderboard(TextGraphics screen) throws IOException {
-            BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
-            screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-            screen.putString(0, 0, "Leaderboard");
-            String line;
+    //O READLEADERBOARD SÓ PODE ESTAR NUMA DAS FUNÇÕES QUE DEVE SER O CONSTRUTOR
+    //O SCREEN NÃO FAZ REFRESH NAS OUTRAS FUNÇÕES POR ISSO É QUE ESTA NO CONSTRUTOR
+    public void readLearderBoard() throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
+        String line;
 
-            int row = 1;
-            while ((line = reader.readLine()) != null) { // reads a line of the file and puts it in the file variable while the file has things to read
-
-                screen.putString(0, row, line);
-                row++;
-            }
-
-            screen.putString(0, row+2, "Press X for close this window"); //press key x and close
-
+        while ((line = reader.readLine()) != null) { // reads a line of the file and puts it in the file variable while the file has things to read
+            String[] s = line.split("-");
+            Person p = new Person(s[0], Integer.valueOf(s[1]));
+            persons.add(p);
         }
 
+        Collections.sort(persons, (p1, p2) -> p2.getScore() - p1.getScore());
+        reader.close();
+    }
 
-        public static void updateLeaderboard(int score, String playerName) throws IOException{
-            ArrayList<String> lines = new ArrayList<>();
-            BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
 
-            lines.add(playerName + "         " + score);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt"));
-            for (String content: lines){
-                writer.write(content + '\n');
-            }
-            writer.close();
+    public void displayLeaderboard(TextGraphics screen) throws IOException {
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.putString(0, 0, "Leaderboard");
+
+        int row = 1;
+        for (Person person : persons){
+            screen.putString(0, row, person.getName() + " " + person.getScore());
+            row++;
         }
+        screen.putString(0, row+2, "Press x for close this window"); //press key x and close
+    }
+
+    public void updateLeaderboard(String playerName, int score) throws IOException{
+        readLearderBoard();
+
+        Person p = new Person(playerName, score);
+        persons.add(p);
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true));
+
+        writer.write(p.getName() + "-" + p.getScore() + '\n');
+
+        writer.close();
+    }
 }

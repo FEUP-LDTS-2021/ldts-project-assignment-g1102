@@ -1,2 +1,4 @@
-Joao Silva     300
-Luis Gomes     200
+Joao Silva-300
+Luis Gomes-400
+Francisco Torres-340
+Maria Ramos-120

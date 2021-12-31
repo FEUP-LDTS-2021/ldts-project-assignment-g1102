@@ -77,6 +77,7 @@ public class Menu {
         draw(screen.newTextGraphics());
         screen.refresh();
 
+
         while (true) {
             key = screen.readInput();
             processKey(key);
@@ -94,7 +95,6 @@ public class Menu {
                 break;
             case 'E':
                 System.exit(0);
-                screen.close();
                 break;
             default:
                 key = screen.readInput();
