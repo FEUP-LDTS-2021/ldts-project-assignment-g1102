@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public class Menu {
 
@@ -63,7 +64,7 @@ public class Menu {
         screen.putString(22, 21, "Press E to exit");
     }
 
-    public Menu() throws IOException {
+    public Menu() throws IOException, InterruptedException {
 
         terminalSize = new TerminalSize(80, 60);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -84,7 +85,7 @@ public class Menu {
         }
     }
 
-    public void processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) throws IOException, InterruptedException {
         switch (Character.toUpperCase(key.getCharacter())) {
             case 'G':
                 Game game = new Game();

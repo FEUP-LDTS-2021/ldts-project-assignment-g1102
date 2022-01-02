@@ -12,20 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 
 public class Maze {
+    public static boolean alreadyExecuted = false; //this does not belong to any object. I declared this as static so I could use it in the class game without any problems
     int width, height;
-    int score = 0, lives = 5;
+    int score = 0;
+    String lives = "CCCCC";
     private PacMan pacman;
     List<Wall> walls = new ArrayList<Wall>();
     List<Food> foods = new ArrayList<>();
     public Maze(int w, int h){
         width = w;
         height = h;
-        pacman = new PacMan(14, 20);
         this.walls = createWalls();
         this.foods = createFoods();
+        pacman = new PacMan(14, 26);
     }
 
     public int getWidth() {
@@ -44,10 +47,11 @@ public class Maze {
         this.height = height;
     }
 
-    public void draw(TextGraphics screen){
+
+    public void drawElements(TextGraphics screen) throws InterruptedException {
         screen.putString(0,0, "Score: " + score);
-        screen.putString(0, 34, "Lives: " + lives);
-        pacman.draw(screen);
+        screen.setForegroundColor(TextColor.Factory.fromString("#FFE600"));
+        screen.putString(0, 34, lives);
 
         for (Wall w : walls){
             w.draw(screen);
@@ -56,6 +60,7 @@ public class Maze {
         for (Food f : foods){
             f.draw(screen);
         }
+        pacman.draw(screen);
     }
     /*public boolean isInaccessible(Position p){ //this function returns true if the given position is inaccessible by pac-man
         if (p)
@@ -95,7 +100,7 @@ public class Maze {
         return p;
     }
 
-    public void processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) throws IOException, InterruptedException {
         Position newP = null;
         switch (key.getKeyType()) {
             case ArrowUp:
@@ -106,7 +111,7 @@ public class Maze {
                 else if (isHole(newP)){
                     newP = goThroughHole(newP);
                 }
-                pacman.moveHero(newP);
+                pacman.moveHero(newP); //put just one move hero on the end of the switch case
                 break;
             case ArrowDown:
                 newP = new Position(pacman.getPosition().getX(),pacman.getPosition().getY()+1);
@@ -142,6 +147,7 @@ public class Maze {
         retrieveFood();
         endOfFood();
     }
+
     private List<Wall> createWalls(){
         Scanner mazeReader = null;
         try {
@@ -198,7 +204,7 @@ public class Maze {
 
     private void retrieveFood(){ //also, don't forget to increase score
         for (Food f : foods){
-            if (f.getPosition().getX() == pacman.getPosition().getX() && f.getPosition().getY() == pacman.getPosition().getY()){
+            if (f.getPosition().getX() == pacman.getPosition().getX() && f.getPosition().getY() == pacman.getPosition().getY()){ //override equals in Position class to write f.getPosition == pacman.getPosition
                 if (f.getCharacter() == '.'){
                     score += 10;
                 }
@@ -211,11 +217,12 @@ public class Maze {
         }
     }
 
-    private void endOfFood() throws IOException { //when food ends, the map has to be loaded again, and the game continues with the same score and the same number of lives (and pacman returns to its initial position)
+    private void endOfFood() throws IOException, InterruptedException { //when food ends, the map has to be loaded again, and the game continues with the same score and the same number of lives (and pacman returns to its initial position)
         if (foods.isEmpty()){
-            this.walls = createWalls();
-            this.foods = createFoods();
-            pacman = new PacMan(14, 20);
+            this.createWalls();
+            this.createFoods();
+            pacman = new PacMan(14, 26);
+            alreadyExecuted = false;
         }
     }
 }

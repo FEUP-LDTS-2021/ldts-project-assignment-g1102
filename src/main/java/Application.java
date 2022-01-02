@@ -16,7 +16,7 @@ import java.util.Vector;
 
 public class Application {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Menu menu = new Menu();
 
     }
