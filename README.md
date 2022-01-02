@@ -29,7 +29,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 <Efeitos que a aplicação do pattern teve sobre o código>
 
 ### Code Smells Detetados e Soluções de Refactoring
-####<Nome do Code Smell Detetado>
+#### <Nome do Code Smell Detetado>
 <Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
 
 ### Testagem
