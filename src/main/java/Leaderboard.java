@@ -13,30 +13,6 @@ import java.io.*;
 import java.security.Key;
 import java.util.*;
 
-class Person{
-    String name; Integer score;
-    public Person(String name, Integer score){
-        this.name = name;
-        this.score = score;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-}
-
 public class Leaderboard{
 
     private TerminalSize terminalSize;
@@ -55,6 +31,11 @@ public class Leaderboard{
         screen.setCursorPosition(null); // we don't need a cursor
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary(); // resize screen if necessary
+
+        /*Scanner scanner = new Scanner(System.in);
+        System.out.println("name: ");
+        String name = scanner.nextLine();               //Se quiserem testar a escrita para o leaderboard (atenção que isto não é para estar na consola, mas sim depois no screen de game over)
+        updateLeaderboard(name, 53);*/
 
         readLearderBoard();
         displayLeaderboard(screen.newTextGraphics());
@@ -86,26 +67,68 @@ public class Leaderboard{
 
     public void displayLeaderboard(TextGraphics screen) throws IOException {
         screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        screen.putString(0, 0, "Leaderboard");
+        screen.putString(34, 3, "TOP 10 BEST PLAYERS");
+        screen.putString(19,5,"RANK                NAME                SCORE");
 
-        int row = 1;
-        for (Person person : persons){
-            screen.putString(0, row, person.getName() + " " + person.getScore());
-            row++;
+        int row = 6, rank = 1;
+        if (persons.size() < 10) {
+            for (int i = 0; i < persons.size(); i++) {
+                if (rank == 1) {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#DED307"));
+                    screen.putString(20, row, String.valueOf(rank) + "st");
+                } else if (rank == 2) {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#B5B5B3"));
+                    screen.putString(20, row, String.valueOf(rank) + "nd");
+                } else if (rank == 3) {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#CD7F32"));
+                    screen.putString(20, row, String.valueOf(rank) + "rd");
+                } else {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+                    screen.putString(20, row, String.valueOf(rank) + "th");
+                }
+
+                screen.putString(38, row, persons.get(i).getName());
+                screen.putString(60, row, String.valueOf(persons.get(i).getScore()));
+                row++;
+                rank++;
+            }
         }
-        screen.putString(0, row+2, "Press x for close this window"); //press key x and close
+        else{
+            for (int i = 0; i < 10; i++){
+                if (rank == 1) {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#DED307"));
+                    screen.putString(20, row, String.valueOf(rank) + "st");}
+                else if (rank == 2) {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#B5B5B3"));
+                    screen.putString(20, row, String.valueOf(rank) + "nd");
+                }
+                else if (rank == 3) {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#CD7F32"));
+                    screen.putString(20, row, String.valueOf(rank) + "rd");
+                }
+                else {
+                    screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+                    screen.putString(20, row, String.valueOf(rank) + "th");
+                }
+
+                screen.putString(38, row, persons.get(i).getName());
+                screen.putString(60, row, String.valueOf(persons.get(i).getScore()));
+                row++;
+                rank++;
+            }
+        }
+        screen.putString(29, row+2, "Press x to close this window"); //press key x and close
     }
 
     public void updateLeaderboard(String playerName, int score) throws IOException{
-        readLearderBoard();
+        //readLearderBoard();
 
         Person p = new Person(playerName, score);
-        persons.add(p);
+        //persons.add(p);
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true));
 
         writer.write(p.getName() + "-" + p.getScore() + '\n');
-
         writer.close();
     }
 }
