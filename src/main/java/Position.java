@@ -1,5 +1,6 @@
 public class Position {
-    public int x,y;
+    private int x,y;
+    private int velX = 0, velY = 0;
     public Position(int a, int b){
         x = a;
         y = b;
@@ -20,4 +21,17 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
+    /*public void tick(){
+        x += velX;
+        y += velY;
+    }
+
+    public void setVelX(int velX){
+        this.velX = velX;
+    }
+
+    public void setVelY(int velY){
+        this.velY = velY;
+    }*/
 }

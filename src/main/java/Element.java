@@ -20,5 +20,5 @@ public abstract class Element {
     public int getYCor(){
         return pos.getY();
     }
-    public abstract void draw(TextGraphics graphics);
+    public abstract void draw(TextGraphics graphics) throws InterruptedException;
 }
