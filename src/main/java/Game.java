@@ -42,6 +42,7 @@ public class Game {
         key = new KeyStroke(KeyType.ArrowLeft);
         while (true) {
             try {
+                Thread.sleep(70);
                 draw();
                 if (!Maze.alreadyExecuted){ //this is only called every time the screen is reloaded (the players eats all food or loses one life)
                     TimeUnit.SECONDS.sleep(1);
@@ -75,5 +76,9 @@ public class Game {
     }
     private void processKey(KeyStroke key) throws IOException, InterruptedException {
         maze.processKey(key);
+    }
+
+    private boolean canPacMove(Direction dir){
+        return maze.canPacMove(dir);
     }
 }

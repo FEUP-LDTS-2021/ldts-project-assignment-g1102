@@ -77,6 +77,18 @@ public class Maze {
         return false;
     }
 
+    public boolean isFood(Position p){  //verifica se determinada posição é uma parede
+        for (Food f : foods){
+            if (f.getPosition().getY() > p.getY()){
+                break;
+            }
+            if (p.getX()== f.getPosition().getX() && p.getY()== f.getPosition().getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isHole(Position p){
         if (!isWall(p)&&((p.getX()<0 || p.getX()==width+1)||(p.getY()<0 || p.getY()==height+1))){
             return true;
@@ -224,5 +236,29 @@ public class Maze {
             pacman = new PacMan(14, 26);
             alreadyExecuted = false;
         }
+    }
+
+    public boolean canPacMove(Direction dir){
+        Position checkP;
+        boolean answer = false;
+        switch (dir){
+            case UP:
+                checkP = new Position(pacman.getXCor(),pacman.getYCor()-1);
+                answer = isWall(checkP);
+                break;
+            case DOWN:
+                checkP = new Position(pacman.getXCor(),pacman.getYCor()+1);
+                answer = isWall(checkP);
+                break;
+            case LEFT:
+                checkP = new Position(pacman.getXCor()-1,pacman.getYCor());
+                answer = isWall(checkP);
+                break;
+            case RIGHT:
+                checkP = new Position(pacman.getXCor()+1,pacman.getYCor());
+                answer = isWall(checkP);
+                break;
+        }
+        return answer;
     }
 }
