@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import java.io.IOException;
 
+import static com.googlecode.lanterna.input.KeyType.ArrowLeft;
 import static com.googlecode.lanterna.input.KeyType.EOF;
 
 public class Game {
@@ -38,6 +39,7 @@ public class Game {
         screen.refresh();
     }
     public void run() {
+        key = new KeyStroke(KeyType.ArrowLeft);
         while (true) {
             try {
                 draw();
@@ -45,7 +47,20 @@ public class Game {
                     TimeUnit.SECONDS.sleep(1);
                     Maze.alreadyExecuted = true;
                 }
-                key = screen.readInput();
+                new Thread("PacMover"){
+                    @Override
+                    public void run(){
+                        KeyStroke newKey = new KeyStroke(KeyType.ArrowLeft);
+                        try {
+                            newKey = screen.readInput();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (key.getKeyType() != newKey.getKeyType()){
+                            key = newKey;
+                        }
+                    }
+                }.start();
                 processKey(key);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {//caso o user pressione q ou Q, o jogo fecha
                     screen.close();
