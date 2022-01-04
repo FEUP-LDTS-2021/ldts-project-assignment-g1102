@@ -42,7 +42,7 @@ public class Game {
         key = new KeyStroke(KeyType.ArrowLeft);
         while (true) {
             try {
-                Thread.sleep(150);
+                Thread.sleep(130);
                 draw();
                 if (!Maze.alreadyExecuted){ //this is only called every time the screen is reloaded (the players eats all food or loses one life)
                     TimeUnit.SECONDS.sleep(1);
