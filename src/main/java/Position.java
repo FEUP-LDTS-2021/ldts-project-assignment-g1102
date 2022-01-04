@@ -27,11 +27,11 @@ public class Position {
         y += velY;
     }
 
-    public void setVelX(int velX){
+    public void setVelX(double velX){
         this.velX = velX;
     }
 
-    public void setVelY(int velY){
+    public void setVelY(double velY){
         this.velY = velY;
     }*/
 }

@@ -4,7 +4,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.concurrent.TimeUnit;
 
-public class PacMan extends Element{
+public class PacMan extends Element {
     boolean executeEveryReload;
     public PacMan(int x, int y){
         super(x, y);
@@ -17,7 +17,7 @@ public class PacMan extends Element{
     public Position getPosition() {
         return pos;
     }
-/*    public void moveUp(){
+    /*public void moveUp(){
         pos.setVelY(-5);
         pos.tick();
     }
