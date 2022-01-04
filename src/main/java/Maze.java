@@ -259,6 +259,6 @@ public class Maze {
                 answer = isWall(checkP);
                 break;
         }
-        return answer;
+        return !answer;
     }
 }

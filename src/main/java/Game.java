@@ -58,7 +58,28 @@ public class Game {
                             e.printStackTrace();
                         }
                         if (key.getKeyType() != newKey.getKeyType()){
-                            key = newKey;
+                            switch (newKey.getKeyType()){
+                                case ArrowUp:
+                                    if (canPacMove(Direction.UP)){
+                                        key = newKey;
+                                    }
+                                    break;
+                                case ArrowDown:
+                                    if (canPacMove(Direction.DOWN)){
+                                        key = newKey;
+                                    }
+                                    break;
+                                case ArrowLeft:
+                                    if (canPacMove(Direction.LEFT)){
+                                        key = newKey;
+                                    }
+                                    break;
+                                case ArrowRight:
+                                    if (canPacMove(Direction.RIGHT)){
+                                        key = newKey;
+                                    }
+                                    break;
+                            }
                         }
                     }
                 }.start();
