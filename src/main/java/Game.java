@@ -21,9 +21,12 @@ public class Game {
     private Terminal terminal;
     private TerminalSize terminalSize;
     private Maze maze = new Maze(29,36);
+    private GameStats gs;
     KeyStroke key;
 
+
     public Game() throws IOException, InterruptedException {
+        gs = new GameStats(0, "CCCCC");
         terminalSize = new TerminalSize(maze.getWidth(), maze.getHeight());
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         terminal = terminalFactory.createTerminal();
@@ -33,9 +36,12 @@ public class Game {
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary(); // resize screen if necessary
     }
+
     private void draw() throws IOException, InterruptedException {
+        TextGraphics graphics = screen.newTextGraphics();
         screen.clear();
-        maze.drawElements(screen.newTextGraphics());
+        gs.drawGameElements(graphics);
+        maze.drawMazeElements(graphics);
         screen.refresh();
     }
     public void run() {
@@ -83,11 +89,11 @@ public class Game {
                         }
                     }
                 }.start();
-                processKey(key);
-                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {//caso o user pressione q ou Q, o jogo fecha
+                processKey(key, gs);
+                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {//caso o user pressione q ou Q, o jogo fecha. DOES NOT WORK
                     screen.close();
                 }
-                if (key.getKeyType() == EOF) {
+                if (key.getKeyType() == EOF) { // DOES NOT WORK
                     break;
                 }
             } catch (IOException | InterruptedException e){
@@ -95,8 +101,8 @@ public class Game {
             }
         }
     }
-    private void processKey(KeyStroke key) throws IOException, InterruptedException {
-        maze.processKey(key);
+    private void processKey(KeyStroke key, GameStats gs) throws IOException, InterruptedException {
+        maze.processKey(key, gs);
     }
 
     private boolean canPacMove(Direction dir){
