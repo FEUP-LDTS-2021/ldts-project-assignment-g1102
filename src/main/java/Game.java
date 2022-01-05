@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import java.io.IOException;
 
+import static com.googlecode.lanterna.input.KeyType.ArrowLeft;
 import static com.googlecode.lanterna.input.KeyType.EOF;
 
 public class Game {
@@ -38,14 +39,50 @@ public class Game {
         screen.refresh();
     }
     public void run() {
+        key = new KeyStroke(KeyType.ArrowLeft);
         while (true) {
             try {
+                Thread.sleep(130);
                 draw();
                 if (!Maze.alreadyExecuted){ //this is only called every time the screen is reloaded (the players eats all food or loses one life)
                     TimeUnit.SECONDS.sleep(1);
                     Maze.alreadyExecuted = true;
                 }
-                key = screen.readInput();
+                new Thread("PacMover"){
+                    @Override
+                    public void run(){
+                        KeyStroke newKey = new KeyStroke(KeyType.ArrowLeft);
+                        try {
+                            newKey = screen.readInput();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (key.getKeyType() != newKey.getKeyType()){
+                            switch (newKey.getKeyType()){
+                                case ArrowUp:
+                                    if (canPacMove(Direction.UP)){
+                                        key = newKey;
+                                    }
+                                    break;
+                                case ArrowDown:
+                                    if (canPacMove(Direction.DOWN)){
+                                        key = newKey;
+                                    }
+                                    break;
+                                case ArrowLeft:
+                                    if (canPacMove(Direction.LEFT)){
+                                        key = newKey;
+                                    }
+                                    break;
+                                case ArrowRight:
+                                    if (canPacMove(Direction.RIGHT)){
+                                        key = newKey;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }.start();
                 processKey(key);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {//caso o user pressione q ou Q, o jogo fecha
                     screen.close();
@@ -60,5 +97,9 @@ public class Game {
     }
     private void processKey(KeyStroke key) throws IOException, InterruptedException {
         maze.processKey(key);
+    }
+
+    private boolean canPacMove(Direction dir){
+        return maze.canPacMove(dir);
     }
 }

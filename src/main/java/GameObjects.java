@@ -1,0 +1,1 @@
+public enum GameObjects {WALL, PACMAN, GHOST, PELLET, POWERUP, FRUIT, EMPTY}

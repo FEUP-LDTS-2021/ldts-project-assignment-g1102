@@ -6,9 +6,11 @@ import java.util.concurrent.TimeUnit;
 
 public class PacMan extends Element{
     boolean executeEveryReload;
+    int stateCode;
     public PacMan(int x, int y){
         super(x, y);
         executeEveryReload = false;
+        stateCode = 0;
     }
 
     public void setPosition(Position position){
@@ -40,7 +42,17 @@ public class PacMan extends Element{
 
     public void draw (TextGraphics screen) throws InterruptedException {
         screen.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
-        screen.putString(new TerminalPosition(pos.getX(),pos.getY()),"C");
+        if (stateCode <= 3) {
+            screen.putString(new TerminalPosition(pos.getX(), pos.getY()), "C");
+            stateCode++;
+        }
+        else if (stateCode > 3) {
+            screen.putString(new TerminalPosition(pos.getX(), pos.getY()), "O");
+            if (stateCode == 6){
+                stateCode = 1;
+            }
+            else{stateCode++;}
+        }
 
         if (!executeEveryReload){
             screen.setForegroundColor(TextColor.Factory.fromString("#FFE600"));
