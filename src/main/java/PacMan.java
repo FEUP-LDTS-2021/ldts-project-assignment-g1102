@@ -40,14 +40,14 @@ public class PacMan extends Element{
     }
 
 
-    public void draw (TextGraphics screen) throws InterruptedException {
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+    public void draw (TextGraphics graphics) throws InterruptedException {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
         if (stateCode <= 3) {
-            screen.putString(new TerminalPosition(pos.getX(), pos.getY()), "C");
+            graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "C");
             stateCode++;
         }
         else if (stateCode > 3) {
-            screen.putString(new TerminalPosition(pos.getX(), pos.getY()), "O");
+            graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "O");
             if (stateCode == 6){
                 stateCode = 1;
             }
@@ -55,9 +55,9 @@ public class PacMan extends Element{
         }
 
         if (!executeEveryReload){
-            screen.setForegroundColor(TextColor.Factory.fromString("#FFE600"));
-            screen.putString(12, 20, "READY!");
-            screen.putString(12, 20, "");
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FFE600"));
+            graphics.putString(12, 20, "READY!");
+            graphics.putString(12, 20, "");
             executeEveryReload = true;
         }
     }

@@ -8,26 +8,30 @@ import org.w3c.dom.Text;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
 public class Maze {
-    public static boolean alreadyExecuted = false; //this does not belong to any object. I declared this as static so I could use it in the class game without any problems
-    int width, height;
-    int score = 0;
-    String lives = "CCCCC";
+    private static long milliSecondsPassed;
+    private static boolean entered = false;
+    public static boolean alreadyExecuted = false; //this does not belong to any object. I declared this as static, so I could use it in the class game without any problems
+    private static long startTime;
+    private int width, height;
     private PacMan pacman;
-    List<Wall> walls = new ArrayList<Wall>();
-    List<Food> foods = new ArrayList<>();
+    private Fruit fruit;
+    private List<Wall> walls = new ArrayList<Wall>();
+    private List<Food> foods = new ArrayList<>();
+    private List<Fruit> fruits = new ArrayList<>();
+    private MazeStats ms;
     public Maze(int w, int h){
         width = w;
         height = h;
+        ms = new MazeStats(0,0,0,1);
         this.walls = createWalls();
         this.foods = createFoods();
+        this.fruits = createFruits(); //2 fruits appear per round
+        this.fruits = createFruits();
         pacman = new PacMan(14, 26);
     }
 
@@ -48,19 +52,38 @@ public class Maze {
     }
 
 
-    public void drawElements(TextGraphics screen) throws InterruptedException {
-        screen.putString(0,0, "Score: " + score);
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFE600"));
-        screen.putString(0, 34, lives);
-
+    public void drawMazeElements(TextGraphics graphics) throws InterruptedException {
+        ms.drawDisplayFruits(graphics);
         for (Wall w : walls){
-            w.draw(screen);
+            w.draw(graphics);
         }
 
         for (Food f : foods){
-            f.draw(screen);
+            f.draw(graphics);
         }
-        pacman.draw(screen);
+        pacman.draw(graphics);
+
+        System.out.println(milliSecondsPassed);
+        if (ms.getEatenDotsPerRound() >= 70 && (ms.getEatenFruitsPerRound() == 0) && (milliSecondsPassed <= 7000)) {
+            for (Fruit fruit : fruits){
+                fruit.draw(graphics);
+                if (!entered){
+                    startTime = System.currentTimeMillis();
+                    System.out.println(startTime);
+                    entered = true;
+                }
+            }
+        }
+        if (ms.getEatenDotsPerRound() >= 170 && (ms.getEatenFruitsPerRound() == 0 || ms.getEatenFruitsPerRound() == 1)) {
+            for (Fruit fruit : fruits){
+                fruit.draw(graphics);
+                if (!entered){
+                    startTime = System.currentTimeMillis();
+                    System.out.println(startTime);
+                    entered = true;
+                }
+            }
+        }
     }
     /*public boolean isInaccessible(Position p){ //this function returns true if the given position is inaccessible by pac-man
         if (p)
@@ -70,19 +93,31 @@ public class Maze {
             if (w.getPosition().getY() > p.getY()){
                 break;
             }
-            if (p.getX()== w.getPosition().getX() && p.getY()== w.getPosition().getY()) {
+            if (w.getPosition().equals(p)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isFood(Position p){  //verifica se determinada posição é uma parede
+    public boolean isFood(Position p){  //verifica se determinada posição é food
         for (Food f : foods){
             if (f.getPosition().getY() > p.getY()){
                 break;
             }
-            if (p.getX()== f.getPosition().getX() && p.getY()== f.getPosition().getY()) {
+            if (f.getPosition().equals(p)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFruit(Position p){
+        for (Fruit fruit : fruits){
+            if (fruit.getPosition().getY() > p.getY()){
+                break;
+            }
+            if (fruit.getPosition().equals(p)) {
                 return true;
             }
         }
@@ -90,10 +125,14 @@ public class Maze {
     }
 
     public boolean isHole(Position p){
-        if (!isWall(p)&&((p.getX()<0 || p.getX()==width+1)||(p.getY()<0 || p.getY()==height+1))){
+        if (!isWall(p)&&((p.getX()<0 || p.getX()==width+1))){
             return true;
         }
         return false;
+    }
+
+    public boolean isEmpty(Position p){
+        return !isWall(p) && !isHole(p) && !isFood(p);
     }
 
     public Position goThroughHole(Position p){
@@ -112,7 +151,7 @@ public class Maze {
         return p;
     }
 
-    public void processKey(KeyStroke key) throws IOException, InterruptedException {
+    public void processKey(KeyStroke key, GameStats gs) throws IOException, InterruptedException {
         Position newP = null;
         switch (key.getKeyType()) {
             case ArrowUp:
@@ -156,7 +195,14 @@ public class Maze {
                 pacman.moveHero(newP);
                 break;
         }
-        retrieveFood();
+        retrieveFood(gs);
+        if (entered){
+            System.out.println(isFruit(fruit.getPosition()));
+            milliSecondsPassed = System.currentTimeMillis() - startTime;
+            System.out.println("start time: " + startTime);
+            System.out.println("milliseconds passed: " + milliSecondsPassed);
+            retrieveFruit(gs, milliSecondsPassed);
+        }
         endOfFood();
     }
 
@@ -214,27 +260,97 @@ public class Maze {
         return foods;
     }
 
-    private void retrieveFood(){ //also, don't forget to increase score
+    private List<Fruit> createFruits(){
+        switch (ms.getRound()){
+            case 1:
+                fruit = new Fruit (14, 20, 'C' , "#FF0000");
+                fruits.add(fruit);
+                break;
+            case 2:
+                fruit = new Fruit (14, 20, 'M', "#FF0000");
+                fruits.add(fruit);
+                    break;
+            case 3:
+            case 4:
+                fruit = new Fruit(14, 20, 'O', "#FF9900");
+                fruits.add(fruit);
+                break;
+            case 5:
+            case 6:
+                fruit = new Fruit(14, 20, 'A', "#FF0000");
+                fruits.add(fruit);
+                break;
+            case 7:
+            case 8:
+                fruit = new Fruit(14, 20, 'E', "#004d26");
+                fruits.add(fruit);
+                break;
+            case 9:
+            case 10:
+                fruit = new Fruit(14, 20, 'G', "#EAFF00");
+                fruits.add(fruit);
+                break;
+            case 11:
+            case 12:
+                fruit = new Fruit(14, 20, 'B', "#EAFF00");
+                fruits.add(fruit);
+                break;
+            case 13:
+            case 14:
+                fruit = new Fruit(14, 20, 'K', "#B0B0B0");
+                fruits.add(fruit);
+                break;
+        }
+        return fruits;
+    }
+
+    private void retrieveFood(GameStats gs){ //also, don't forget to increase score
         for (Food f : foods){
-            if (f.getPosition().getX() == pacman.getPosition().getX() && f.getPosition().getY() == pacman.getPosition().getY()){ //override equals in Position class to write f.getPosition == pacman.getPosition
-                if (f.getCharacter() == '.'){
-                    score += 10;
-                }
-                else if(f.getCharacter() == 'o'){
-                    score += 50;
-                }
+            if (f.getPosition().equals(pacman.getPosition())){ //override equals in Position class to write f.getPosition == pacman.getPosition
                 foods.remove(f);
+                gs.incrementScorePellets(f);
+                if (f.getCharacter() == '.'){
+                    ms.incrementEatenDotsPerRound();
+                }
+                else if (f.getCharacter() == 'o'){
+                    ms.incrementEatenPPPerRound();
+                }
+                gs.incrementLives();
                 break;
             }
         }
     }
 
+    private void retrieveFruit(GameStats gs, long milliSecondsPassed){
+        if (fruit.getPosition().equals(pacman.getPosition())){
+            fruits.remove(0);
+            gs.increaseScoreFruits(fruit);
+            ms.incrementEatenFruitsPerRound();
+            gs.incrementLives();
+            entered = false;
+        }
+        else if (milliSecondsPassed > 7000){
+            entered = false;
+            fruits.remove(0);
+        }
+    }
+
     private void endOfFood() throws IOException, InterruptedException { //when food ends, the map has to be loaded again, and the game continues with the same score and the same number of lives (and pacman returns to its initial position)
         if (foods.isEmpty()){
+            ms.setRound(ms.getRound() + 1);
+            //fruits.clear();
             this.createWalls();
             this.createFoods();
+            this.createFruits();
+            this.createFruits();
+            ms.setEatenDotsPerRound(0);
+            ms.setEatenPPPearRound(0);
+            ms.setEatenFruitsPerRound(0);
             pacman = new PacMan(14, 26);
             alreadyExecuted = false;
+            milliSecondsPassed = 0;
+            //ms.setDisplayFruits("");
+            ms.setDisplayFruits(fruit);
         }
     }
 

@@ -42,7 +42,7 @@ public class Menu {
         screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         screen.putString(35, 12, "400 PTS");
         screen.setForegroundColor(TextColor.Factory.fromString("#0C14F2"));
-        screen.putString(25, 13, "3rd F");
+        screen.putString(25, 13, "3rd F") ;
         screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         screen.putString(35, 13, "800 PTS");
         screen.setForegroundColor(TextColor.Factory.fromString("#0C14F2"));
@@ -86,6 +86,10 @@ public class Menu {
     }
 
     public void processKey(KeyStroke key) throws IOException, InterruptedException {
+        if (key.getKeyType() == null){
+            key = screen.readInput();
+            processKey(key);
+        }
         switch (Character.toUpperCase(key.getCharacter())) {
             case 'G':
                 Game game = new Game();
