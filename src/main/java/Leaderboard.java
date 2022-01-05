@@ -65,30 +65,30 @@ public class Leaderboard{
     }
 
 
-    public void displayLeaderboard(TextGraphics screen) throws IOException {
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        screen.putString(34, 3, "TOP 10 BEST PLAYERS");
-        screen.putString(19,5,"RANK                NAME                SCORE");
+    public void displayLeaderboard(TextGraphics graphics) throws IOException {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(34, 3, "TOP 10 BEST PLAYERS");
+        graphics.putString(19,5,"RANK                NAME                SCORE");
 
         int row = 6, rank = 1;
         if (persons.size() < 10) {
             for (int i = 0; i < persons.size(); i++) {
                 if (rank == 1) {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#DED307"));
-                    screen.putString(20, row, String.valueOf(rank) + "st");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#DED307"));
+                    graphics.putString(20, row, String.valueOf(rank) + "st");
                 } else if (rank == 2) {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#B5B5B3"));
-                    screen.putString(20, row, String.valueOf(rank) + "nd");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#B5B5B3"));
+                    graphics.putString(20, row, String.valueOf(rank) + "nd");
                 } else if (rank == 3) {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#CD7F32"));
-                    screen.putString(20, row, String.valueOf(rank) + "rd");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#CD7F32"));
+                    graphics.putString(20, row, String.valueOf(rank) + "rd");
                 } else {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-                    screen.putString(20, row, String.valueOf(rank) + "th");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+                    graphics.putString(20, row, String.valueOf(rank) + "th");
                 }
 
-                screen.putString(38, row, persons.get(i).getName());
-                screen.putString(60, row, String.valueOf(persons.get(i).getScore()));
+                graphics.putString(38, row, persons.get(i).getName());
+                graphics.putString(60, row, String.valueOf(persons.get(i).getScore()));
                 row++;
                 rank++;
             }
@@ -96,28 +96,28 @@ public class Leaderboard{
         else{
             for (int i = 0; i < 10; i++){
                 if (rank == 1) {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#DED307"));
-                    screen.putString(20, row, String.valueOf(rank) + "st");}
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#DED307"));
+                    graphics.putString(20, row, String.valueOf(rank) + "st");}
                 else if (rank == 2) {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#B5B5B3"));
-                    screen.putString(20, row, String.valueOf(rank) + "nd");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#B5B5B3"));
+                    graphics.putString(20, row, String.valueOf(rank) + "nd");
                 }
                 else if (rank == 3) {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#CD7F32"));
-                    screen.putString(20, row, String.valueOf(rank) + "rd");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#CD7F32"));
+                    graphics.putString(20, row, String.valueOf(rank) + "rd");
                 }
                 else {
-                    screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-                    screen.putString(20, row, String.valueOf(rank) + "th");
+                    graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+                    graphics.putString(20, row, String.valueOf(rank) + "th");
                 }
 
-                screen.putString(38, row, persons.get(i).getName());
-                screen.putString(60, row, String.valueOf(persons.get(i).getScore()));
+                graphics.putString(38, row, persons.get(i).getName());
+                graphics.putString(60, row, String.valueOf(persons.get(i).getScore()));
                 row++;
                 rank++;
             }
         }
-        screen.putString(29, row+2, "Press x to close this window"); //press key x and close
+        graphics.putString(29, row+2, "Press x to close this window"); //press key x and close
     }
 
     public void updateLeaderboard(String playerName, int score) throws IOException{

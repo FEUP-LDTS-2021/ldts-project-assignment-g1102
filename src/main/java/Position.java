@@ -1,7 +1,8 @@
 public class Position {
-    private int x,y;
+    private int x, y;
     private int velX = 0, velY = 0;
-    public Position(int a, int b){
+
+    public Position(int a, int b) {
         x = a;
         y = b;
     }
@@ -34,4 +35,19 @@ public class Position {
     public void setVelY(double velY){
         this.velY = velY;
     }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Position p = (Position) o;
+        return this.x == p.getX() && this.y == p.getY();
+    }
 }
