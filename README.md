@@ -27,6 +27,12 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 ### Design
 
+![img_5.png](img_5.png)
+
+![img_6.png](img_6.png)
+
+![img_7.png](img_7.png)
+
 #### <Inserir problema encontrado aqui>
 **Contexto do Problema:**
   
