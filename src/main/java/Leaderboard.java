@@ -48,8 +48,6 @@ public class Leaderboard{
         }
 
 
-    //O READLEADERBOARD SÓ PODE ESTAR NUMA DAS FUNÇÕES QUE DEVE SER O CONSTRUTOR
-    //O SCREEN NÃO FAZ REFRESH NAS OUTRAS FUNÇÕES POR ISSO É QUE ESTA NO CONSTRUTOR
     public void readLearderBoard() throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
         String line;
