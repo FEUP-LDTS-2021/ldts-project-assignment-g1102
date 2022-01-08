@@ -23,19 +23,6 @@ public class Position {
         this.y = y;
     }
 
-    /*public void tick(){
-        x += velX;
-        y += velY;
-    }
-
-    public void setVelX(double velX){
-        this.velX = velX;
-    }
-
-    public void setVelY(double velY){
-        this.velY = velY;
-    }*/
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

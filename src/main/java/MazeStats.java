@@ -68,7 +68,7 @@ public class MazeStats {
     }
 
     public void drawDisplayFruits(TextGraphics graphics){
-        switch (round){ //não consigo pôr as fruits no canto superior direito de forma correta. Quando aparece a nova apaga a anterior ou então aparecem todas mas com a mesma cor porque a string é toda reescrita
+        switch (round){
             case 1:
             case 2:
             case 5:

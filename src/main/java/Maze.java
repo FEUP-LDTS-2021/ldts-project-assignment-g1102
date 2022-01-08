@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit;
 public class Maze {
     private static long milliSecondsPassed;
     private static boolean entered = false;
-    public static boolean alreadyExecuted = false; //this does not belong to any object. I declared this as static, so I could use it in the class game without any problems
+    public static boolean alreadyExecuted = false;
     private static long startTime;
     private int width, height;
     private PacMan pacman;
     private Fruit fruit;
-    private List<Wall> walls = new ArrayList<Wall>();
+    private List<Wall> walls = new ArrayList<>();
     private List<Food> foods = new ArrayList<>();
     private List<Fruit> fruits = new ArrayList<>();
     private MazeStats ms;
@@ -63,13 +63,11 @@ public class Maze {
         }
         pacman.draw(graphics);
 
-        System.out.println(milliSecondsPassed);
         if (ms.getEatenDotsPerRound() >= 70 && (ms.getEatenFruitsPerRound() == 0) && (milliSecondsPassed <= 7000)) {
             for (Fruit fruit : fruits){
                 fruit.draw(graphics);
                 if (!entered){
                     startTime = System.currentTimeMillis();
-                    System.out.println(startTime);
                     entered = true;
                 }
             }
@@ -85,10 +83,8 @@ public class Maze {
             }
         }
     }
-    /*public boolean isInaccessible(Position p){ //this function returns true if the given position is inaccessible by pac-man
-        if (p)
-    }*/
-    public boolean isWall(Position p){  //verifica se determinada posição é uma parede
+
+    public boolean isWall(Position p){
         for (Wall w : walls){
             if (w.getPosition().getY() > p.getY()){
                 break;
@@ -100,7 +96,7 @@ public class Maze {
         return false;
     }
 
-    public boolean isFood(Position p){  //verifica se determinada posição é food
+    public boolean isFood(Position p){
         for (Food f : foods){
             if (f.getPosition().getY() > p.getY()){
                 break;
@@ -162,7 +158,7 @@ public class Maze {
                 else if (isHole(newP)){
                     newP = goThroughHole(newP);
                 }
-                pacman.moveHero(newP); //put just one move hero on the end of the switch case
+                pacman.moveHero(newP);
                 break;
             case ArrowDown:
                 newP = new Position(pacman.getPosition().getX(),pacman.getPosition().getY()+1);
@@ -197,10 +193,7 @@ public class Maze {
         }
         retrieveFood(gs);
         if (entered){
-            System.out.println(isFruit(fruit.getPosition()));
             milliSecondsPassed = System.currentTimeMillis() - startTime;
-            System.out.println("start time: " + startTime);
-            System.out.println("milliseconds passed: " + milliSecondsPassed);
             retrieveFruit(gs, milliSecondsPassed);
         }
         endOfFood();
@@ -304,9 +297,9 @@ public class Maze {
         return fruits;
     }
 
-    private void retrieveFood(GameStats gs){ //also, don't forget to increase score
+    private void retrieveFood(GameStats gs){
         for (Food f : foods){
-            if (f.getPosition().equals(pacman.getPosition())){ //override equals in Position class to write f.getPosition == pacman.getPosition
+            if (f.getPosition().equals(pacman.getPosition())){
                 foods.remove(f);
                 gs.incrementScorePellets(f);
                 if (f.getCharacter() == '.'){

@@ -1,6 +1,4 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -12,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import java.io.IOException;
 
-import static com.googlecode.lanterna.input.KeyType.ArrowLeft;
 import static com.googlecode.lanterna.input.KeyType.EOF;
 
 public class Game {
@@ -25,7 +22,7 @@ public class Game {
     KeyStroke key;
 
 
-    public Game() throws IOException, InterruptedException {
+    public Game() throws IOException {
         gs = new GameStats(0, "CCCCC");
         terminalSize = new TerminalSize(maze.getWidth(), maze.getHeight());
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -90,10 +87,10 @@ public class Game {
                     }
                 }.start();
                 processKey(key, gs);
-                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {//caso o user pressione q ou Q, o jogo fecha. DOES NOT WORK
+                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {
                     screen.close();
                 }
-                if (key.getKeyType() == EOF) { // DOES NOT WORK
+                if (key.getKeyType() == EOF) {
                     break;
                 }
             } catch (IOException | InterruptedException e){

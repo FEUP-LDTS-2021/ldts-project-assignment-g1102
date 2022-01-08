@@ -8,9 +8,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.KeyStroke;
 
-import javax.swing.*;
 import java.io.*;
-import java.security.Key;
 import java.util.*;
 
 public class Leaderboard{
@@ -32,11 +30,6 @@ public class Leaderboard{
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary(); // resize screen if necessary
 
-        /*Scanner scanner = new Scanner(System.in);
-        System.out.println("name: ");
-        String name = scanner.nextLine();               //Se quiserem testar a escrita para o leaderboard (atenção que isto não é para estar na consola, mas sim depois no screen de game over)
-        updateLeaderboard(name, 53);*/
-
         readLearderBoard();
         displayLeaderboard(screen.newTextGraphics());
         screen.refresh();
@@ -48,8 +41,6 @@ public class Leaderboard{
         }
 
 
-    //O READLEADERBOARD SÓ PODE ESTAR NUMA DAS FUNÇÕES QUE DEVE SER O CONSTRUTOR
-    //O SCREEN NÃO FAZ REFRESH NAS OUTRAS FUNÇÕES POR ISSO É QUE ESTA NO CONSTRUTOR
     public void readLearderBoard() throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
         String line;
@@ -117,7 +108,7 @@ public class Leaderboard{
                 rank++;
             }
         }
-        graphics.putString(29, row+2, "Press x to close this window"); //press key x and close
+        graphics.putString(29, row+2, "Press x to close this window");
     }
 
     public void updateLeaderboard(String playerName, int score) throws IOException{

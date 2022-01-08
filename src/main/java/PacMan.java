@@ -2,7 +2,6 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-import java.util.concurrent.TimeUnit;
 
 public class PacMan extends Element {
     boolean executeEveryReload;
@@ -19,22 +18,7 @@ public class PacMan extends Element {
     public Position getPosition() {
         return pos;
     }
-    /*public void moveUp(){
-        pos.setVelY(-5);
-        pos.tick();
-    }
-    public void moveDown(){
-        pos.setVelY(5);
-        pos.tick();
-    }
-    public void moveLeft(){
-        pos.setVelX(-5);
-        pos.tick();
-    }
-    public void moveRight(){
-        pos.setVelX(1);
-        pos.tick();
-    }*/
+
     public void moveHero(Position pos){
         this.pos = pos;
     }
