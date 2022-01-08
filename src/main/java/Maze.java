@@ -1,16 +1,9 @@
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 
 public class Maze {
     private static long milliSecondsPassed;
@@ -30,7 +23,7 @@ public class Maze {
         ms = new MazeStats(0,0,0,1);
         this.walls = createWalls();
         this.foods = createFoods();
-        this.fruits = createFruits(); //2 fruits appear per round
+        this.fruits = createFruits();
         this.fruits = createFruits();
         pacman = new PacMan(14, 26);
     }
@@ -328,10 +321,9 @@ public class Maze {
         }
     }
 
-    private void endOfFood() throws IOException, InterruptedException { //when food ends, the map has to be loaded again, and the game continues with the same score and the same number of lives (and pacman returns to its initial position)
+    private void endOfFood() {
         if (foods.isEmpty()){
             ms.setRound(ms.getRound() + 1);
-            //fruits.clear();
             this.createWalls();
             this.createFoods();
             this.createFruits();
@@ -342,7 +334,6 @@ public class Maze {
             pacman = new PacMan(14, 26);
             alreadyExecuted = false;
             milliSecondsPassed = 0;
-            //ms.setDisplayFruits("");
             ms.setDisplayFruits(fruit);
         }
     }
