@@ -24,7 +24,6 @@ public class Maze {
         this.walls = createWalls();
         this.foods = createFoods();
         this.fruits = createFruits();
-        this.fruits = createFruits();
         pacman = new PacMan(14, 26);
     }
 
@@ -36,12 +35,18 @@ public class Maze {
         return height;
     }
 
+    public PacMan getPacman() { return pacman; }              //para usar em testes
+
     public void setWidth(int width) {
         this.width = width;
     }
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public void setPacMan(int x, int y){                    //para usar em testes
+        pacman = new PacMan(x,y);
     }
 
 
