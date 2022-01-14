@@ -1,3 +1,5 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import java.io.File;
@@ -12,6 +14,12 @@ public class Maze {
     private static long startTime;
     private int width, height;
     private PacMan pacman;
+
+    private BlinkyGhost blinkyGhost;
+    private PinkyGhost pinkyGhost;
+    private InkyGhost inkyGhost;
+    private ClydeGhost clydeGhost;
+
     private Fruit fruit;
     private List<Wall> walls = new ArrayList<>();
     private List<Food> foods = new ArrayList<>();
@@ -26,6 +34,38 @@ public class Maze {
         this.fruits = createFruits();
         this.fruits = createFruits();
         pacman = new PacMan(14, 26);
+
+       blinkyGhost = new BlinkyGhost(14, 15) {
+           @Override
+           public void draw(TextGraphics graphics) throws InterruptedException {
+               graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
+           }
+       };
+
+       pinkyGhost = new PinkyGhost(14, 17) {
+           @Override
+           public void draw(TextGraphics graphics) throws InterruptedException {
+               graphics.setForegroundColor(TextColor.Factory.fromString("#FFB8FF"));
+               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
+           }
+       };
+
+       inkyGhost = new InkyGhost(13, 17) {
+           @Override
+           public void draw(TextGraphics graphics) throws InterruptedException {
+               graphics.setForegroundColor(TextColor.Factory.fromString("#00FFFF"));
+               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
+           }
+       };
+
+       clydeGhost = new ClydeGhost(15, 17) {
+           @Override
+           public void draw(TextGraphics graphics) throws InterruptedException {
+               graphics.setForegroundColor(TextColor.Factory.fromString("#FFB852"));
+               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
+           }
+       };
     }
 
     public int getWidth() {
@@ -55,6 +95,10 @@ public class Maze {
             f.draw(graphics);
         }
         pacman.draw(graphics);
+        blinkyGhost.draw(graphics);
+        pinkyGhost.draw(graphics);
+        inkyGhost.draw(graphics);
+        clydeGhost.draw(graphics);
 
         if (ms.getEatenDotsPerRound() >= 70 && (ms.getEatenFruitsPerRound() == 0) && (milliSecondsPassed <= 7000)) {
             for (Fruit fruit : fruits){
