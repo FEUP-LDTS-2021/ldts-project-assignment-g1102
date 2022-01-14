@@ -25,13 +25,13 @@ public class MazeTest {
         Position c = new Position(13,26);       //pellet normal
         Position d = new Position(14,25);       //parede +
         Position e = new Position(18,24);       //parede |
-        Position f = new Position(31,24);       //Power-Up
-        Assertions.assertEquals(false,mazeTest.isFood(a));
-        Assertions.assertEquals(false,mazeTest.isFood(b));
-        Assertions.assertEquals(true,mazeTest.isFood(c));
-        Assertions.assertEquals(false,mazeTest.isFood(d));
-        Assertions.assertEquals(false,mazeTest.isFood(e));
-        Assertions.assertEquals(true,mazeTest.isFood(f));   //este teste não passa mas classe Power-Up provavelmente será necessária em breve
+        Position f = new Position(14,1);       //Power-Up (não está a ser identificado)
+        Assertions.assertEquals(false,mazeTest.isFood(a),"Program is recognizing food where there is none.");
+        Assertions.assertEquals(false,mazeTest.isFood(b), "Program is recognizing food where there should be a wall.");
+        Assertions.assertEquals(true,mazeTest.isFood(c), "Program is not recognizing normal pellets.");
+        Assertions.assertEquals(false,mazeTest.isFood(d), "Program is recognizing food where it has a wall.");
+        Assertions.assertEquals(false,mazeTest.isFood(e), "Program is recognizing food where it has a wall.");
+        Assertions.assertEquals(true,mazeTest.isFood(f), "Program is not recognizing Power-Ups.");   //este teste não passa mas classe Power-Up provavelmente será necessária em breve
     }
 
     @Test
@@ -42,10 +42,10 @@ public class MazeTest {
     @Test
     public void isHole(){
         Maze mazeTest = new Maze(29,36);
-        Assertions.assertEquals(mazeTest.isHole(new Position(0,20)),true);
-        Assertions.assertEquals(mazeTest.isHole(new Position(36,20)),true);
-        Assertions.assertEquals(mazeTest.isHole(new Position(36,21)),false);
-        Assertions.assertEquals(mazeTest.isHole(new Position(36,21)),true); //Hole sem acesso
+        Assertions.assertEquals(true,mazeTest.isHole(new Position(0,20)));
+        Assertions.assertEquals(true,mazeTest.isHole(new Position(36,20)));
+        Assertions.assertEquals(false,mazeTest.isHole(new Position(36,21)));
+        Assertions.assertEquals(true,mazeTest.isHole(new Position(36,21))); //Hole sem acesso
     }
 
     @Test

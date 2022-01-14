@@ -49,6 +49,11 @@ public class Maze {
         pacman = new PacMan(x,y);
     }
 
+    public int getEatenDotsPerRound(){return ms.getEatenDotsPerRound();};
+    public void setEatenDotsPerRound(int a){ms.setEatenDotsPerRound(a);};
+    public int getEatenFruitsPerRound(){return ms.getEatenFruitsPerRound();};
+    public void setEatenFruitsPerRound(int a){ms.setEatenFruitsPerRound(a);};
+
 
     public void drawMazeElements(TextGraphics graphics) throws InterruptedException {
         ms.drawDisplayFruits(graphics);
