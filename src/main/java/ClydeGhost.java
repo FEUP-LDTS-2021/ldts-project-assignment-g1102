@@ -13,4 +13,18 @@ abstract public class ClydeGhost extends Ghost{
     public void setPosition(Position position){ pos = position;}
     public Position getPosition(){return pos;}
 
+    //Random
+    public void chase(){
+
+    }
+
+    //Bottom Rigth Corner
+    public void scatter(){
+
+    }
+
+    public void frightened(){
+
+    }
+
 }

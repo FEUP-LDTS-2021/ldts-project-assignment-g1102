@@ -10,7 +10,7 @@ interface Frightened{
     void frightened();
 }
 
-public abstract class Ghost extends Element{
+public abstract class Ghost extends Element implements Frightened{
     Chase chaseBehaviour;
     Scatter scatterBehaviour;
     Frightened frightenedBehaviour;

@@ -13,4 +13,17 @@ abstract public class InkyGhost extends Ghost{
     public void setPosition(Position position){ pos = position;}
     public Position getPosition(){return pos;}
 
+    //Patrol
+    public void chase(){
+
+    }
+
+    //Bottom Left Corner
+    public void scatter(){
+
+    }
+
+    public void frightened(){
+
+    }
 }

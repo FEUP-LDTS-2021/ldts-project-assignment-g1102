@@ -13,4 +13,18 @@ abstract public class PinkyGhost extends Ghost{
     public void setPosition(Position position){ pos = position;}
     public Position getPosition(){return pos;}
 
+    //Ambush
+    public void chase(){
+
+    }
+
+    //Top Left Corner
+    public void scatter(){
+
+    }
+
+    public void frightened(){
+
+    }
+
 }
