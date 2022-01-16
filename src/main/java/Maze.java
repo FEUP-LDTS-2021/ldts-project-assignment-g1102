@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.util.*;
 
 public class Maze {
-    private static long milliSecondsPassed;
+    private static long milliSecondsPassedFruits;
+    private static long milliSecondsPassedFrightened;
     private static boolean entered = false;
     public static boolean alreadyExecuted = false;
-    private static long startTime;
+    private static long startTimeFruits;
+    private static long startTimeFrightened;
     private int width, height;
     private PacMan pacman;
 
@@ -24,6 +26,7 @@ public class Maze {
     private List<Wall> walls = new ArrayList<>();
     private List<Food> foods = new ArrayList<>();
     private List<Fruit> fruits = new ArrayList<>();
+    private List<Ghost> ghosts =  new ArrayList<>();
     private MazeStats ms;
     public Maze(int w, int h){
         width = w;
@@ -33,9 +36,10 @@ public class Maze {
         this.foods = createFoods();
         this.fruits = createFruits();
         this.fruits = createFruits();
+        this.ghosts = createGhosts();
         pacman = new PacMan(14, 26);
 
-       blinkyGhost = new BlinkyGhost(14, 15) {
+/*       blinkyGhost = new BlinkyGhost(14, 15) {
            @Override
            public void draw(TextGraphics graphics) throws InterruptedException {
                graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
@@ -65,7 +69,7 @@ public class Maze {
                graphics.setForegroundColor(TextColor.Factory.fromString("#FFB852"));
                graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
            }
-       };
+       };*/
     }
 
     public int getWidth() {
@@ -86,6 +90,13 @@ public class Maze {
 
 
     public void drawMazeElements(TextGraphics graphics) throws InterruptedException {
+        milliSecondsPassedFrightened = System.currentTimeMillis() - startTimeFrightened;
+        System.out.println(milliSecondsPassedFrightened);
+        if (milliSecondsPassedFrightened > 8000){
+            for (Ghost gh : ghosts){
+                gh.chase();
+            }
+        }
         ms.drawDisplayFruits(graphics);
         for (Wall w : walls){
             w.draw(graphics);
@@ -95,16 +106,20 @@ public class Maze {
             f.draw(graphics);
         }
         pacman.draw(graphics);
-        blinkyGhost.draw(graphics);
+
+        for (Ghost g: ghosts){
+            g.draw(graphics);
+        }
+        /*blinkyGhost.draw(graphics);
         pinkyGhost.draw(graphics);
         inkyGhost.draw(graphics);
-        clydeGhost.draw(graphics);
+        clydeGhost.draw(graphics);*/
 
-        if (ms.getEatenDotsPerRound() >= 70 && (ms.getEatenFruitsPerRound() == 0) && (milliSecondsPassed <= 7000)) {
+        if (ms.getEatenDotsPerRound() >= 70 && (ms.getEatenFruitsPerRound() == 0) && (milliSecondsPassedFruits <= 10000)) {
             for (Fruit fruit : fruits){
                 fruit.draw(graphics);
                 if (!entered){
-                    startTime = System.currentTimeMillis();
+                    startTimeFruits = System.currentTimeMillis();
                     entered = true;
                 }
             }
@@ -113,8 +128,7 @@ public class Maze {
             for (Fruit fruit : fruits){
                 fruit.draw(graphics);
                 if (!entered){
-                    startTime = System.currentTimeMillis();
-                    System.out.println(startTime);
+                    startTimeFruits = System.currentTimeMillis();
                     entered = true;
                 }
             }
@@ -230,8 +244,8 @@ public class Maze {
         }
         retrieveFood(gs);
         if (entered){
-            milliSecondsPassed = System.currentTimeMillis() - startTime;
-            retrieveFruit(gs, milliSecondsPassed);
+            milliSecondsPassedFruits = System.currentTimeMillis() - startTimeFruits;
+            retrieveFruit(gs, milliSecondsPassedFruits);
         }
         endOfFood();
     }
@@ -334,6 +348,22 @@ public class Maze {
         return fruits;
     }
 
+    private List<Ghost> createGhosts(){
+        blinkyGhost = new BlinkyGhost(14, 15, "#FF0000");
+        ghosts.add(blinkyGhost);
+        clydeGhost = new ClydeGhost(15, 17, "#FFB852");
+        ghosts.add(clydeGhost);
+        inkyGhost = new InkyGhost(13, 17, "#00FFFF");
+        ghosts.add(inkyGhost);
+        pinkyGhost = new PinkyGhost(14, 17, "#FFB8FF");
+        ghosts.add(pinkyGhost);
+        return ghosts;
+    }
+
+    private void retrieveGhosts(){
+
+    }
+
     private void retrieveFood(GameStats gs){
         for (Food f : foods){
             if (f.getPosition().equals(pacman.getPosition())){
@@ -344,6 +374,10 @@ public class Maze {
                 }
                 else if (f.getCharacter() == 'o'){
                     ms.incrementEatenPPPerRound();
+                    for (Ghost g : ghosts){
+                        startTimeFrightened = System.currentTimeMillis();
+                        g.frightened();
+                    }
                 }
                 gs.incrementLives();
                 break;
@@ -351,7 +385,7 @@ public class Maze {
         }
     }
 
-    private void retrieveFruit(GameStats gs, long milliSecondsPassed){
+    private void retrieveFruit(GameStats gs, long milliSecondsPassedFruits){
         if (fruit.getPosition().equals(pacman.getPosition())){
             fruits.remove(0);
             gs.increaseScoreFruits(fruit);
@@ -359,7 +393,7 @@ public class Maze {
             gs.incrementLives();
             entered = false;
         }
-        else if (milliSecondsPassed > 7000){
+        else if (milliSecondsPassedFruits > 10000){
             entered = false;
             fruits.remove(0);
         }
@@ -372,12 +406,13 @@ public class Maze {
             this.createFoods();
             this.createFruits();
             this.createFruits();
+            this.createGhosts();
             ms.setEatenDotsPerRound(0);
             ms.setEatenPPPearRound(0);
             ms.setEatenFruitsPerRound(0);
             pacman = new PacMan(14, 26);
             alreadyExecuted = false;
-            milliSecondsPassed = 0;
+            milliSecondsPassedFruits = 0;
             ms.setDisplayFruits(fruit);
         }
     }

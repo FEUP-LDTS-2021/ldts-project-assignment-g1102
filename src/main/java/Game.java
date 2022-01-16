@@ -19,11 +19,12 @@ public class Game {
     private TerminalSize terminalSize;
     private Maze maze = new Maze(29,36);
     private GameStats gs;
+    //TextGraphics graphics = screen.newTextGraphics();
     KeyStroke key;
 
 
     public Game() throws IOException {
-        gs = new GameStats(0, "CCCCC");
+        gs = new GameStats(0, "CCCC");
         terminalSize = new TerminalSize(maze.getWidth(), maze.getHeight());
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         terminal = terminalFactory.createTerminal();
@@ -45,7 +46,7 @@ public class Game {
         key = new KeyStroke(KeyType.ArrowLeft);
         while (true) {
             try {
-                Thread.sleep(130);
+                Thread.sleep(170);
                 draw();
                 if (!Maze.alreadyExecuted){ //this is only called every time the screen is reloaded (the players eats all food or loses one life)
                     TimeUnit.SECONDS.sleep(1);

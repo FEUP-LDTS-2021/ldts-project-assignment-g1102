@@ -1,3 +1,7 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
 interface Chase{
     void chase();
 }
@@ -10,7 +14,7 @@ interface Frightened{
     void frightened();
 }
 
-public abstract class Ghost extends Element implements Frightened{
+public abstract class Ghost extends Element implements Frightened, Scatter, Chase{
     Chase chaseBehaviour;
     Scatter scatterBehaviour;
     Frightened frightenedBehaviour;
