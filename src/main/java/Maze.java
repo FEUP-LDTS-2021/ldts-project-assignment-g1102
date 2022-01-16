@@ -172,7 +172,7 @@ public class Maze {
     }
 
     public boolean isHole(Position p){
-        if (!isWall(p)&&((p.getX()<0 || p.getX()==width+1))){
+        if ((!isWall(p)&&((p.getX()<0 || p.getX()>width-1)))||(!isWall(p)&&((p.getY()<0 || p.getY()>height-1)))){
             return true;
         }
         return false;
@@ -182,17 +182,17 @@ public class Maze {
         return !isWall(p) && !isHole(p) && !isFood(p);
     }
 
-    public Position goThroughHole(Position p){
+    public Position goThroughHole(Position p) throws InterruptedException {
         if (p.getX()<0){
-            p = new Position(width,p.getY());
+            p = new Position(width-1,p.getY());
         }
-        else if (p.getX()>width){
+        else if (p.getX()>width-1){
             p = new Position(0,p.getY());
         }
         else if (p.getY()<0){
-            p = new Position(p.getX(),height);
+            p = new Position(p.getX(),height-1);
         }
-        else if (p.getY()>height){
+        else if (p.getY()>height-1){
             p = new Position(p.getX(),0);
         }
         return p;
