@@ -18,7 +18,7 @@ public class InkyGhost extends Ghost implements Chase, Scatter, Frightened{
     public void setColour(String colour){this.colour = colour;}
 
     //Patrol
-    public void chase(){
+    public void chase(PacMan pacMan, Maze maze){
         setColour("#00FFFF");
     }
 

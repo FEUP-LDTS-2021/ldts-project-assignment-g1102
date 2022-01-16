@@ -18,7 +18,7 @@ public class ClydeGhost extends Ghost implements Chase, Scatter, Frightened{
     public void setColour(String colour){this.colour = colour;}
 
     //Random
-    public void chase(){
+    public void chase(PacMan pacMan, Maze maze){
         setColour("#FFB852");
     }
 

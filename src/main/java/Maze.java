@@ -15,12 +15,12 @@ public class Maze {
     private static long startTimeFruits;
     private static long startTimeFrightened;
     private int width, height;
-    private PacMan pacman;
+    public PacMan pacman;
 
-    private BlinkyGhost blinkyGhost;
-    private PinkyGhost pinkyGhost;
-    private InkyGhost inkyGhost;
-    private ClydeGhost clydeGhost;
+    public BlinkyGhost blinkyGhost;
+    public PinkyGhost pinkyGhost;
+    public InkyGhost inkyGhost;
+    public ClydeGhost clydeGhost;
 
     private Fruit fruit;
     private List<Wall> walls = new ArrayList<>();
@@ -94,7 +94,7 @@ public class Maze {
         System.out.println(milliSecondsPassedFrightened);
         if (milliSecondsPassedFrightened > 8000){
             for (Ghost gh : ghosts){
-                gh.chase();
+                gh.scatter();
             }
         }
         ms.drawDisplayFruits(graphics);

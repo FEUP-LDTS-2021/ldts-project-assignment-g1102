@@ -3,7 +3,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 interface Chase{
-    void chase();
+    void chase(PacMan pacMan, Maze maze);
 }
 
 interface Scatter{

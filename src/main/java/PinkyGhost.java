@@ -18,8 +18,9 @@ public class PinkyGhost extends Ghost implements Chase, Scatter, Frightened{
     public void setColour(String colour){this.colour = colour;}
 
     //Ambush
-    public void chase(){
+    public void chase(PacMan pacMan, Maze maze){
         setColour("#FFB8FF");
+
     }
 
     //Top Left Corner
