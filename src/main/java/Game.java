@@ -13,7 +13,7 @@ import java.io.IOException;
 import static com.googlecode.lanterna.input.KeyType.EOF;
 
 public class Game {
-
+    public static Thread keyRead;
     private Screen screen;
     private Terminal terminal;
     private TerminalSize terminalSize;
@@ -52,7 +52,7 @@ public class Game {
                     TimeUnit.SECONDS.sleep(1);
                     Maze.alreadyExecuted = true;
                 }
-                new Thread("PacMover"){
+                keyRead = new Thread() {
                     @Override
                     public void run(){
                         KeyStroke newKey = new KeyStroke(KeyType.ArrowLeft);
@@ -86,7 +86,8 @@ public class Game {
                             }
                         }
                     }
-                }.start();
+                };
+                keyRead.start();
                 processKey(key, gs);
                 maze.blinkyGhost.chase(maze.pacman, maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {
