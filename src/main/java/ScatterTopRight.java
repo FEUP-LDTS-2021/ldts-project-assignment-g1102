@@ -1,6 +1,6 @@
 public class ScatterTopRight implements Scatter{
     @Override
-    public void scatter(){
-
+    public Position scatter() {
+        return null;
     }
 }

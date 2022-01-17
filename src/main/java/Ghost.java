@@ -7,7 +7,7 @@ interface Chase{
 }
 
 interface Scatter{
-    void scatter();
+    Position scatter();
 }
 
 interface Frightened{
