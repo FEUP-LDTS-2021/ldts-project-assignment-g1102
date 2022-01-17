@@ -17,7 +17,7 @@ public class Game {
     private Screen screen;
     private Terminal terminal;
     private TerminalSize terminalSize;
-    private Maze maze = new Maze(29,36);
+    private Maze maze = new Maze();
     private GameStats gs;
     //TextGraphics graphics = screen.newTextGraphics();
     KeyStroke key;
