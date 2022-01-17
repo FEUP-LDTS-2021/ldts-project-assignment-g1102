@@ -28,9 +28,9 @@ public class Maze {
     private List<Fruit> fruits = new ArrayList<>();
     private List<Ghost> ghosts =  new ArrayList<>();
     private MazeStats ms;
-    public Maze(int w, int h){
-        width = w;
-        height = h;
+    public Maze(){
+        width = 29;
+        height = 36;
         ms = new MazeStats(0,0,0,1);
         this.walls = createWalls();
         this.foods = createFoods();
@@ -439,5 +439,8 @@ public class Maze {
                 break;
         }
         return !answer;
+    }
+    public void setPacmanPos(Position newP){
+        pacman.setPosition(newP);
     }
 }

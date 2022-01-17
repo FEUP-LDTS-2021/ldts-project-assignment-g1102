@@ -1,2 +1,6 @@
-public class ScatterBottomRight {
+public class ScatterBottomRight implements Scatter {
+    @Override
+    public void scatter() {
+
+    }
 }
