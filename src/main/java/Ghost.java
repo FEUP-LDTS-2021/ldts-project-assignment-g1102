@@ -25,6 +25,11 @@ public class Ghost extends Element{
         this.colour = colour;
     }
 
+    public void setPosition(Position position){ pos = position;}
+    public Position getPosition(){return pos;}
+    public void setColour(String colour){this.colour = colour;}
+
+
     public void draw (TextGraphics graphics) throws InterruptedException {
         graphics.setForegroundColor(TextColor.Factory.fromString(colour));
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
