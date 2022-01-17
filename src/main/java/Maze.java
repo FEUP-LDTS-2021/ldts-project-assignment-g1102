@@ -349,7 +349,7 @@ public class Maze {
     }
 
     private List<Ghost> createGhosts(){
-        blinkyGhost = new BlinkyGhost(14, 15, "#FF0000");
+        blinkyGhost = new BlinkyGhost(14, 14, "#FF0000");
         ghosts.add(blinkyGhost);
         clydeGhost = new ClydeGhost(15, 17, "#FFB852");
         ghosts.add(clydeGhost);

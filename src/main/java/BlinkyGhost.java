@@ -21,36 +21,36 @@ public class BlinkyGhost extends Ghost implements Chase, Scatter, Frightened{
     public void chase(PacMan pacMan, Maze maze){
         setColour("#FF0000");
 
-        if(getXCor() == pacMan.getXCor() && getYCor() < pacMan.getYCor() && maze.isWall(new Position(getXCor(), getYCor()+1))){
-            setPosition(new Position(getXCor(), getYCor()+1));
+        if(getPosition().getX() == pacMan.getPosition().getX() && getPosition().getY() < pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()+1))){
+            setPosition(new Position(getPosition().getX(), getPosition().getY()+1));
         }
 
-        else if(getXCor() == pacMan.getXCor() && pacMan.getYCor() < getYCor() && maze.isWall(new Position(getXCor(), getYCor()+1))){
-            setPosition(new Position(getXCor(), getYCor()-1));
+        else if(getPosition().getX() == pacMan.getPosition().getX() && pacMan.getPosition().getY() < getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()-1))){
+            setPosition(new Position(getPosition().getX(), getPosition().getY()-1));
         }
 
-        else if (getXCor() < pacMan.getXCor() && getYCor() == pacMan.getYCor() && maze.isWall(new Position(getXCor(), getYCor()+1))){
-            setPosition(new Position(getXCor()+1, getYCor()));
+        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() == pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()+1, getPosition().getY()))){
+            setPosition(new Position(getPosition().getX()+1, getPosition().getY()));
         }
 
-        else if (pacMan.getXCor() < getPosition().getX() && getYCor() == pacMan.getYCor() && maze.isWall(new Position(getXCor(), getYCor()+1))){
-            setPosition(new Position(getXCor()-1, getYCor()));
+        else if (pacMan.getPosition().getX() < getPosition().getX() && getPosition().getY() == pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()-1, getPosition().getY()))){
+            setPosition(new Position(getPosition().getX()-1, getPosition().getY()));
         }
 
-        else if (getXCor() < pacMan.getXCor() && getYCor() < pacMan.getYCor() && maze.isWall(new Position(getXCor()+1, getYCor()))){
-            setPosition(new Position(getXCor()+1, getYCor()));
+        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() < pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()+1, getPosition().getY()))){
+            setPosition(new Position(getPosition().getX()+1, getPosition().getY()));
         }
 
-        else if (getXCor() < pacMan.getXCor() && getYCor() < pacMan.getYCor() && maze.isWall(new Position(getXCor(), getYCor()+1))){
-            setPosition(new Position(getXCor(), getYCor()+1));
+        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()+1))){
+            setPosition(new Position(getPosition().getX(), getPosition().getY()+1));
         }
 
-        else if (pacMan.getXCor() < getXCor() && pacMan.getYCor() < getYCor() && maze.isWall(new Position(getXCor()-1, getYCor()))){
-            setPosition(new Position(getXCor()-1, getYCor()));
+        else if (getPosition().getX() > pacMan.getPosition().getX() && getPosition().getY() < pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()-1, getPosition().getY()))){
+            setPosition(new Position(getPosition().getX()-1, getPosition().getY()));
         }
 
-        else if (pacMan.getXCor() < getXCor() && pacMan.getYCor() < getYCor() && maze.isWall(new Position(getXCor(), getYCor()-1))){
-            setPosition(new Position(getXCor(), getYCor()-1));
+        else if (getPosition().getX() > pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()-1))){
+            setPosition(new Position(getPosition().getX(),getPosition().getY()-1));
         }
     }
 
