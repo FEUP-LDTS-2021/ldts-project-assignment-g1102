@@ -25,7 +25,7 @@ public class BlinkyGhost extends Ghost implements Chase, Scatter, Frightened{
             setPosition(new Position(getPosition().getX(), getPosition().getY()+1));
         }
 
-        else if(getPosition().getX() == pacMan.getPosition().getX() && pacMan.getPosition().getY() < getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()-1))){
+        else if(getPosition().getX() == pacMan.getPosition().getX() && getPosition().getY() > pacMan.getYCor() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()-1))){
             setPosition(new Position(getPosition().getX(), getPosition().getY()-1));
         }
 
@@ -33,7 +33,7 @@ public class BlinkyGhost extends Ghost implements Chase, Scatter, Frightened{
             setPosition(new Position(getPosition().getX()+1, getPosition().getY()));
         }
 
-        else if (pacMan.getPosition().getX() < getPosition().getX() && getPosition().getY() == pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()-1, getPosition().getY()))){
+        else if (getPosition().getX() > pacMan.getXCor() && getPosition().getY() == pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()-1, getPosition().getY()))){
             setPosition(new Position(getPosition().getX()-1, getPosition().getY()));
         }
 
@@ -41,16 +41,32 @@ public class BlinkyGhost extends Ghost implements Chase, Scatter, Frightened{
             setPosition(new Position(getPosition().getX()+1, getPosition().getY()));
         }
 
-        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()+1))){
+        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() < pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()+1))){
             setPosition(new Position(getPosition().getX(), getPosition().getY()+1));
+        }
+
+        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()-1))){
+            setPosition(new Position(getPosition().getX(), getPosition().getY()-1));
+        }
+
+        else if (getPosition().getX() < pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()+1, getPosition().getY()))){
+            setPosition(new Position(getPosition().getX()+1, getPosition().getY()));
         }
 
         else if (getPosition().getX() > pacMan.getPosition().getX() && getPosition().getY() < pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()-1, getPosition().getY()))){
             setPosition(new Position(getPosition().getX()-1, getPosition().getY()));
         }
 
+        else if (getPosition().getX() > pacMan.getPosition().getX() && getPosition().getY() < pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()+1))){
+            setPosition(new Position(getPosition().getX(), getPosition().getY()+1));
+        }
+
         else if (getPosition().getX() > pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX(), getPosition().getY()-1))){
             setPosition(new Position(getPosition().getX(),getPosition().getY()-1));
+        }
+
+        else if (getPosition().getX() > pacMan.getPosition().getX() && getPosition().getY() > pacMan.getPosition().getY() && !maze.isWall(new Position(getPosition().getX()-1, getPosition().getY()))){
+            setPosition(new Position(getPosition().getX()-1,getPosition().getY()));
         }
     }
 
