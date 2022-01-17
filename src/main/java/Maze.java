@@ -440,4 +440,7 @@ public class Maze {
         }
         return !answer;
     }
+    public void setPacmanPos(Position newP){
+        pacman.setPosition(newP);
+    }
 }
