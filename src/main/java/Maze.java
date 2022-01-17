@@ -39,6 +39,7 @@ public class Maze {
         this.ghosts = createGhosts();
         pacman = new PacMan(14, 26);
 
+
 /*       blinkyGhost = new BlinkyGhost(14, 15) {
            @Override
            public void draw(TextGraphics graphics) throws InterruptedException {
@@ -171,6 +172,15 @@ public class Maze {
         return false;
     }
 
+    public boolean isGhost(Position p){
+        for (Ghost ghost : ghosts){
+            if (ghost.getPosition().equals(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isHole(Position p){
         if ((!isWall(p)&&((p.getX()<0 || p.getX()>width-1)))||(!isWall(p)&&((p.getY()<0 || p.getY()>height-1)))){
             return true;
@@ -249,7 +259,12 @@ public class Maze {
         }
         endOfFood();
     }
-
+    public void ghostsExitHouse(){
+        blinkyGhost.setPosition(new Position(blinkyGhost.getPosition().getX() + 1, blinkyGhost.getPosition().getY()));
+        inkyGhost.setPosition(new Position(inkyGhost.getPosition().getX(), inkyGhost.getPosition().getY() - 1));
+        pinkyGhost.setPosition(new Position(pinkyGhost.getPosition().getX(), pinkyGhost.getPosition().getY() - 1));
+        clydeGhost.setPosition(new Position(clydeGhost.getPosition().getX(), clydeGhost.getPosition().getY() - 1));
+    }
     public void moveGhosts(){
         Position newGhostP;
         for (Ghost ghost: ghosts){
@@ -357,7 +372,7 @@ public class Maze {
     }
 
     private List<Ghost> createGhosts(){
-        blinkyGhost = new Ghost(14, 14, "#FF0000");
+        blinkyGhost = new Ghost(13, 14, "#FF0000");
         ghosts.add(blinkyGhost);
         clydeGhost = new Ghost(15, 17, "#FFB852");
         ghosts.add(clydeGhost);

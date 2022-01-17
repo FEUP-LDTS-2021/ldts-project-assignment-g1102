@@ -89,7 +89,12 @@ public class Game {
                 };
                 keyRead.start();
                 processKey(key, gs);
-                moveGhosts();
+                if (maze.isGhost(new Position (14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))){
+                    ghostsExitHouse();
+                }
+                else{
+                    moveGhosts();
+                }
                 //maze.blinkyGhost.chase(maze.pacman, maze);
                 //maze.blinkyGhost.scatter(maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {
@@ -113,5 +118,9 @@ public class Game {
 
     private boolean canPacMove(Direction dir){
         return maze.canPacMove(dir);
+    }
+
+    private void ghostsExitHouse(){
+        maze.ghostsExitHouse();
     }
 }
