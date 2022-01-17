@@ -14,11 +14,11 @@ public class ScatterTopRight implements Scatter{
             else if (!maze.isWall(new Position(x + 1, y))){ //move-se para a direita
                 newP = new Position (x + 1, y);
             }
-            else if (!maze.isWall(new Position(x - 1, y))){ //move-se para a esquerda
-                newP = new Position (x - 1, y);
-            }
             else if (!maze.isWall(new Position(x, y + 1))){ //move-se para baixo
                 newP = new Position (x, y + 1);
+            }
+            else if (!maze.isWall(new Position(x - 1, y))){ //move-se para a esquerda
+                newP = new Position (x - 1, y);
             }
         }
         else{
@@ -28,11 +28,11 @@ public class ScatterTopRight implements Scatter{
             else if (!maze.isWall(new Position(x + 1, y))){ //move-se para a direita
                 newP = new Position (x + 1, y);
             }
-            else if (!maze.isWall(new Position(x - 1, y))){
-                newP = new Position (x - 1, y);
-            }
             else if (!maze.isWall(new Position(x, y + 1))){
                 newP = new Position (x, y + 1);
+            }
+            else if (!maze.isWall(new Position(x - 1, y))){
+                newP = new Position (x - 1, y);
             }
 
         }
