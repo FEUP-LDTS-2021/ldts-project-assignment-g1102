@@ -250,6 +250,14 @@ public class Maze {
         endOfFood();
     }
 
+    public void moveGhosts(){
+        Position newGhostP;
+        for (Ghost ghost: ghosts){
+            newGhostP = ghost.scatterBehaviour.scatter(ghost.getPosition());
+            ghost.setPosition(newGhostP);
+        }
+    }
+
     private List<Wall> createWalls(){
         Scanner mazeReader = null;
         try {

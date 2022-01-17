@@ -7,7 +7,7 @@ interface Chase{
 }
 
 interface Scatter{
-    Position scatter();
+    Position scatter(Position ghostP);
 }
 
 interface Frightened{
@@ -24,6 +24,11 @@ public class Ghost extends Element{
         super(x, y);
         this.colour = colour;
     }
+
+    public void setPosition(Position position){ pos = position;}
+    public Position getPosition(){return pos;}
+    public void setColour(String colour){this.colour = colour;}
+
 
     public void draw (TextGraphics graphics) throws InterruptedException {
         graphics.setForegroundColor(TextColor.Factory.fromString(colour));

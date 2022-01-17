@@ -89,6 +89,7 @@ public class Game {
                 };
                 keyRead.start();
                 processKey(key, gs);
+                moveGhosts();
                 //maze.blinkyGhost.chase(maze.pacman, maze);
                 //maze.blinkyGhost.scatter(maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {
@@ -104,6 +105,10 @@ public class Game {
     }
     private void processKey(KeyStroke key, GameStats gs) throws IOException, InterruptedException {
         maze.processKey(key, gs);
+    }
+
+    private void moveGhosts(){
+        maze.moveGhosts();
     }
 
     private boolean canPacMove(Direction dir){
