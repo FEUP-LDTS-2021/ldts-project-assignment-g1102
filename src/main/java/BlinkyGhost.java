@@ -1,3 +1,4 @@
+/*
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.AbstractTextGraphics;
@@ -78,9 +79,5 @@ public class BlinkyGhost extends Ghost implements Chase, Scatter, Frightened{
     public void frightened(){
         setColour("#432AE8");
     }
-
-    public void draw (TextGraphics graphics) throws InterruptedException {
-        graphics.setForegroundColor(TextColor.Factory.fromString(colour));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
-    }
 }
+*/

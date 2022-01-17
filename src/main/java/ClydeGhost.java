@@ -1,3 +1,4 @@
+/*
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.AbstractTextGraphics;
@@ -36,3 +37,4 @@ public class ClydeGhost extends Ghost implements Chase, Scatter, Frightened{
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
     }
 }
+*/

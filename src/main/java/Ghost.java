@@ -14,12 +14,25 @@ interface Frightened{
     void frightened();
 }
 
-public abstract class Ghost extends Element implements Frightened, Scatter, Chase{
+public class Ghost extends Element{
+    private String colour;
     Chase chaseBehaviour;
     Scatter scatterBehaviour;
     Frightened frightenedBehaviour;
 
-    Ghost (int x, int y){
+    Ghost (int x, int y, String colour){
         super(x, y);
+        this.colour = colour;
+    }
+
+    public void draw (TextGraphics graphics) throws InterruptedException {
+        graphics.setForegroundColor(TextColor.Factory.fromString(colour));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
+        graphics.setForegroundColor(TextColor.Factory.fromString(colour));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
+        graphics.setForegroundColor(TextColor.Factory.fromString(colour));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
+        graphics.setForegroundColor(TextColor.Factory.fromString(colour));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "F");
     }
 }

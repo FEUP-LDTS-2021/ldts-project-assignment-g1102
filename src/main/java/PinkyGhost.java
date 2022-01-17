@@ -1,3 +1,4 @@
+/*
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.AbstractTextGraphics;
@@ -38,3 +39,4 @@ public class PinkyGhost extends Ghost implements Chase, Scatter, Frightened{
 
     }
 }
+*/

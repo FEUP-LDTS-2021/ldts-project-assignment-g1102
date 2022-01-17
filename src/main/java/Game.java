@@ -89,7 +89,8 @@ public class Game {
                 };
                 keyRead.start();
                 processKey(key, gs);
-                maze.blinkyGhost.chase(maze.pacman, maze);
+                //maze.blinkyGhost.chase(maze.pacman, maze);
+                //maze.blinkyGhost.scatter(maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {
                     screen.close();
                 }

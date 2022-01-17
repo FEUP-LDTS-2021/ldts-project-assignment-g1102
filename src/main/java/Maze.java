@@ -17,10 +17,10 @@ public class Maze {
     private int width, height;
     public PacMan pacman;
 
-    public BlinkyGhost blinkyGhost;
-    public PinkyGhost pinkyGhost;
-    public InkyGhost inkyGhost;
-    public ClydeGhost clydeGhost;
+    public Ghost blinkyGhost;
+    public Ghost pinkyGhost;
+    public Ghost inkyGhost;
+    public Ghost clydeGhost;
 
     private Fruit fruit;
     private List<Wall> walls = new ArrayList<>();
@@ -94,7 +94,7 @@ public class Maze {
         System.out.println(milliSecondsPassedFrightened);
         if (milliSecondsPassedFrightened > 8000){
             for (Ghost gh : ghosts){
-                gh.scatter();
+                //gh.scatter();
             }
         }
         ms.drawDisplayFruits(graphics);
@@ -349,13 +349,13 @@ public class Maze {
     }
 
     private List<Ghost> createGhosts(){
-        blinkyGhost = new BlinkyGhost(14, 14, "#FF0000");
+        blinkyGhost = new Ghost(14, 14, "#FF0000");
         ghosts.add(blinkyGhost);
-        clydeGhost = new ClydeGhost(15, 17, "#FFB852");
+        clydeGhost = new Ghost(15, 17, "#FFB852");
         ghosts.add(clydeGhost);
-        inkyGhost = new InkyGhost(13, 17, "#00FFFF");
+        inkyGhost = new Ghost(13, 17, "#00FFFF");
         ghosts.add(inkyGhost);
-        pinkyGhost = new PinkyGhost(14, 17, "#FFB8FF");
+        pinkyGhost = new Ghost(14, 17, "#FFB8FF");
         ghosts.add(pinkyGhost);
         return ghosts;
     }
@@ -376,7 +376,7 @@ public class Maze {
                     ms.incrementEatenPPPerRound();
                     for (Ghost g : ghosts){
                         startTimeFrightened = System.currentTimeMillis();
-                        g.frightened();
+                        //g.frightened();
                     }
                 }
                 gs.incrementLives();
