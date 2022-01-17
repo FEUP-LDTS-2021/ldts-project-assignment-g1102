@@ -1,6 +1,6 @@
 public class ScatterBottomLeft implements Scatter{
     @Override
-    public Position scatter(Position ghostP) {
+    public Position scatter(Position ghostP, Direction current) {
         Maze maze = new Maze();
         int x = ghostP.getX(), y = ghostP.getY();
         Position newP = ghostP;

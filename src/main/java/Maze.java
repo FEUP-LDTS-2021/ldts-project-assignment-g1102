@@ -268,7 +268,7 @@ public class Maze {
     public void moveGhosts(){
         Position newGhostP;
         for (Ghost ghost: ghosts){
-            newGhostP = ghost.scatterBehaviour.scatter(ghost.getPosition());
+            newGhostP = ghost.scatterBehaviour.scatter(ghost.getPosition(),ghost.getCurrent());
             ghost.setPosition(newGhostP);
         }
     }
@@ -372,13 +372,13 @@ public class Maze {
     }
 
     private List<Ghost> createGhosts(){
-        blinkyGhost = new Ghost(13, 14, "#FF0000");
+        blinkyGhost = new Ghost(13, 14, "#FF0000", new ScatterTopRight());
         ghosts.add(blinkyGhost);
-        clydeGhost = new Ghost(15, 17, "#FFB852");
+        clydeGhost = new Ghost(15, 17, "#FFB852", new ScatterBottomRight());
         ghosts.add(clydeGhost);
-        inkyGhost = new Ghost(13, 17, "#00FFFF");
+        inkyGhost = new Ghost(13, 17, "#00FFFF", new ScatterBottomLeft());
         ghosts.add(inkyGhost);
-        pinkyGhost = new Ghost(14, 17, "#FFB8FF");
+        pinkyGhost = new Ghost(14, 17, "#FFB8FF", new ScatterTopLeft());
         ghosts.add(pinkyGhost);
         return ghosts;
     }
