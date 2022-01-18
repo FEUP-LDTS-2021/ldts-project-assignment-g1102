@@ -3,7 +3,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 interface Chase{
-    Position chase(Position ghostP, Position pacmanP);
+    PosDir chase(Position ghostP, Position pacmanP, Direction current);
 }
 
 interface Scatter{
@@ -32,7 +32,7 @@ public class Ghost extends Element{
     public Position getPosition(){return pos;}
     public Direction getCurrent(){return current;}
     public void setColour(String colour){this.colour = colour;}
-
+    public void setCurrent(Direction current) {this.current = current;}
 
     public void draw (TextGraphics graphics) throws InterruptedException {
         graphics.setForegroundColor(TextColor.Factory.fromString(colour));

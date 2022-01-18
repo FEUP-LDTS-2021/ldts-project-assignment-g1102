@@ -1,6 +1,6 @@
 public class ChaseAgressively implements Chase {
     @Override
-    public Position chase(Position ghostP, Position pacmanP) {
+    public PosDir chase(Position ghostP, Position pacmanP, Direction current) {
         return null;
     }
 }

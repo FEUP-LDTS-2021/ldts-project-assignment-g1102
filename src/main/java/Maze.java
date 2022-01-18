@@ -238,9 +238,12 @@ public class Maze {
     }
 
     public void moveGhostsChase(){
+        PosDir newPosDir;
         Position newGhostP;
         for (Ghost ghost : ghosts){
-            newGhostP = ghost.chaseBehaviour.chase(ghost.getPosition(), pacman.getPosition());
+            newPosDir = ghost.chaseBehaviour.chase(ghost.getPosition(), pacman.getPosition(), ghost.getCurrent());
+            newGhostP = newPosDir.getPos();
+            ghost.setCurrent(newPosDir.getDir());
             ghost.setPosition(newGhostP);
         }
     }
