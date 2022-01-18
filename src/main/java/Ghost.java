@@ -11,7 +11,7 @@ interface Scatter{
 }
 
 interface Frightened{
-    void frightened();
+    Position frightened(Position ghostP, Position pacmanP);
 }
 
 public class Ghost extends Element{
@@ -19,7 +19,7 @@ public class Ghost extends Element{
     private String colour;
     Chase chaseBehaviour = new ChaseRandomly();
     Scatter scatterBehaviour;
-    Frightened frightenedBehaviour;
+    Frightened frightenedBehaviour = new FrightenedNormal();
 
     Ghost (int x, int y, String colour, Scatter ScatterStrat){
         super(x, y);
