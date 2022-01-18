@@ -34,6 +34,10 @@ public class GameStats {
         }
     }
 
+    public void incrementScoreGhosts(){
+
+    }
+
     public void increaseScoreFruits(Fruit fruit){
         switch (fruit.getCharacter()){
             case 'C':

@@ -106,6 +106,7 @@ public class Game {
                     }
                 }
                 nonFrightenedCollisions(gs, game);
+                frightenedCollisions(gs);
                 //maze.blinkyGhost.chase(maze.pacman, maze);
                 //maze.blinkyGhost.scatter(maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q' || key.getCharacter() == 'Q')) {
@@ -134,6 +135,10 @@ public class Game {
 
     private void nonFrightenedCollisions(GameStats gs, Game game) {
         maze.nonFrightenedCollisions(gs, game);
+    }
+
+    private void frightenedCollisions(GameStats gs) {
+        maze.frightenedCollisions(gs);
     }
 
     private boolean canPacMove (Direction dir){

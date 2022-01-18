@@ -60,11 +60,12 @@ public class Maze {
 
 
     public void drawMazeElements(TextGraphics graphics) throws InterruptedException {
-        milliSecondsPassedFrightened = System.currentTimeMillis() - startTimeFrightened;
+        if (blinkyGhost.getColour() == "#432AE8"){
+            milliSecondsPassedFrightened = System.currentTimeMillis() - startTimeFrightened;
+        }
         if (milliSecondsPassedFrightened > 8000){
-            for (Ghost gh : ghosts){
-                //gh.scatter();
-            }
+            System.out.println(milliSecondsPassedFrightened);
+            moveGhostsScatter();
         }
         ms.drawDisplayFruits(graphics);
         for (Wall w : walls){
@@ -353,29 +354,29 @@ public class Maze {
     }
 
     private List<Ghost> createGhosts(){
-        blinkyGhost = new Ghost(13, 14, "#FF0000", new ScatterTopRight());
+        blinkyGhost = new Ghost(13, 14, "#FF0000", new ScatterTopRight(), "Blinky");
         ghosts.add(blinkyGhost);
-        clydeGhost = new Ghost(15, 17, "#FFB852", new ScatterBottomRight());
+        clydeGhost = new Ghost(15, 17, "#FFB852", new ScatterBottomRight(), "Clyde");
         ghosts.add(clydeGhost);
-        inkyGhost = new Ghost(13, 17, "#00FFFF", new ScatterBottomLeft());
+        inkyGhost = new Ghost(13, 17, "#00FFFF", new ScatterBottomLeft(), "Inky");
         ghosts.add(inkyGhost);
-        pinkyGhost = new Ghost(14, 17, "#FFB8FF", new ScatterTopLeft());
+        pinkyGhost = new Ghost(14, 17, "#FFB8FF", new ScatterTopLeft(), "Pinky");
         ghosts.add(pinkyGhost);
         return ghosts;
     }
 
-    public void nonFrightenedCollisions(GameStats gs, Game game){
+    public void nonFrightenedCollisions(GameStats gs, Game game) {
         boolean dead = false;
-        for (Ghost g: ghosts){
-            if (g.getPosition().equals(pacman.getPosition())){
-                if (gs.getLives().length() >= 1){
+        for (Ghost g : ghosts) {
+            if (g.getPosition().equals(pacman.getPosition()) && !g.getColour().equals("#432AE8")) {
+                if (gs.getLives().length() >= 1) {
                     gs.setLives(gs.getLives().substring(0, gs.getLives().length() - 1));
                     dead = true;
                     break;
                 }
             }
         }
-        if (dead){
+        if (dead) {
             ghosts.clear();
             this.createWalls();
             this.createFruits();
@@ -388,6 +389,29 @@ public class Maze {
             Game.startTimeScatter = System.currentTimeMillis();
             game.key = new KeyStroke(KeyType.ArrowLeft);
             ms.setDisplayFruits(fruit);
+        }
+    }
+
+    public void frightenedCollisions(GameStats gs){
+        for (Ghost g : ghosts){
+            if (g.getPosition().equals(pacman.getPosition()) && g.getColour().equals("#432AE8")){
+                if (g.getName().equals("Blinky")){
+                    g.setPosition(new Position(13, 14));
+                    g.setColour("#FF0000");
+                }
+                else if (g.getName().equals("Clyde")){
+                    g.setPosition(new Position(15, 17));
+                    g.setColour("#FFB852");
+                }
+                else if (g.getName().equals("Inky")){
+                    g.setPosition(new Position(13, 17));
+                    g.setColour("#00FFFF");
+                }
+                else if (g.getName().equals("Pinky")){
+                    g.setPosition(new Position(14, 17));
+                    g.setColour("#FFB8FF");
+                }
+            }
         }
     }
 
