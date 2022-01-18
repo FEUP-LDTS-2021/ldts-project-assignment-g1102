@@ -17,7 +17,7 @@ interface Frightened{
 public class Ghost extends Element{
     public Direction current;
     private String colour;
-    Chase chaseBehaviour = new ChaseAgressively();
+    Chase chaseBehaviour = new ChaseRandomly();
     Scatter scatterBehaviour;
     Frightened frightenedBehaviour;
 

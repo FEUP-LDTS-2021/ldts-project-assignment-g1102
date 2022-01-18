@@ -2,6 +2,8 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -207,7 +209,7 @@ public class Maze {
         return p;
     }
 
-    public void processKey(KeyStroke key, GameStats gs) throws IOException, InterruptedException {
+    public void processKey(KeyStroke key, GameStats gs, Game game) throws IOException, InterruptedException {
         Position newP = null;
         switch (key.getKeyType()) {
             case ArrowUp:
@@ -256,7 +258,7 @@ public class Maze {
             milliSecondsPassedFruits = System.currentTimeMillis() - startTimeFruits;
             retrieveFruit(gs, milliSecondsPassedFruits);
         }
-        endOfFood();
+        endOfFood(game);
     }
     public void ghostsExitHouse(){
         blinkyGhost.setPosition(new Position(blinkyGhost.getPosition().getX() + 1, blinkyGhost.getPosition().getY()));
@@ -390,8 +392,31 @@ public class Maze {
         return ghosts;
     }
 
-    private void retrieveGhosts(){
-
+    public void nonFrightenedCollisions(GameStats gs, Game game){
+        boolean dead = false;
+        for (Ghost g: ghosts){
+            if (g.getPosition().equals(pacman.getPosition())){
+                if (gs.getLives().length() >= 1){
+                    gs.setLives(gs.getLives().substring(0, gs.getLives().length() - 1));
+                    dead = true;
+                    break;
+                }
+            }
+        }
+        if (dead){
+            ghosts.clear();
+            this.createWalls();
+            this.createFruits();
+            this.createFruits();
+            this.createGhosts();
+            pacman = new PacMan(14, 26);
+            alreadyExecuted = false;
+            milliSecondsPassedFruits = 0;
+            Game.elapsedTimeScatter = 0;
+            Game.startTimeScatter = System.currentTimeMillis();
+            game.key = new KeyStroke(KeyType.ArrowLeft);
+            ms.setDisplayFruits(fruit);
+        }
     }
 
     private void retrieveFood(GameStats gs){
@@ -429,8 +454,9 @@ public class Maze {
         }
     }
 
-    private void endOfFood() {
+    private void endOfFood(Game game) {
         if (foods.isEmpty()){
+            ghosts.clear();
             ms.setRound(ms.getRound() + 1);
             this.createWalls();
             this.createFoods();
@@ -443,6 +469,9 @@ public class Maze {
             pacman = new PacMan(14, 26);
             alreadyExecuted = false;
             milliSecondsPassedFruits = 0;
+            Game.elapsedTimeScatter = 0;
+            Game.startTimeScatter = System.currentTimeMillis();
+            game.key = new KeyStroke(KeyType.ArrowLeft);
             ms.setDisplayFruits(fruit);
         }
     }

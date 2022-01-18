@@ -19,8 +19,8 @@ public class Game {
     private TerminalSize terminalSize;
     private Maze maze = new Maze();
     private GameStats gs;
-    private static long startTimeScatter;
-    private static long elapsedTimeScatter;
+    public static long startTimeScatter;
+    public static long elapsedTimeScatter;
     //TextGraphics graphics = screen.newTextGraphics();
     KeyStroke key;
 
@@ -44,10 +44,9 @@ public class Game {
         maze.drawMazeElements(graphics);
         screen.refresh();
     }
-    public void run() {
+    public void run(Game game) {
         key = new KeyStroke(KeyType.ArrowLeft);
         startTimeScatter = System.currentTimeMillis();
-
         while (true) {
             try {
                 Thread.sleep(170);
@@ -92,7 +91,7 @@ public class Game {
                     }
                 };
                 keyRead.start();
-                processKey(key, gs);
+                processKey(key, gs, game);
                 elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
                 System.out.println(elapsedTimeScatter);
                 if (maze.isGhost(new Position (14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))){
@@ -106,6 +105,7 @@ public class Game {
                         moveGhostsChase();
                     }
                 }
+                nonFrightenedCollisions(gs, game);
                 //maze.blinkyGhost.chase(maze.pacman, maze);
                 //maze.blinkyGhost.scatter(maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q'|| key.getCharacter() == 'Q')) {
@@ -119,8 +119,8 @@ public class Game {
             }
         }
     }
-    private void processKey(KeyStroke key, GameStats gs) throws IOException, InterruptedException {
-        maze.processKey(key, gs);
+    private void processKey(KeyStroke key, GameStats gs, Game game) throws IOException, InterruptedException {
+        maze.processKey(key, gs, game);
     }
 
     private void moveGhostsScatter(){
@@ -129,6 +129,10 @@ public class Game {
 
     private void moveGhostsChase(){
         maze.moveGhostsChase();
+    }
+
+    private void nonFrightenedCollisions(GameStats gs, Game game){
+        maze.nonFrightenedCollisions(gs, game);
     }
 
     private boolean canPacMove(Direction dir){
