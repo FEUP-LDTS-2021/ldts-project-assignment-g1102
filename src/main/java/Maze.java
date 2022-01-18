@@ -24,9 +24,9 @@ public class Maze {
 
     private Fruit fruit;
     private List<Wall> walls = new ArrayList<>();
-    private List<Food> foods = new ArrayList<>();
+    public List<Food> foods = new ArrayList<>();
     private List<Fruit> fruits = new ArrayList<>();
-    private List<Ghost> ghosts =  new ArrayList<>();
+    public List<Ghost> ghosts =  new ArrayList<>();
     private MazeStats ms;
     public Maze(){
         width = 29;
@@ -38,39 +38,6 @@ public class Maze {
         this.fruits = createFruits();
         this.ghosts = createGhosts();
         pacman = new PacMan(14, 26);
-
-
-/*       blinkyGhost = new BlinkyGhost(14, 15) {
-           @Override
-           public void draw(TextGraphics graphics) throws InterruptedException {
-               graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
-               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
-           }
-       };
-
-       pinkyGhost = new PinkyGhost(14, 17) {
-           @Override
-           public void draw(TextGraphics graphics) throws InterruptedException {
-               graphics.setForegroundColor(TextColor.Factory.fromString("#FFB8FF"));
-               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
-           }
-       };
-
-       inkyGhost = new InkyGhost(13, 17) {
-           @Override
-           public void draw(TextGraphics graphics) throws InterruptedException {
-               graphics.setForegroundColor(TextColor.Factory.fromString("#00FFFF"));
-               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
-           }
-       };
-
-       clydeGhost = new ClydeGhost(15, 17) {
-           @Override
-           public void draw(TextGraphics graphics) throws InterruptedException {
-               graphics.setForegroundColor(TextColor.Factory.fromString("#FFB852"));
-               graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), String.valueOf('F'));
-           }
-       };*/
     }
 
     public int getWidth() {
@@ -110,10 +77,6 @@ public class Maze {
         for (Ghost g: ghosts){
             g.draw(graphics);
         }
-        /*blinkyGhost.draw(graphics);
-        pinkyGhost.draw(graphics);
-        inkyGhost.draw(graphics);
-        clydeGhost.draw(graphics);*/
 
         if (ms.getEatenDotsPerRound() >= 70 && (ms.getEatenFruitsPerRound() == 0) && (milliSecondsPassedFruits <= 10000)) {
             for (Fruit fruit : fruits){
@@ -276,6 +239,14 @@ public class Maze {
         Position newGhostP;
         for (Ghost ghost : ghosts){
             newGhostP = ghost.chaseBehaviour.chase(ghost.getPosition(), pacman.getPosition());
+            ghost.setPosition(newGhostP);
+        }
+    }
+
+    public void ghostsFrightened(){
+        Position newGhostP;
+        for (Ghost ghost : ghosts){
+            newGhostP = ghost.frightenedBehaviour.frightened(ghost.getPosition(), pacman.getPosition());
             ghost.setPosition(newGhostP);
         }
     }

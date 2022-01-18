@@ -100,7 +100,9 @@ public class Game {
                 }
                 else{
                     if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000){
-                        moveGhostsScatter();
+                        //moveGhostsScatter();
+                        ghostsFrightened();
+
                     }
                     else{
                         moveGhostsChase();
@@ -129,6 +131,10 @@ public class Game {
 
     private void moveGhostsChase(){
         maze.moveGhostsChase();
+    }
+
+    private void ghostsFrightened(){
+        maze.ghostsFrightened();
     }
 
     private boolean canPacMove(Direction dir){
