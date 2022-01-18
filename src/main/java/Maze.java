@@ -92,7 +92,6 @@ public class Maze {
 
     public void drawMazeElements(TextGraphics graphics) throws InterruptedException {
         milliSecondsPassedFrightened = System.currentTimeMillis() - startTimeFrightened;
-        System.out.println(milliSecondsPassedFrightened);
         if (milliSecondsPassedFrightened > 8000){
             for (Ghost gh : ghosts){
                 //gh.scatter();
@@ -265,10 +264,18 @@ public class Maze {
         pinkyGhost.setPosition(new Position(pinkyGhost.getPosition().getX(), pinkyGhost.getPosition().getY() - 1));
         clydeGhost.setPosition(new Position(clydeGhost.getPosition().getX(), clydeGhost.getPosition().getY() - 1));
     }
-    public void moveGhosts(){
+    public void moveGhostsScatter(){
         Position newGhostP;
         for (Ghost ghost: ghosts){
             newGhostP = ghost.scatterBehaviour.scatter(ghost.getPosition());
+            ghost.setPosition(newGhostP);
+        }
+    }
+
+    public void moveGhostsChase(){
+        Position newGhostP;
+        for (Ghost ghost : ghosts){
+            newGhostP = ghost.chaseBehaviour.chase(ghost.getPosition(), pacman.getPosition());
             ghost.setPosition(newGhostP);
         }
     }

@@ -3,7 +3,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 interface Chase{
-    void chase(PacMan pacMan, Maze maze);
+    Position chase(Position ghostP, Position pacmanP);
 }
 
 interface Scatter{
@@ -16,7 +16,7 @@ interface Frightened{
 
 public class Ghost extends Element{
     private String colour;
-    Chase chaseBehaviour;
+    Chase chaseBehaviour = new ChaseAgressively();
     Scatter scatterBehaviour = new ScatterTopRight();
     Frightened frightenedBehaviour;
 

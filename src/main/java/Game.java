@@ -19,6 +19,8 @@ public class Game {
     private TerminalSize terminalSize;
     private Maze maze = new Maze();
     private GameStats gs;
+    private static long startTimeScatter;
+    private static long elapsedTimeScatter;
     //TextGraphics graphics = screen.newTextGraphics();
     KeyStroke key;
 
@@ -44,6 +46,8 @@ public class Game {
     }
     public void run() {
         key = new KeyStroke(KeyType.ArrowLeft);
+        startTimeScatter = System.currentTimeMillis();
+
         while (true) {
             try {
                 Thread.sleep(170);
@@ -89,11 +93,18 @@ public class Game {
                 };
                 keyRead.start();
                 processKey(key, gs);
+                elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+                System.out.println(elapsedTimeScatter);
                 if (maze.isGhost(new Position (14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))){
                     ghostsExitHouse();
                 }
                 else{
-                    moveGhosts();
+                    if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000){
+                        moveGhostsScatter();
+                    }
+                    else{
+                        moveGhostsChase();
+                    }
                 }
                 //maze.blinkyGhost.chase(maze.pacman, maze);
                 //maze.blinkyGhost.scatter(maze);
@@ -112,8 +123,12 @@ public class Game {
         maze.processKey(key, gs);
     }
 
-    private void moveGhosts(){
-        maze.moveGhosts();
+    private void moveGhostsScatter(){
+        maze.moveGhostsScatter();
+    }
+
+    private void moveGhostsChase(){
+        maze.moveGhostsChase();
     }
 
     private boolean canPacMove(Direction dir){
