@@ -5,7 +5,6 @@ public class ScatterBottomRight implements Scatter {
         int x = ghostP.getX(), y = ghostP.getY();
         Position newP = ghostP;
         Position c1 = new Position(16, 27), c2 = new Position(23, 30);
-                //20                                            //29
 
         if ((x >= 16 && x <= 20) || (x >= 23 && x <=29) || (y >= 27 && x <= 30)){
             if (!maze.isWall(new Position(x, y+1)) && (y + 1 >= 27)){
@@ -15,14 +14,22 @@ public class ScatterBottomRight implements Scatter {
             else if (!maze.isWall(new Position(x+1, y)) && ((x+1 >= 16) || (x+1 >= 23))){
                 newP = new Position(x+1, y);
             }
+
+            else if (!maze.isWall(new Position(x, y-1)) && !maze.isHole(new Position(x, y-1))){
+                newP = new Position(x, y-1);
+            }
+
+            else if (!maze.isWall(new Position(x-1, y)) && !maze.isHole(new Position(x-1, y))){
+                newP = new Position(x-1, y);
+            }
         }
 
         else {
-            if (!maze.isWall(new Position(x, y+1))){
+            if (!maze.isWall(new Position(x, y+1)) && !maze.isHole(new Position(x, y+1))){
                 newP = new Position(x, y+1);
             }
 
-            else if (!maze.isWall(new Position(x+1, y))){
+            else if (!maze.isWall(new Position(x+1, y)) && !maze.isHole(new Position(x+1, y))){
                 newP = new Position(x+1, y);
             }
 
@@ -31,20 +38,20 @@ public class ScatterBottomRight implements Scatter {
 
                 switch(outcome){
                     case 1:
-                        if (!maze.isWall(new Position(x, y-1))){
+                        if (!maze.isWall(new Position(x, y-1)) && !maze.isHole(new Position(x, y-1))){
                             newP = new Position(x, y-1);
                         }
 
-                        else if (!maze.isWall(new Position(x+1, y))){
+                        else if (!maze.isWall(new Position(x+1, y)) && !maze.isHole(new Position(x+1, y))){
                             newP = new Position(x+1, y);
                         }
 
                     case 2:
-                        if (!maze.isWall(new Position(x+1, y))){
+                        if (!maze.isWall(new Position(x+1, y)) && !maze.isHole(new Position(x+1, y))){
                             newP = new Position(x+1, y);
                         }
 
-                        else if (!maze.isWall(new Position(x, y-1))){
+                        else if (!maze.isWall(new Position(x, y-1)) && !maze.isHole(new Position(x, y-1))){
                             newP = new Position(x, y-1);
                         }
                 }
