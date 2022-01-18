@@ -232,9 +232,12 @@ public class Maze {
     }
     public void moveGhostsScatter(){
         Position newGhostP;
+        PosDir newPosDir;
         for (Ghost ghost: ghosts){
-            newGhostP = ghost.scatterBehaviour.scatter(ghost.getPosition(),ghost.getCurrent());
+            newPosDir = ghost.scatterBehaviour.scatter(ghost.getPosition(),ghost.getCurrent());
+            newGhostP = newPosDir.getPos();
             ghost.setPosition(newGhostP);
+            ghost.setCurrent(newPosDir.getDir());
         }
     }
 

@@ -1,6 +1,6 @@
 public class ScatterTopRight implements Scatter{
     @Override
-    public Position scatter(Position ghostP, Direction current) {
+    public PosDir scatter(Position ghostP, Direction current) {
         Maze maze = new Maze();
         int x = ghostP.getX();
         int y = ghostP.getY();
@@ -36,6 +36,6 @@ public class ScatterTopRight implements Scatter{
             }
 
         }
-        return newP;
+        return new PosDir(newP,current);
     }
 }

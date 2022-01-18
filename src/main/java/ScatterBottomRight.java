@@ -1,6 +1,6 @@
 public class ScatterBottomRight implements Scatter {
     @Override
-    public Position scatter(Position ghostP, Direction current) {
+    public PosDir scatter(Position ghostP, Direction current) {
         Maze maze = new Maze();
         int x = ghostP.getX(), y = ghostP.getY();
         Position newP = ghostP;
@@ -25,38 +25,65 @@ public class ScatterBottomRight implements Scatter {
         }
 
         else {
-            if (!maze.isWall(new Position(x, y+1)) && !maze.isHole(new Position(x, y+1))){
-                newP = new Position(x, y+1);
-            }
-
-            else if (!maze.isWall(new Position(x+1, y)) && !maze.isHole(new Position(x+1, y))){
-                newP = new Position(x+1, y);
-            }
-
-            else {
-                int outcome = (int)Math.random()*2 + 1;
-
-                switch(outcome){
-                    case 1:
-                        if (!maze.isWall(new Position(x, y-1)) && !maze.isHole(new Position(x, y-1))){
-                            newP = new Position(x, y-1);
-                        }
-
-                        else if (!maze.isWall(new Position(x+1, y)) && !maze.isHole(new Position(x+1, y))){
-                            newP = new Position(x+1, y);
-                        }
-
-                    case 2:
-                        if (!maze.isWall(new Position(x+1, y)) && !maze.isHole(new Position(x+1, y))){
-                            newP = new Position(x+1, y);
-                        }
-
-                        else if (!maze.isWall(new Position(x, y-1)) && !maze.isHole(new Position(x, y-1))){
-                            newP = new Position(x, y-1);
-                        }
-                }
+            switch(current){
+                case UP:
+                    if (!maze.isWall(new Position(x,y-1))){
+                        newP = new Position(x,y-1);
+                        current=Direction.UP;
+                    }
+                    else if (!maze.isWall(new Position(x+1,y))){
+                        newP = new Position(x+1,y);
+                        current = Direction.RIGHT;
+                    }
+                    else if (!maze.isWall(new Position(x-1,y))){
+                        newP = new Position(x-1,y);
+                        current = Direction.LEFT;
+                    }
+                    break;
+                case DOWN:
+                    if (!maze.isWall(new Position(x,y+1))){
+                        newP = new Position(x,y+1);
+                        current =Direction.DOWN;
+                    }
+                    else if (!maze.isWall(new Position(x+1,y))){
+                        newP = new Position(x+1,y);
+                        current=Direction.RIGHT;
+                    }
+                    else if (!maze.isWall(new Position(x-1,y))){
+                        newP = new Position(x-1,y);
+                        current = Direction.LEFT;
+                    }
+                    break;
+                case LEFT:
+                    if (!maze.isWall(new Position(x-1,y))){
+                        newP = new Position(x-1,y);
+                        current=Direction.LEFT;
+                    }
+                    else if (!maze.isWall(new Position(x,y+1))){
+                        newP = new Position(x,y+1);
+                        current =Direction.DOWN;
+                    }
+                    else if (!maze.isWall(new Position(x,y-1))){
+                        newP = new Position(x,y-1);
+                        current =Direction.UP;
+                    }
+                    break;
+                case RIGHT:
+                    if (!maze.isWall(new Position(x+1,y))){
+                        newP = new Position(x+1,y);
+                        current=Direction.RIGHT;
+                    }
+                    else if (!maze.isWall(new Position(x,y+1))){
+                        newP = new Position(x,y+1);
+                        current =Direction.DOWN;
+                    }
+                    else if (!maze.isWall(new Position(x,y-1))){
+                        newP = new Position(x,y-1);
+                        current =Direction.UP;
+                    }
+                    break;
             }
         }
-        return newP;
+        return new PosDir(newP,current);
     }
 }

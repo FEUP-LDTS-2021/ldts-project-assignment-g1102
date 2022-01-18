@@ -7,7 +7,7 @@ interface Chase{
 }
 
 interface Scatter{
-    Position scatter(Position ghostP, Direction current);
+    PosDir scatter(Position ghostP, Direction current);
 }
 
 interface Frightened{
