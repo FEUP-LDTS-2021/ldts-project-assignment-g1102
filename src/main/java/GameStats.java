@@ -34,8 +34,8 @@ public class GameStats {
         }
     }
 
-    public void incrementScoreGhosts(){
-
+    public void incrementScoreGhosts(int ghostNr){
+        score = score + 200 * (int) Math.pow(2, ghostNr - 1);
     }
 
     public void increaseScoreFruits(Fruit fruit){
