@@ -2,16 +2,18 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.io.IOException;
+
 interface Chase{
-    PosDir chase(Position ghostP, Position pacmanP, Direction current);
+    PosDir chase(Position ghostP, Position pacmanP, Direction current) throws IOException;
 }
 
 interface Scatter{
-    PosDir scatter(Position ghostP, Direction current);
+    PosDir scatter(Position ghostP, Direction current) throws IOException;
 }
 
 interface Frightened{
-    PosDir frightened(Position ghostP, Position pacmanP, Direction current);
+    PosDir frightened(Position ghostP, Position pacmanP, Direction current) throws IOException;
 }
 
 public class Ghost extends Element{

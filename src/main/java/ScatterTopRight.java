@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class ScatterTopRight implements Scatter{
     @Override
-    public PosDir scatter(Position ghostP, Direction current) {
+    public PosDir scatter(Position ghostP, Direction current) throws IOException {
         Maze maze = new Maze();
         int x = ghostP.getX();
         int y = ghostP.getY();

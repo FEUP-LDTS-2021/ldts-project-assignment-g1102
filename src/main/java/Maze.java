@@ -1,6 +1,7 @@
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
@@ -15,6 +16,7 @@ public class Maze {
     private static boolean entered = false;
     public static boolean alreadyExecuted = false;
     public int eatenGhostsInSuccession = 0;
+    private Leaderboard leaderboard = new Leaderboard();
     private static long startTimeFruits;
     private static long startTimeFrightened;
     private int width, height;
@@ -31,7 +33,7 @@ public class Maze {
     private List<Fruit> fruits = new ArrayList<>();
     public List<Ghost> ghosts =  new ArrayList<>();
     private MazeStats ms;
-    public Maze(){
+    public Maze() throws IOException {
         width = 29;
         height = 36;
         ms = new MazeStats(0,0,0,1);
@@ -60,13 +62,17 @@ public class Maze {
     }
 
 
-    public void drawMazeElements(TextGraphics graphics) throws InterruptedException {
+    public void drawMazeElements(TextGraphics graphics) throws InterruptedException, IOException {
         if (blinkyGhost.getColour().equals("#432AE8") || inkyGhost.getColour().equals("#432AE8") || pinkyGhost.getColour().equals("#432AE8") || clydeGhost.getColour().equals("#432AE8")){
             milliSecondsPassedFrightened = System.currentTimeMillis() - startTimeFrightened;
         }
         if (milliSecondsPassedFrightened > 8000 && ((Game.elapsedTimeScatter >= 0 && Game.elapsedTimeScatter <= 5000) || (Game.elapsedTimeScatter >= 25000 && Game.elapsedTimeScatter <= 30000) || (Game.elapsedTimeScatter >= 50000 && Game.elapsedTimeScatter <= 55000) || Game.elapsedTimeScatter >= 75000 && Game.elapsedTimeScatter <= 80000)){
             eatenGhostsInSuccession = 0;
-            moveGhostsScatter();
+            try {
+                moveGhostsScatter();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else if (milliSecondsPassedFrightened > 8000 && ((Game.elapsedTimeScatter > 5000 && Game.elapsedTimeScatter < 25000) || (Game.elapsedTimeScatter > 30000 && Game.elapsedTimeScatter < 50000) || (Game.elapsedTimeScatter > 55000 && Game.elapsedTimeScatter <= 75000) || Game.elapsedTimeScatter > 80000)){
             eatenGhostsInSuccession = 0;
@@ -235,7 +241,7 @@ public class Maze {
         pinkyGhost.setPosition(new Position(pinkyGhost.getPosition().getX(), pinkyGhost.getPosition().getY() - 1));
         clydeGhost.setPosition(new Position(clydeGhost.getPosition().getX(), clydeGhost.getPosition().getY() - 1));
     }
-    public void moveGhostsScatter(){
+    public void moveGhostsScatter() throws IOException {
         Position newGhostP;
         PosDir newPosDir;
         for (Ghost ghost: ghosts){
@@ -246,7 +252,7 @@ public class Maze {
         }
     }
 
-    public void moveGhostsChase(){
+    public void moveGhostsChase() throws IOException {
         PosDir newPosDir;
         Position newGhostP;
         for (Ghost ghost : ghosts){
@@ -257,7 +263,7 @@ public class Maze {
         }
     }
 
-    public void ghostsFrightened(){
+    public void ghostsFrightened() throws IOException {
         Position newGhostP;
         PosDir newPD;
         for (Ghost ghost : ghosts){
@@ -378,7 +384,7 @@ public class Maze {
         return ghosts;
     }
 
-    public void nonFrightenedCollisions(GameStats gs, Game game) {
+    public void nonFrightenedCollisions(GameStats gs, Game game) throws IOException, InterruptedException {
         boolean dead = false;
         for (Ghost g : ghosts) {
             if (g.getPosition().equals(pacman.getPosition()) && !g.getColour().equals("#432AE8")) {
@@ -389,7 +395,11 @@ public class Maze {
                 }
                 else{
                     if (g.getPosition().equals(pacman.getPosition()) && !g.getColour().equals("#432AE8")){
-
+                        game.screen.close();
+                        //criar um novo screen para dar o input
+                        leaderboard.updateLeaderboard(/*inserir input aqui (playerName), de modo a construir o objeto Person)*/, gs.getScore());
+                        //fechar esse screen de input com screen.close()
+                        Menu menu = new Menu();
                     }
                 }
             }
@@ -439,7 +449,7 @@ public class Maze {
         }
     }
 
-    private void retrieveFood(GameStats gs){
+    private void retrieveFood(GameStats gs) throws IOException {
         for (Food f : foods){
             if (f.getPosition().equals(pacman.getPosition())){
                 foods.remove(f);

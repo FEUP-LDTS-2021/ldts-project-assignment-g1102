@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class ChaseRandomly implements Chase{
     @Override
-    public PosDir chase(Position ghostP, Position pacmanP, Direction current) {
+    public PosDir chase(Position ghostP, Position pacmanP, Direction current) throws IOException {
         Maze maze = new Maze();
         int x = ghostP.getX();
         int y = ghostP.getY();

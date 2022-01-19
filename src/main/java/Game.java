@@ -14,7 +14,7 @@ import static com.googlecode.lanterna.input.KeyType.EOF;
 
 public class Game {
     public static Thread keyRead;
-    private Screen screen;
+    public Screen screen;
     private Terminal terminal;
     private TerminalSize terminalSize;
     private Maze maze = new Maze();
@@ -134,15 +134,15 @@ public class Game {
         maze.processKey(key, gs, game);
     }
 
-    private void moveGhostsScatter() {
+    private void moveGhostsScatter() throws IOException {
         maze.moveGhostsScatter();
     }
 
-    private void moveGhostsChase() {
+    private void moveGhostsChase() throws IOException {
         maze.moveGhostsChase();
     }
 
-    private void nonFrightenedCollisions(GameStats gs, Game game) {
+    private void nonFrightenedCollisions(GameStats gs, Game game) throws IOException, InterruptedException {
         maze.nonFrightenedCollisions(gs, game);
     }
 
