@@ -7,57 +7,57 @@ public class ChaseRandomly implements Chase{
         Position newP = ghostP;
         switch(current){
             case UP:
-                if (!maze.isWall(new Position(x,y-1))){
+                if (!maze.isWall(new Position(x,y-1)) && !maze.isGhost(new Position(x,y-1))){
                     newP = new Position(x,y-1);
                     current=Direction.UP;
                 }
-                else if (!maze.isWall(new Position(x-1,y)) && x>pacmanP.getX()){
+                else if (!maze.isWall(new Position(x-1,y)) && x>pacmanP.getX() && !maze.isGhost(new Position(x-1,y))){
                     newP = new Position(x-1,y);
                     current = Direction.LEFT;
                 }
-                else if (!maze.isWall(new Position(x+1,y))){
+                else if (!maze.isWall(new Position(x+1,y)) && !maze.isGhost(new Position(x+1,y))){
                     newP = new Position(x+1,y);
                     current = Direction.RIGHT;
                 }
                 break;
             case DOWN:
-                if (!maze.isWall(new Position(x,y+1))){
+                if (!maze.isWall(new Position(x,y+1)) && !maze.isGhost(new Position(x,y+1))){
                     newP = new Position(x,y+1);
                     current =Direction.DOWN;
                 }
-                else if (!maze.isWall(new Position(x+1,y)) && x<pacmanP.getX()){
+                else if (!maze.isWall(new Position(x+1,y)) && x<pacmanP.getX() && !maze.isGhost(new Position(x+1,y))){
                     newP = new Position(x+1,y);
                     current=Direction.RIGHT;
                 }
-                else if (!maze.isWall(new Position(x-1,y))){
+                else if (!maze.isWall(new Position(x-1,y)) && !maze.isGhost(new Position(x-1,y))){
                     newP = new Position(x-1,y);
                     current = Direction.LEFT;
                 }
                 break;
             case LEFT:
-                if (!maze.isWall(new Position(x-1,y))){
+                if (!maze.isWall(new Position(x-1,y)) && !maze.isGhost(new Position(x-1,y))){
                     newP = new Position(x-1,y);
                     current=Direction.LEFT;
                 }
-                else if (!maze.isWall(new Position(x,y-1)) && y>pacmanP.getY()){
+                else if (!maze.isWall(new Position(x,y-1)) && y>pacmanP.getY() && !maze.isGhost(new Position(x,y-1))){
                     newP = new Position(x,y-1);
                     current =Direction.UP;
                 }
-                else if (!maze.isWall(new Position(x,y+1))){
+                else if (!maze.isWall(new Position(x,y+1)) && !maze.isGhost(new Position(x,y+1))){
                     newP = new Position(x,y+1);
                     current =Direction.DOWN;
                 }
                 break;
             case RIGHT:
-                if (!maze.isWall(new Position(x+1,y))){
+                if (!maze.isWall(new Position(x+1,y)) && !maze.isGhost(new Position(x+1,y))){
                     newP = new Position(x+1,y);
                     current=Direction.RIGHT;
                 }
-                else if (!maze.isWall(new Position(x,y+1)) && y<pacmanP.getY()){
+                else if (!maze.isWall(new Position(x,y+1)) && y<pacmanP.getY() && !maze.isGhost(new Position(x,y+1))){
                     newP = new Position(x,y+1);
                     current =Direction.DOWN;
                 }
-                else if (!maze.isWall(new Position(x,y-1))){
+                else if (!maze.isWall(new Position(x,y-1)) && !maze.isGhost(new Position(x,y-1))){
                     newP = new Position(x,y-1);
                     current =Direction.UP;
                 }
