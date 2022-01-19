@@ -4,6 +4,9 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.screen.TerminalScreen;
+import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +19,6 @@ public class Maze {
     private static boolean entered = false;
     public static boolean alreadyExecuted = false;
     public int eatenGhostsInSuccession = 0;
-    private Leaderboard leaderboard = new Leaderboard();
     private static long startTimeFruits;
     private static long startTimeFrightened;
     private int width, height;
@@ -397,7 +399,9 @@ public class Maze {
                     if (g.getPosition().equals(pacman.getPosition()) && !g.getColour().equals("#432AE8")){
                         game.screen.close();
                         //criar um novo screen para dar o input
-                        leaderboard.updateLeaderboard(/*inserir input aqui (playerName), de modo a construir o objeto Person)*/, gs.getScore());
+                        Leaderboard leaderboard = new Leaderboard();
+                        leaderboard.updateLeaderboard(gs.getScore());
+                        //leaderboard.updateLeaderboard(/*inserir input aqui (playerName), de modo a construir o objeto Person)*/, gs.getScore());
                         //fechar esse screen de input com screen.close()
                         Menu menu = new Menu();
                     }

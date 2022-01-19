@@ -14,3 +14,4 @@ carlos-49
 carlos-49
 pele-49
 jose-53
+KeyStroke{keytype=Character, character='G'}-14590
