@@ -67,5 +67,5 @@ public class MazeTest {
         Assertions.assertFalse(maze.isGhost(new Position(14, 15)), "Program is recognizing ghosts where it has a wall.");
         Assertions.assertTrue(maze.isGhost(new Position(15, 17)), "Program is not recognizing ghosts");
     }
-    
+
 }
