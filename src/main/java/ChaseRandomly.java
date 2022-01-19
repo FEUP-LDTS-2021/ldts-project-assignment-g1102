@@ -4,7 +4,7 @@ public class ChaseRandomly implements Chase{
         Maze maze = new Maze();
         int x = ghostP.getX();
         int y = ghostP.getY();
-        Position newP = ghostPP;
+        Position newP = ghostP;
         switch(current){
             case UP:
                 if (!maze.isWall(new Position(x,y-1))){
