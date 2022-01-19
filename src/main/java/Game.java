@@ -14,13 +14,14 @@ import static com.googlecode.lanterna.input.KeyType.EOF;
 
 public class Game {
     public static Thread keyRead;
-    private Screen screen;
+    public Screen screen;
     private Terminal terminal;
     private TerminalSize terminalSize;
     private Maze maze = new Maze();
     private GameStats gs;
     public static long startTimeScatter;
     public static long elapsedTimeScatter;
+    public static boolean countedStartTime = false;
     //TextGraphics graphics = screen.newTextGraphics();
     KeyStroke key;
 
@@ -47,7 +48,7 @@ public class Game {
 
     public void run(Game game) {
         key = new KeyStroke(KeyType.ArrowLeft);
-        startTimeScatter = System.currentTimeMillis();
+        //startTimeScatter = System.currentTimeMillis();
         while (true) {
             try {
                 Thread.sleep(170);
@@ -93,15 +94,23 @@ public class Game {
                 };
                 keyRead.start();
                 processKey(key, gs, game);
-                elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
-                System.out.println(elapsedTimeScatter);
+                //elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+                //System.out.println(elapsedTimeScatter);
                 if (maze.isGhost(new Position(14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))) {
                     ghostsExitHouse();
-                } else {
+                }
+
+                else {
+                    if (!countedStartTime){
+                        startTimeScatter = System.currentTimeMillis();
+                        countedStartTime = true;
+                    }
+                    elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+                    //System.out.println(elapsedTimeScatter);
                     if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000) {
                         moveGhostsScatter();
-
-                    } else {
+                    }
+                    else {
                         moveGhostsChase();
                     }
                 }
@@ -125,15 +134,15 @@ public class Game {
         maze.processKey(key, gs, game);
     }
 
-    private void moveGhostsScatter() {
+    private void moveGhostsScatter() throws IOException {
         maze.moveGhostsScatter();
     }
 
-    private void moveGhostsChase() {
+    private void moveGhostsChase() throws IOException {
         maze.moveGhostsChase();
     }
 
-    private void nonFrightenedCollisions(GameStats gs, Game game) {
+    private void nonFrightenedCollisions(GameStats gs, Game game) throws IOException, InterruptedException {
         maze.nonFrightenedCollisions(gs, game);
     }
 

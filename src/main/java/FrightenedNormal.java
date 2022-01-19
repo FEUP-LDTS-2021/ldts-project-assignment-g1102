@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class FrightenedNormal implements Frightened{
     @Override
-    public PosDir frightened(Position ghostP, Position pacmanP, Direction current){
+    public PosDir frightened(Position ghostP, Position pacmanP, Direction current) throws IOException {
         Maze maze = new Maze();
         Position newP = ghostP;
         int x = ghostP.getX(), y=ghostP.getY();
