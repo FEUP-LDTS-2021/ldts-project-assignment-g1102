@@ -254,9 +254,11 @@ public class Maze {
 
     public void ghostsFrightened(){
         Position newGhostP;
+        PosDir newPD;
         for (Ghost ghost : ghosts){
             ghost.setColour("#432AE8");
-            newGhostP = ghost.frightenedBehaviour.frightened(ghost.getPosition(), pacman.getPosition());
+            newPD = ghost.frightenedBehaviour.frightened(ghost.getPosition(), pacman.getPosition(),ghost.getCurrent());
+            newGhostP = newPD.getPos();
             ghost.setPosition(newGhostP);
         }
     }

@@ -11,7 +11,7 @@ interface Scatter{
 }
 
 interface Frightened{
-    Position frightened(Position ghostP, Position pacmanP);
+    PosDir frightened(Position ghostP, Position pacmanP, Direction current);
 }
 
 public class Ghost extends Element{
