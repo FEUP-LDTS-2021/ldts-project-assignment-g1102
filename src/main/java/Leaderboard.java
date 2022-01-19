@@ -18,7 +18,6 @@ public class Leaderboard extends ReadName{
     private Terminal terminal;
     private Screen screen;
     KeyStroke key;
-    TextBox textBox;
 
     List<Person> persons = new ArrayList<>();
 
@@ -26,14 +25,11 @@ public class Leaderboard extends ReadName{
         terminalSize = new TerminalSize(80, 60);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         terminal = terminalFactory.createTerminal();
-        Screen screen = new TerminalScreen(terminal);
+        screen = new TerminalScreen(terminal);
 
         screen.setCursorPosition(null); // we don't need a cursor
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary(); // resize screen if necessary
-
-        ReadName readName = new ReadName();
-        this.name = readName.getNamePlayer();
 
         readLearderBoard();
         displayLeaderboard(screen.newTextGraphics());
@@ -44,7 +40,6 @@ public class Leaderboard extends ReadName{
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'x')
             screen.close();
     }
-
 
     public void readLearderBoard() throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
@@ -117,6 +112,10 @@ public class Leaderboard extends ReadName{
     }
 
     public void updateLeaderboard(int score) throws IOException{
+
+        ReadName readName = new ReadName();
+        this.name = readName.getNamePlayer();
+
         Person p = new Person(name, score);
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true));
