@@ -55,6 +55,8 @@ public class Maze {
         return height;
     }
 
+    public PacMan getPacman() { return pacman; }              //para usar em testes
+
     public void setWidth(int width) {
         this.width = width;
     }
@@ -62,6 +64,15 @@ public class Maze {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public void setPacMan(int x, int y){                    //para usar em testes
+        pacman = new PacMan(x,y);
+    }
+
+    public int getEatenDotsPerRound(){return ms.getEatenDotsPerRound();};
+    public void setEatenDotsPerRound(int a){ms.setEatenDotsPerRound(a);};
+    public int getEatenFruitsPerRound(){return ms.getEatenFruitsPerRound();};
+    public void setEatenFruitsPerRound(int a){ms.setEatenFruitsPerRound(a);};
 
 
     public void drawMazeElements(TextGraphics graphics) throws InterruptedException, IOException {

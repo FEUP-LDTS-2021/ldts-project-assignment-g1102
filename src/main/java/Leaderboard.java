@@ -31,7 +31,7 @@ public class Leaderboard extends ReadName{
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary(); // resize screen if necessary
 
-        readLearderBoard();
+        readLeaderBoard("scores.txt");
         displayLeaderboard(screen.newTextGraphics());
         screen.refresh();
 
@@ -41,8 +41,8 @@ public class Leaderboard extends ReadName{
             screen.close();
     }
 
-    public void readLearderBoard() throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader("scores.txt"));
+    public void readLeaderBoard(String fileName) throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
 
         while ((line = reader.readLine()) != null) { // reads a line of the file and puts it in the file variable while the file has things to read
@@ -115,6 +115,7 @@ public class Leaderboard extends ReadName{
 
         ReadName readName = new ReadName();
         this.name = readName.getNamePlayer();
+
 
         Person p = new Person(name, score);
 

@@ -12,9 +12,6 @@ public class PacMan extends Element {
         stateCode = 0;
     }
 
-    public void setPosition(Position position){
-        pos = position;
-    }
     public Position getPosition() {
         return pos;
     }
