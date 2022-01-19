@@ -59,4 +59,13 @@ public class MazeTest {
         Assertions.assertTrue(maze.canPacMove(Direction.UP));
         Assertions.assertTrue(maze.canPacMove(Direction.DOWN));
     }
+
+    @Test
+    public void isGhost(){
+        Assertions.assertTrue(maze.isGhost(new Position(13, 14)), "Program is not recognizing ghosts.");
+        Assertions.assertFalse(maze.isGhost(new Position(14,26)), "Program is recognizing ghosts where there is none");
+        Assertions.assertFalse(maze.isGhost(14, 15), "Program is recognizing ghosts where it has a wall.");
+        Assertions.assertTrue(maze.isGhost(15, 17), "Program is not recognizing ghosts");
+    }
+    
 }
