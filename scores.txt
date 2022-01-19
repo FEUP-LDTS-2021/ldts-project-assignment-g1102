@@ -14,4 +14,3 @@ carlos-49
 carlos-49
 pele-49
 jose-53
-KeyStroke{keytype=EOF}-80
