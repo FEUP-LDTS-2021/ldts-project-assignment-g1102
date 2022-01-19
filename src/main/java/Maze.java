@@ -124,7 +124,7 @@ public class Maze {
     }
 
     public boolean isHole(Position p){
-        if (!isWall(p)&&((p.getX()==0 || p.getX()==width))){
+        if (!isWall(p) && ((p.getX()==0 || p.getX()==width-1))){
             return true;
         }
         return false;

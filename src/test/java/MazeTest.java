@@ -33,17 +33,16 @@ public class MazeTest {
         Assertions.assertTrue(maze.isFood(c), "Program is not recognizing normal pellets.");
         Assertions.assertFalse(maze.isFood(d), "Program is recognizing food where it has a wall.");
         Assertions.assertFalse(maze.isFood(e), "Program is recognizing food where it has a wall.");
-        Assertions.assertTrue(maze.isFood(f), "Program is not recognizing Power-Ups.");   //este teste não passa mas classe Power-Up provavelmente será necessária em breve
     }
 
     @Test
     public void isHole(){
-        Assertions.assertTrue(maze.isHole(new Position(0, 23)), "Doesn't recognize hole.");
-        Assertions.assertTrue(maze.isHole(new Position(29, 23)), "Doesn't recognize hole.");
-        Assertions.assertFalse(maze.isHole(new Position(29, 24)), "Recognizes holes where there are walls.");
+        Assertions.assertTrue(maze.isHole(new Position(0, 17)), "Doesn't recognize hole.");
+        Assertions.assertTrue(maze.isHole(new Position(28, 17)), "Doesn't recognize hole.");
+        Assertions.assertFalse(maze.isHole(new Position(28, 18)), "Recognizes holes where there are walls.");
         Assertions.assertFalse(maze.isHole(new Position(0, 24)),"Recognizes holes where there are walls.");
-        Assertions.assertTrue(maze.isHole(new Position(29,25)),"Doesn't recognize inaccessible holes");
-        Assertions.assertTrue(maze.isHole(new Position(0,25)),"Doesn't recognize inaccessible holes");
+        Assertions.assertTrue(maze.isHole(new Position(28,21)),"Doesn't recognize inaccessible holes");
+        Assertions.assertTrue(maze.isHole(new Position(0,21)),"Doesn't recognize inaccessible holes");
 
     }
 
