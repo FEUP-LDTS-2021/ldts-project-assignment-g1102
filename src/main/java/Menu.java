@@ -86,8 +86,9 @@ public class Menu {
         }
         switch (Character.toUpperCase(key.getCharacter())) {
             case 'G':
+                screen.close();
                 Game game = new Game();
-                game.run();
+                game.run(game);
                 break;
             case 'L':
                 Leaderboard leaderboard = new Leaderboard();
