@@ -21,6 +21,7 @@ public class Game {
     private GameStats gs;
     public static long startTimeScatter;
     public static long elapsedTimeScatter;
+    public static boolean countedStartTime = false;
     //TextGraphics graphics = screen.newTextGraphics();
     KeyStroke key;
 
@@ -47,7 +48,7 @@ public class Game {
 
     public void run(Game game) {
         key = new KeyStroke(KeyType.ArrowLeft);
-        startTimeScatter = System.currentTimeMillis();
+        //startTimeScatter = System.currentTimeMillis();
         while (true) {
             try {
                 Thread.sleep(170);
@@ -93,15 +94,23 @@ public class Game {
                 };
                 keyRead.start();
                 processKey(key, gs, game);
-                elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
-                System.out.println(elapsedTimeScatter);
+                //elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+                //System.out.println(elapsedTimeScatter);
                 if (maze.isGhost(new Position(14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))) {
                     ghostsExitHouse();
-                } else {
+                }
+
+                else {
+                    if (!countedStartTime){
+                        startTimeScatter = System.currentTimeMillis();
+                        countedStartTime = true;
+                    }
+                    elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+                    //System.out.println(elapsedTimeScatter);
                     if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000) {
                         moveGhostsScatter();
-
-                    } else {
+                    }
+                    else {
                         moveGhostsChase();
                     }
                 }
