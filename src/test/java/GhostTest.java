@@ -6,7 +6,7 @@ public class GhostTest {
      Ghost ghost;
      @BeforeEach
      public void setup(){
-         ghost = new Ghost(13, 14, "#FF0000", new ScatterTopRight());
+         ghost = new Ghost(13, 14, "#FF0000", new ScatterTopRight(), "Blinkly");
      }
 
      @Test
@@ -20,6 +20,17 @@ public class GhostTest {
     public void getPosition(){
         Assertions.assertEquals(13,ghost.getPosition().getX(),"Not getting the correct x coordinate.");
         Assertions.assertEquals(14,ghost.getPosition().getY(),"Not getting the correct y coordinate.");
+    }
+
+    @Test
+    public void getName(){
+         Assertions.assertEquals("Blinkly", ghost.getName(), "Not getting the correct name.");
+    }
+
+    @Test
+    public void setName(){
+         ghost.setName("Pinky");
+         Assertions.assertEquals("Pinky", ghost.getName(), "Not setting the correct name");
     }
 
     @Test
