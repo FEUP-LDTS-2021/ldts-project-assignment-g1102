@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PacManTest {
-    Maze m = new Maze(29,36);
+    Maze m = new Maze();
     @BeforeEach
     public void setup(){
         m.setPacMan(14,26);

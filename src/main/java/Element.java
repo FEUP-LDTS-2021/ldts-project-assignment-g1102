@@ -21,4 +21,5 @@ public abstract class Element {
         return pos.getY();
     }
     public abstract void draw(TextGraphics graphics) throws InterruptedException;
+
 }

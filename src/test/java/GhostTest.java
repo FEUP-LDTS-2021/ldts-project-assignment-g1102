@@ -35,19 +35,19 @@ public class GhostTest {
 
     @Test
     public void setDirection(){
-         ghost.setDirection(LEFT);
-         Assertions.assertEquals(LEFT,ghost.getDirection(),"Not setting the correct direction.");
+         ghost.setCurrent(Direction.LEFT);
+         Assertions.assertEquals(Direction.LEFT,ghost.getCurrent(),"Not setting the correct direction.");
     }
 
     @Test
     public void getDirection(){
-         Assertions.assertEquals(UP, ghost.getCurrent(), "Not getting the correct direction.");
+         Assertions.assertEquals(Direction.UP, ghost.getCurrent(), "Not getting the correct direction.");
     }
 
     @Test
     public void setColour(){
          ghost.setColour("#0C14F2");
-         Assertions.assertEquals("0C14F2", ghost.getColour(), "Not setting the correct colour correctly.");
+         Assertions.assertEquals("#0C14F2", ghost.getColour(), "Not setting the correct colour correctly.");
     }
 
     @Test
