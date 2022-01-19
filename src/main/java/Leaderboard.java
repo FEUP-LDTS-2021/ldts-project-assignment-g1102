@@ -43,7 +43,7 @@ public class Leaderboard extends ReadName{
 
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'x')
             screen.close();
-        }
+    }
 
 
     public void readLearderBoard() throws IOException{

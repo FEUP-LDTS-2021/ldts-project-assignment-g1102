@@ -398,11 +398,10 @@ public class Maze {
                 else{
                     if (g.getPosition().equals(pacman.getPosition()) && !g.getColour().equals("#432AE8")){
                         game.screen.close();
-                        //criar um novo screen para dar o input
+
                         Leaderboard leaderboard = new Leaderboard();
                         leaderboard.updateLeaderboard(gs.getScore());
-                        //leaderboard.updateLeaderboard(/*inserir input aqui (playerName), de modo a construir o objeto Person)*/, gs.getScore());
-                        //fechar esse screen de input com screen.close()
+
                         Menu menu = new Menu();
                     }
                 }
