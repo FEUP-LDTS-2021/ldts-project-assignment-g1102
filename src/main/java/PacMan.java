@@ -15,6 +15,7 @@ public class PacMan extends Element {
     public Position getPosition() {
         return pos;
     }
+    public Position setPosition(Position pos){return this.pos = pos;}
 
     public void setPosition(Position position){
         pos = position;
