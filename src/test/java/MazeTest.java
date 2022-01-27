@@ -2,10 +2,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class MazeTest {
     Maze maze;
     @BeforeEach
-    public void setupMaze(){maze = new Maze();}
+    public void setupMaze() {maze = new Maze();}
     @Test
     public void isWall(){
         Position a = new Position(14,26);       //posição inicial do Pac-Man

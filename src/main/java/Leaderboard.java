@@ -112,12 +112,10 @@ public class Leaderboard extends ReadName{
     }
 
     public void updateLeaderboard(int score) throws IOException{
-
         ReadName readName = new ReadName();
         this.name = readName.getNamePlayer();
 
-
-        Person p = new Person(name, score);
+        Person p = new Person(this.name, score);
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true));
 
