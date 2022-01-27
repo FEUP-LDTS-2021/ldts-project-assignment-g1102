@@ -93,8 +93,9 @@ Na verificação do código do nosso projeto, encontramos ocorrências de Dead C
 
 ![img_9.png](img_9.png)
 
-#### <Nome do Code Smell Detetado>
-<Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
+#### Switch Statements
+
+No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's.
 
 ### Testagem
 

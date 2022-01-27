@@ -8,7 +8,7 @@ public class ScatterBottomRight implements Scatter {
         Position newP = ghostP;
         Position c1 = new Position(16, 27), c2 = new Position(23, 30);
 
-        if (((x >= 16 && x <= 20) || (x >= 23 && x <=29)) && (y >= 27 && x <= 30)){
+        if (isInQuadrant(ghostP)){
             if (!maze.isWall(new Position(x, y+1)) && (y + 1 >= 27) && !maze.isGhost(new Position(x,y+1))){
                 newP = new Position(x, y+1);
                 current=Direction.DOWN;
@@ -90,5 +90,11 @@ public class ScatterBottomRight implements Scatter {
             }
         }
         return new PosDir(newP,current);
+    }
+
+    @Override
+    public boolean isInQuadrant(Position ghostP) {
+        int x = ghostP.getX(), y = ghostP.getY();
+        return ((x >= 16 && x <= 20) || (x >= 23 && x <=29)) && (y >= 27 && x <= 30);
     }
 }
