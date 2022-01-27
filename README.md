@@ -88,6 +88,14 @@ while (true)
 #### <Nome do Code Smell Detetado>
 <Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
 
+#### Dead Code
+Na verificação do código do nosso projeto, encontramos ocorrências de Dead Code sobre a forma de versões anteriores de código que ficaram comentadas em algumas classes. Por exemplo, após a alteração do funcionamento do método chase na classe ChaseRandomly (imagem abaixo). Esta situação torna o código desnecessariamente grande e diminui organização do código, pelo que a melhor forma de resolver o problema neste contexto será remover o código comentado, tornando o código final mais limpo e fácil de ler.
+
+![img_9.png](img_9.png)
+
+#### <Nome do Code Smell Detetado>
+<Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
+
 ### Testagem
 
 ### Auto-Avaliação
