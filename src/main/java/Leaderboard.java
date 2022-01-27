@@ -1,6 +1,7 @@
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -11,9 +12,9 @@ import com.googlecode.lanterna.input.KeyStroke;
 import java.io.*;
 import java.util.*;
 
-public class Leaderboard{
+public class Leaderboard extends ReadName{
 
-    private TerminalSize terminalSize;
+    private TerminalSize terminalSize, terminalSize1;
     private Terminal terminal;
     private Screen screen;
     KeyStroke key;
@@ -24,7 +25,7 @@ public class Leaderboard{
         terminalSize = new TerminalSize(80, 60);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         terminal = terminalFactory.createTerminal();
-        Screen screen = new TerminalScreen(terminal);
+        screen = new TerminalScreen(terminal);
 
         screen.setCursorPosition(null); // we don't need a cursor
         screen.startScreen(); // screens must be started
@@ -110,11 +111,13 @@ public class Leaderboard{
         graphics.putString(29, row+2, "Press x to close this window");
     }
 
-    public void updateLeaderboard(String playerName, int score) throws IOException{
-        //readLeaderBoard();
+    public void updateLeaderboard(int score) throws IOException{
 
-        Person p = new Person(playerName, score);
-        //persons.add(p);
+        ReadName readName = new ReadName();
+        this.name = readName.getNamePlayer();
+
+
+        Person p = new Person(name, score);
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true));
 

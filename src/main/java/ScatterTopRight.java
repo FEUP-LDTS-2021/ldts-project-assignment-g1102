@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class ScatterTopRight implements Scatter{
     @Override
-    public PosDir scatter(Position ghostP, Direction current) {
+    public PosDir scatter(Position ghostP, Direction current) throws IOException {
         Maze maze = new Maze();
         int x = ghostP.getX();
         int y = ghostP.getY();
@@ -8,31 +10,39 @@ public class ScatterTopRight implements Scatter{
         Position p2 = new Position(27,8);
         Position newP = ghostP;
         if ((x >= 22 && x <= 27) && (y >= 4 && y <= 8)){
-            if (!maze.isWall(new Position(x, y - 1))){ //move-se para cima
+            if (!maze.isWall(new Position(x, y - 1)) && !maze.isGhost(new Position(x,y-1))){ //move-se para cima
                 newP = new Position (x, y - 1);
+                current = Direction.UP;
             }
-            else if (!maze.isWall(new Position(x + 1, y))){ //move-se para a direita
+            else if (!maze.isWall(new Position(x + 1, y)) && !maze.isGhost(new Position(x+1,y))){ //move-se para a direita
                 newP = new Position (x + 1, y);
+                current = Direction.RIGHT;
             }
-            else if (!maze.isWall(new Position(x, y + 1))){ //move-se para baixo
+            else if (!maze.isWall(new Position(x, y + 1)) && !maze.isGhost(new Position(x,y+1))){ //move-se para baixo
                 newP = new Position (x, y + 1);
+                current = Direction.DOWN;
             }
-            else if (!maze.isWall(new Position(x - 1, y))){ //move-se para a esquerda
+            else if (!maze.isWall(new Position(x - 1, y)) && !maze.isGhost(new Position(x-1,y))){ //move-se para a esquerda
                 newP = new Position (x - 1, y);
+                current = Direction.LEFT;
             }
         }
         else{
-            if (!maze.isWall(new Position(x, y - 1))){ //move-se para cima
+            if (!maze.isWall(new Position(x, y - 1)) && !maze.isGhost(new Position(x,y-1))){ //move-se para cima
                 newP = new Position (x, y - 1);
+                current = Direction.UP;
             }
-            else if (!maze.isWall(new Position(x + 1, y))){ //move-se para a direita
+            else if (!maze.isWall(new Position(x + 1, y)) && !maze.isGhost(new Position(x+1,y))){ //move-se para a direita
                 newP = new Position (x + 1, y);
+                current = Direction.RIGHT;
             }
-            else if (!maze.isWall(new Position(x, y + 1))){
+            else if (!maze.isWall(new Position(x, y + 1)) && !maze.isGhost(new Position(x,y+1))){
                 newP = new Position (x, y + 1);
+                current = Direction.DOWN;
             }
-            else if (!maze.isWall(new Position(x - 1, y))){
+            else if (!maze.isWall(new Position(x - 1, y)) && !maze.isGhost(new Position(x-1,y))){
                 newP = new Position (x - 1, y);
+                current = Direction.LEFT;
             }
 
         }
