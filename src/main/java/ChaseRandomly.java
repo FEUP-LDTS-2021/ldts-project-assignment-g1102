@@ -66,4 +66,5 @@ public class ChaseRandomly implements Chase{
                 break;
         }
         return new PosDir(newP,current);
+    }
 }
