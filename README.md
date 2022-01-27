@@ -69,7 +69,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 **O Pattern:**  
   
 
-  ```java
+``` java
 while (true)
 {
   double start = getCurrentTime();

@@ -38,7 +38,11 @@ public class Game {
         screen.doResizeIfNecessary(); // resize screen if necessary
     }
 
-    private void draw() throws IOException, InterruptedException {
+    private void render() throws IOException, InterruptedException {
+        if (!Maze.alreadyExecuted) { //this is only called every time the screen is reloaded (the players eats all food or loses one life)
+            TimeUnit.SECONDS.sleep(1);
+            Maze.alreadyExecuted = true;
+        }
         TextGraphics graphics = screen.newTextGraphics();
         screen.clear();
         gs.drawGameElements(graphics);
@@ -52,70 +56,11 @@ public class Game {
         while (true) {
             try {
                 Thread.sleep(170);
-                draw();
-                if (!Maze.alreadyExecuted) { //this is only called every time the screen is reloaded (the players eats all food or loses one life)
-                    TimeUnit.SECONDS.sleep(1);
-                    Maze.alreadyExecuted = true;
-                }
-                keyRead = new Thread() {
-                    @Override
-                    public void run() {
-                        KeyStroke newKey = new KeyStroke(KeyType.ArrowLeft);
-                        try {
-                            newKey = screen.readInput();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        if (key.getKeyType() != newKey.getKeyType()) {
-                            switch (newKey.getKeyType()) {
-                                case ArrowUp:
-                                    if (canPacMove(Direction.UP)) {
-                                        key = newKey;
-                                    }
-                                    break;
-                                case ArrowDown:
-                                    if (canPacMove(Direction.DOWN)) {
-                                        key = newKey;
-                                    }
-                                    break;
-                                case ArrowLeft:
-                                    if (canPacMove(Direction.LEFT)) {
-                                        key = newKey;
-                                    }
-                                    break;
-                                case ArrowRight:
-                                    if (canPacMove(Direction.RIGHT)) {
-                                        key = newKey;
-                                    }
-                                    break;
-                            }
-                        }
-                    }
-                };
-                keyRead.start();
-                processKey(key, gs, game);
+                render();
+                processInput(game);
                 //elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
                 //System.out.println(elapsedTimeScatter);
-                if (maze.isGhost(new Position(14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))) {
-                    ghostsExitHouse();
-                }
-
-                else {
-                    if (!countedStartTime){
-                        startTimeScatter = System.currentTimeMillis();
-                        countedStartTime = true;
-                    }
-                    elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
-                    //System.out.println(elapsedTimeScatter);
-                    if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000) {
-                        moveGhostsScatter();
-                    }
-                    else {
-                        moveGhostsChase();
-                    }
-                }
-                nonFrightenedCollisions(gs, game);
-                frightenedCollisions(gs);
+                updateGhosts(game);
                 //maze.blinkyGhost.chase(maze.pacman, maze);
                 //maze.blinkyGhost.scatter(maze);
                 if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q' || key.getCharacter() == 'Q')) {
@@ -127,6 +72,72 @@ public class Game {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void processInput(Game game) throws IOException, InterruptedException {
+        keyRead = new Thread() {
+            @Override
+            public void run() {
+                KeyStroke newKey = new KeyStroke(KeyType.ArrowLeft);
+                try {
+                    newKey = screen.readInput();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (key.getKeyType() != newKey.getKeyType()) {
+                    updateKey(newKey);
+                }
+            }
+        };
+        keyRead.start();
+        processKey(key, gs, game);
+    }
+
+    private void updateGhosts(Game game) throws IOException, InterruptedException {
+        if (maze.isGhost(new Position(14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))) {
+            ghostsExitHouse();
+        }
+        else {
+            if (!countedStartTime){
+                startTimeScatter = System.currentTimeMillis();
+                countedStartTime = true;
+            }
+            elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+            //System.out.println(elapsedTimeScatter);
+            if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000) {
+                moveGhostsScatter();
+            }
+            else {
+                moveGhostsChase();
+            }
+        }
+        nonFrightenedCollisions(gs, game);
+        frightenedCollisions(gs);
+    }
+
+    private void updateKey(KeyStroke newKey){
+        switch (newKey.getKeyType()) {
+            case ArrowUp:
+                if (canPacMove(Direction.UP)) {
+                    key = newKey;
+                }
+                break;
+            case ArrowDown:
+                if (canPacMove(Direction.DOWN)) {
+                    key = newKey;
+                }
+                break;
+            case ArrowLeft:
+                if (canPacMove(Direction.LEFT)) {
+                    key = newKey;
+                }
+                break;
+            case ArrowRight:
+                if (canPacMove(Direction.RIGHT)) {
+                    key = newKey;
+                }
+                break;
         }
     }
 
