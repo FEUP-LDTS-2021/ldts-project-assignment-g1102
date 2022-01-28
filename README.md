@@ -87,6 +87,10 @@ while (true) {
   
   Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
   
+  ### 3. Strategy pattern
+**Contexto do Problema:**
+  
+  
 ### Code Smells Detetados e Soluções de Refactoring
 #### <Nome do Code Smell Detetado>
 <Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
