@@ -249,10 +249,14 @@ public class Maze {
         endOfFood(game);
     }
     public void ghostsExitHouse(){
-        blinkyGhost.setPosition(new Position(blinkyGhost.getPosition().getX() + 1, blinkyGhost.getPosition().getY()));
-        inkyGhost.setPosition(new Position(inkyGhost.getPosition().getX(), inkyGhost.getPosition().getY() - 1));
-        pinkyGhost.setPosition(new Position(pinkyGhost.getPosition().getX(), pinkyGhost.getPosition().getY() - 1));
-        clydeGhost.setPosition(new Position(clydeGhost.getPosition().getX(), clydeGhost.getPosition().getY() - 1));
+        if (!isWall(new Position(blinkyGhost.getXCor()+1,blinkyGhost.getYCor())) || blinkyGhost.getYCor() ==15)
+            blinkyGhost.setPosition(new Position(blinkyGhost.getPosition().getX() + 1, blinkyGhost.getPosition().getY()));
+        if (!isWall(new Position(inkyGhost.getXCor(),inkyGhost.getYCor()-1)) || inkyGhost.getYCor() - 1==15)
+            inkyGhost.setPosition(new Position(inkyGhost.getPosition().getX(), inkyGhost.getPosition().getY() - 1));
+        if (!isWall(new Position(pinkyGhost.getXCor(),pinkyGhost.getYCor()-1)) || pinkyGhost.getYCor() - 1==15)
+            pinkyGhost.setPosition(new Position(pinkyGhost.getPosition().getX(), pinkyGhost.getPosition().getY() - 1));
+        if (!isWall(new Position(clydeGhost.getXCor(),clydeGhost.getYCor()-1)) || clydeGhost.getYCor() - 1==15)
+            clydeGhost.setPosition(new Position(clydeGhost.getPosition().getX(), clydeGhost.getPosition().getY() - 1));
     }
     public void moveGhostsScatter() throws IOException {
         Position newGhostP;
@@ -386,6 +390,9 @@ public class Maze {
     }
 
     private List<Ghost> createGhosts(){
+        if (ghosts.size()>0){
+            ghosts.clear();
+        }
         blinkyGhost = new Ghost(13, 14, "#FF0000", new ScatterTopRight(), "Blinky");
         ghosts.add(blinkyGhost);
         clydeGhost = new Ghost(15, 17, "#FFB852", new ScatterBottomLeft(), "Clyde");
