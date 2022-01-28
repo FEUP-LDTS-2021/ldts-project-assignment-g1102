@@ -7,7 +7,7 @@ import java.io.IOException;
 public class MazeTest {
     Maze maze;
     @BeforeEach
-    public void setupMaze() {maze = new Maze();}
+    public void setupMaze() throws IOException {maze = new Maze();}
     @Test
     public void isWall(){
         Position a = new Position(14,26);       //posição inicial do Pac-Man

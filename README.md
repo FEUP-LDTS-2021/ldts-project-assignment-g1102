@@ -91,7 +91,45 @@ while (true)
 #### Dead Code
 Na verificação do código do nosso projeto, encontramos ocorrências de Dead Code sobre a forma de versões anteriores de código que ficaram comentadas em algumas classes. Por exemplo, após a alteração do funcionamento do método chase na classe ChaseRandomly (imagem abaixo). Esta situação torna o código desnecessariamente grande e diminui organização do código, pelo que a melhor forma de resolver o problema neste contexto será remover o código comentado, tornando o código final mais limpo e fácil de ler.
 
+
 ![img_9.png](img_9.png)
+
+#### Duplicate Code
+Quando analisamos o código do projeto, encontramos código repetido e redundante, em particular na classe Element tínhamos duplicado os atributos de Position, atributo que também é declarado na classe.
+
+Fragmento do código de Position
+```
+private int x, y;
+    private int velX = 0, velY = 0;
+
+    public Position(int a, int b) {
+        x = a;
+        y = b;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+```
+
+Fragmento do código de Element antes de detetarmos o code smell
+```
+ private int x;
+    private int y;
+    protected Position pos;
+
+    public Element(int x, int y){
+        pos = new Position(x, y);
+    }
+
+    public Position getPosition(){
+        return pos;
+    }
+```
 
 #### <Nome do Code Smell Detetado>
 <Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
