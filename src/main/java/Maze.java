@@ -354,7 +354,7 @@ public class Maze {
             case 2:
                 fruit = new Fruit (14, 20, 'M', "#FF0000");
                 fruits.add(fruit);
-                    break;
+                break;
             case 3:
             case 4:
                 fruit = new Fruit(14, 20, 'O', "#FF9900");

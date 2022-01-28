@@ -1,5 +1,11 @@
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.Terminal;
+
 public class Person{
     String name; Integer score;
+
     public Person(String name, Integer score){
         this.name = name;
         this.score = score;

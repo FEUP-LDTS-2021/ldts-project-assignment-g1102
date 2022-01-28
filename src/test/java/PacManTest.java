@@ -3,8 +3,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class PacManTest {
-    Maze m = new Maze(29,36);
+    Maze m = new Maze();
+
+    public PacManTest() throws IOException {
+    }
+
     @BeforeEach
     public void setup(){
         m.setPacMan(14,26);

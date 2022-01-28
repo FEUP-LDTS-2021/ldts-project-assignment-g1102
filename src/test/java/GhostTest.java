@@ -3,17 +3,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GhostTest {
-     Ghost ghost;
-     @BeforeEach
-     public void setup(){
-         ghost = new Ghost(13, 14, "#FF0000", new ScatterTopRight(), "Blinkly");
-     }
+    Ghost ghost;
+    @BeforeEach
+    public void setup(){
+        ghost = new Ghost(13, 14, "#FF0000", new ScatterTopRight(), "Blinkly");
+    }
 
-     @Test
+    @Test
     public void setPosition(){
-         ghost.setPosition(new Position(13, 15));
-         Assertions.assertEquals(13,ghost.getPosition().getX(),"Not setting x correctly.");
-         Assertions.assertEquals(15,ghost.getPosition().getY(),"Not setting y correctly.");
+        ghost.setPosition(new Position(13, 15));
+        Assertions.assertEquals(13,ghost.getPosition().getX(),"Not setting x correctly.");
+        Assertions.assertEquals(15,ghost.getPosition().getY(),"Not setting y correctly.");
     }
 
     @Test
@@ -24,36 +24,34 @@ public class GhostTest {
 
     @Test
     public void getName(){
-         Assertions.assertEquals("Blinkly", ghost.getName(), "Not getting the correct name.");
+        Assertions.assertEquals("Blinkly", ghost.getName(), "Not getting the correct name.");
     }
 
     @Test
     public void setName(){
-         ghost.setName("Pinky");
-         Assertions.assertEquals("Pinky", ghost.getName(), "Not setting the correct name");
+        ghost.setName("Pinky");
+        Assertions.assertEquals("Pinky", ghost.getName(), "Not setting the correct name");
     }
 
     @Test
     public void setDirection(){
-         ghost.setCurrent(Direction.LEFT);
-         Assertions.assertEquals(Direction.LEFT,ghost.getCurrent(),"Not setting the correct direction.");
+        ghost.setCurrent(Direction.LEFT);
+        Assertions.assertEquals(Direction.LEFT,ghost.getCurrent(),"Not setting the correct direction.");
     }
 
     @Test
     public void getDirection(){
-         Assertions.assertEquals(Direction.UP, ghost.getCurrent(), "Not getting the correct direction.");
+        Assertions.assertEquals(Direction.UP, ghost.getCurrent(), "Not getting the correct direction.");
     }
 
     @Test
     public void setColour(){
-         ghost.setColour("#0C14F2");
-         Assertions.assertEquals("#0C14F2", ghost.getColour(), "Not setting the correct colour correctly.");
+        ghost.setColour("#0C14F2");
+        Assertions.assertEquals("#0C14F2", ghost.getColour(), "Not setting the correct colour correctly.");
     }
 
     @Test
     public void getColour(){
-         Assertions.assertEquals("#FF0000", ghost.getColour(), "Not getting the correct colour.");
+        Assertions.assertEquals("#FF0000", ghost.getColour(), "Not getting the correct colour.");
     }
-
-
 }

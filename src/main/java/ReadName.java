@@ -38,8 +38,8 @@ public class ReadName {
         screen.refresh();
 
         key = screen.readInput();
+        name = key.getCharacter().toString();
 
-        name = key.toString();
         System.out.println(name);
 
         screen.close();
