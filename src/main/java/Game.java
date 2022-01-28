@@ -58,14 +58,7 @@ public class Game {
                 Thread.sleep(170);
                 render();
                 processInput(game);
-                //elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
-                //System.out.println(elapsedTimeScatter);
                 updateGhosts(game);
-                //maze.blinkyGhost.chase(maze.pacman, maze);
-                //maze.blinkyGhost.scatter(maze);
-                if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q' || key.getCharacter() == 'Q')) {
-                    screen.close();
-                }
                 if (key.getKeyType() == EOF) {
                     break;
                 }
@@ -87,6 +80,13 @@ public class Game {
                 }
                 if (key.getKeyType() != newKey.getKeyType()) {
                     updateKey(newKey);
+                }
+                else if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q' || key.getCharacter() == 'Q')) {
+                    try {
+                        screen.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
