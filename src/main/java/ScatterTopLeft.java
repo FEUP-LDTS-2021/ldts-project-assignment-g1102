@@ -87,4 +87,10 @@ public class ScatterTopLeft implements Scatter{
         return new PosDir(newP,current);
 
     }
+
+    @Override
+    public boolean isInQuadrant(Position ghostP) {
+        int x = ghostP.getX(), y= ghostP.getY();
+        return (x >= 1 && x <= 6) && (y >= 4 && y <= 8);
+    }
 }

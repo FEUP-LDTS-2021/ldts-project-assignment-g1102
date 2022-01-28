@@ -131,8 +131,9 @@ Fragmento do código de Element antes de detetarmos o code smell
     }
 ```
 
-#### <Nome do Code Smell Detetado>
-<Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
+#### Switch Statements
+
+No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's.
 
 ### Testagem
 
