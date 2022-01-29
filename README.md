@@ -85,8 +85,6 @@ while (true)
   Este loop permite, por fases, receber input de um user e processá-lo (processInput()), atualizar o estado do jogo, movendo os seus elementos por exemplo (update()), e renderizar os gráficos, isto é, desenhar os elementos no ecrã (render()). O método sleep permite controlar a velocidade do jogo.
   
 ### Code Smells Detetados e Soluções de Refactoring
-#### <Nome do Code Smell Detetado>
-<Explicação do Code Smell e dos problemas que este causa + Processo de Resolução Aplicado>
 
 #### Dead Code
 Na verificação do código do nosso projeto, encontramos ocorrências de Dead Code sobre a forma de versões anteriores de código que ficaram comentadas em algumas classes. Por exemplo, após a alteração do funcionamento do método chase na classe ChaseRandomly (imagem abaixo). Esta situação torna o código desnecessariamente grande e diminui organização do código, pelo que a melhor forma de resolver o problema neste contexto será remover o código comentado, tornando o código final mais limpo e fácil de ler.
@@ -134,6 +132,10 @@ Fragmento do código de Element antes de detetarmos o code smell
 #### Switch Statements
 
 No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's.
+
+#### Single Responsability Principle
+Reparamos também que temos classes que estão encarregues de mais do que uma função específica no jogo. Por exemplo, o PacMan tem como função guardar o movimento, verificar o movimento e desenhar-se.
+Uma forma de corrigir este code smell é dividir o Projeto em packages onde se separava as principais funções disponíveis no jogo.
 
 ### Testagem
 
