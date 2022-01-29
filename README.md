@@ -86,57 +86,25 @@ while (true) {
   ```
   
   Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
-
-**O Pattern**
-```
-while (true)
-{
-  double start = getCurrentTime();
-  processInput();
-  update();
-  render();
-
-  sleep(start + MS_PER_FRAME - getCurrentTime());
-}
-```
-**Implementação**
-
-Para implementar o game loop usamos um ciclo while(true), onde são invocadas as funções que permitem que o tempo controlar o tempo do jogo.
-
-```
-private void render() throws IOException, InterruptedException {
-        if (!Maze.alreadyExecuted) { //this is only called every time the screen is reloaded (the players eats all food or loses one life)
-            TimeUnit.SECONDS.sleep(1);
-            Maze.alreadyExecuted = true;
-        }
-        TextGraphics graphics = screen.newTextGraphics();
-        screen.clear();
-        gs.drawGameElements(graphics);
-        maze.drawMazeElements(graphics);
-        screen.refresh();
-    }
-
-    public void run(Game game) {
-        key = new KeyStroke(KeyType.ArrowLeft);
-        //startTimeScatter = System.currentTimeMillis();
-        while (true) {
-            try {
-                Thread.sleep(170);
-                render();
-                processInput(game);
-                updateGhosts(game);
-         
-         //continue
-    }     
-```
-
-**Impacto**
-
-Ao utilizarmos este pattern o código ficou mais organizado e simples de compreender, bem como permitiu que o jogo corresse a uma velocidade mais natural e adequada para o jogador. Por outro lado, o jogo também pode atualizar devagar demais, porque dependendo do computador pode demorar mais tempo a processor o ciclo.
-
- ### 3. Strategy pattern
+  
+  ### 3. Strategy pattern
 **Contexto do Problema:**
   
+  Ao nos depararmos com a complexidade elevada do movimento dos fantasmas no jogo, apercebemo-nos de que uma estratégia de programar para uma implementação não seria a mais adequada para a resolução do nosso problema, dado que tal abordagem não seria nada reutilizável, implicando portanto mudanças bruscas no código caso houvesse a hipotética necessidade de, por exemplo, mudar a estratégia de movimento dos fantasmas, o que levaria a uma maior probabilidade de ocorrência de falhas no código. Sendo assim, e pesando todos os prós e contras desta abordagem, chegamos a um consenso que seria de maior proveito aplicar o strategy pattern, que se alinha com o princípio de programar para uma interface, em detrimento de programar para uma implementação. Neste sentido, decidimos criar três interfaces diferentes, sendo que cada uma representa um dos tipos de movimento dos fantasmas (scatter, que corresponde a um movimento caracterizado pelo deslocamento dos fantasmas para os respetivos cantos do mapa; frightened, que corresponde ao movimento em que os fantasmas fogem do pacman e chase, em que os fantasmas perseguem o pacman). Cada uma destas interfaces tem uma ou mais classes que representam uma ou mais implementações de cada um dos modos do movimento dos fantasmas (contamos com quatro modos de scatter, um modo de chase e um modo de frightened).
+  
+  **O Pattern:**
+  *Inserir esquema do design pattern
+  
+  **Implementação:**
+  
+  Como se pode observar pela imagem abaixo, temos as três interfaces (chase, scatter e frightened) e temos cada uma das classes respetivas que implementam essas interfaces e que se encarregam por tratar de cada um desses movimentos dos fantasmas
+
+  ![image](https://user-images.githubusercontent.com/93000291/151681138-0009376f-5a36-43eb-9fad-d360a275b71a.png)
+
+
+  **Impacto:**
+  
+  A implementação deste strategy pattern permite tornar o código mais reutilizável e permitiu-nos implementar um tipo de chase apenas para todos os fantasmas (o frightened já é o mesmo originalmente para todos, e cada fantasma no nosso jogo tem um tipo de scatter). Caso queiramos mudar a estratégia de movimento temos apenas que, em vez de mudar o código todo, manipular a interface respetiva e implementar esse outro tipo de estratégia de movimento.
   
 ### Code Smells Detetados e Soluções de Refactoring
 
