@@ -26,13 +26,13 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 ### Diagrama UML
 
-![img_8.png](img_8.png)
+![img_10.png](img_10.png)
 
 ### Design
 
 ![img_5.png](img_5.png)
 
-![img_6.png](img_6.png)
+![img_12.png](img_12.png)
 
 ![img_7.png](img_7.png)
 
