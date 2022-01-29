@@ -70,19 +70,26 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   
 
 ``` java
-while (true)
-{
-  double start = getCurrentTime();
-  processInput();
-  update();
-  render();
-
-  sleep(start + MS_PER_FRAME - getCurrentTime());
-}
-  
+while (true) {
+            try {
+                Thread.sleep(170);
+                render();
+                processInput(game);
+                updateGhosts(game);
+                if (key.getKeyType() == EOF) {
+                    break;
+                }
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
   ```
   
-  Este loop permite, por fases, receber input de um user e processá-lo (processInput()), atualizar o estado do jogo, movendo os seus elementos por exemplo (update()), e renderizar os gráficos, isto é, desenhar os elementos no ecrã (render()). O método sleep permite controlar a velocidade do jogo.
+  Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
+  
+  ### 3. Strategy pattern
+**Contexto do Problema:**
+  
   
 ### Code Smells Detetados e Soluções de Refactoring
 

@@ -40,12 +40,12 @@ public class MazeTest {
 
     @Test
     public void isHole(){
-        Assertions.assertTrue(maze.isHole(new Position(0, 23)), "Doesn't recognize hole.");
-        Assertions.assertTrue(maze.isHole(new Position(29, 23)), "Doesn't recognize hole.");
-        Assertions.assertFalse(maze.isHole(new Position(29, 24)), "Recognizes holes where there are walls.");
-        Assertions.assertFalse(maze.isHole(new Position(0, 24)),"Recognizes holes where there are walls.");
-        Assertions.assertTrue(maze.isHole(new Position(29,25)),"Doesn't recognize inaccessible holes");
-        Assertions.assertTrue(maze.isHole(new Position(0,25)),"Doesn't recognize inaccessible holes");
+        Assertions.assertTrue(maze.isHole(new Position(-1, 17)), "Doesn't recognize hole.");
+        Assertions.assertTrue(maze.isHole(new Position(29, 17)), "Doesn't recognize hole.");
+        Assertions.assertFalse(maze.isHole(new Position(28, 18)), "Recognizes holes where there are walls.");
+        Assertions.assertFalse(maze.isHole(new Position(0, 18)),"Recognizes holes where there are walls.");
+        Assertions.assertTrue(maze.isHole(new Position(29,19)),"Doesn't recognize inaccessible holes");
+        Assertions.assertTrue(maze.isHole(new Position(-1,19)),"Doesn't recognize inaccessible holes");
 
     }
 
