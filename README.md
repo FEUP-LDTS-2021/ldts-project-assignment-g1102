@@ -86,8 +86,55 @@ while (true) {
   ```
   
   Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
-  
-  ### 3. Strategy pattern
+
+**O Pattern**
+```
+while (true)
+{
+  double start = getCurrentTime();
+  processInput();
+  update();
+  render();
+
+  sleep(start + MS_PER_FRAME - getCurrentTime());
+}
+```
+**Implementação**
+
+Para implementar o game loop usamos um ciclo while(true), onde são invocadas as funções que permitem que o tempo controlar o tempo do jogo.
+
+```
+private void render() throws IOException, InterruptedException {
+        if (!Maze.alreadyExecuted) { //this is only called every time the screen is reloaded (the players eats all food or loses one life)
+            TimeUnit.SECONDS.sleep(1);
+            Maze.alreadyExecuted = true;
+        }
+        TextGraphics graphics = screen.newTextGraphics();
+        screen.clear();
+        gs.drawGameElements(graphics);
+        maze.drawMazeElements(graphics);
+        screen.refresh();
+    }
+
+    public void run(Game game) {
+        key = new KeyStroke(KeyType.ArrowLeft);
+        //startTimeScatter = System.currentTimeMillis();
+        while (true) {
+            try {
+                Thread.sleep(170);
+                render();
+                processInput(game);
+                updateGhosts(game);
+         
+         //continue
+    }     
+```
+
+**Impacto**
+
+Ao utilizarmos este pattern o código ficou mais organizado e simples de compreender, bem como permitiu que o jogo corresse a uma velocidade mais natural e adequada para o jogador. Por outro lado, o jogo também pode atualizar devagar demais, porque dependendo do computador pode demorar mais tempo a processor o ciclo.
+
+ ### 3. Strategy pattern
 **Contexto do Problema:**
   
   
