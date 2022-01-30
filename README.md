@@ -19,7 +19,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 -**Movimento Constante do Pac Man:** O Pac Man move-se por tempo indefinido numa direção até receber outro input no teclado ou encontrar uma parede no seu caminho. Nesta segunda situação, fica imóvel até receber um novo input.
 
--**Fantasmas:** Cada fantasma possui um comportamento próprio durante o jogo, definindo os seus movimentos com base na posição atual do Pac-Man e movendo-se mesmo que o Pac-Man esteja parado. Os fantasmas devem entrar em modo de fuga quando o Pac-Man consome um Power Up. Se o Pacman tocar num fantasma sem este estar no modo de fuga, o Pac Man perde uma vida. A implementação dos fantasmas foi parcial, tendo-nos deparado com alguns bugs de movimento dos fantasmas que não conseguimos corrigir antes da entrega final.
+-**Fantasmas:** Cada fantasma possui um comportamento próprio durante o jogo, definindo os seus movimentos com base na posição atual do Pac-Man e movendo-se mesmo que o Pac-Man esteja parado. Os fantasmas devem entrar em modo de fuga quando o Pac-Man consome um Power Up. Se o Pacman tocar num fantasma sem este estar no modo de fuga, o Pac Man perde uma vida.
 
 -**Power Ups:** Comer um Power Up permite ao Pac Man comer os fantasmas em que toque durante os 8 segundos seguintes. Durante a duração do Power Up, os fantasmas entram em modo de fuga, procurando fugir do Pac Man em vez de persegui-lo.
 
@@ -43,7 +43,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 **O Pattern:** 
   
-  Assim, pretendemos depois implementar, visando já as entregas que se avizinham, este MVC (Model-View-Control), que se foca, acima de tudo, no princípio de que a parte de interação com o utilizador (input e apresentação) deve ser separada da parte dos dados do programa e sua manipulação. 
+  Este MVC (Model-View-Control), foca-se, acima de tudo, no princípio de que a parte de interação com o utilizador (input e apresentação) deve ser separada da parte dos dados do programa e sua manipulação. 
   
  
 ![image](https://user-images.githubusercontent.com/93000291/148655510-9a9865d1-886e-40c9-945e-e4802900552e.png)
@@ -53,10 +53,12 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   Pretendemos aplicar este padrão visto que não fazer esta separação poderia causar alguns efeitos indesejados no nosso software. Explicitando, quantas mais responsabilidades couberem a só uma classe (ou seja caso uma classe tenha responsabilidades que digam respeito à parte do controller e à parte do view, como por exemplo acontece com a classe PacMan, que atualiza a sua posição- controller- e desenha-se -view) vai ser necessária alterá-la mais vezes do que seria preciso caso ela tivesse apenas uma responsabilidade em concreto, o que aumenta a probabilidade de efeitos secundários indesejados aquando da alteração e torna tudo mais propício a erros, o que apenas causaria mais trabalho do que deveria.
   
 **Implementação:**
-Não conseguimos implementar este pattern
+
+  Não conseguimos implementar este pattern
 
 **Impacto:**
-Não conseguimos aplicar este pattern, pelo que não teve impacto no nosso código
+
+  Apesar de não termos implementado o model-view-controller, entendemos o impacto que ele iria ter no nosso código, nomeadamente na correção do code smell long class e na abolição da violação do Single Responsibility Principle. Isto porque esse pattern permitiria uma melhor organização do código, tal como já foi explicado em cima (divindo o código por funções executadas), permitindo que a cada classe coubesse uma e apenas uma responsabilidade específica.
 
 ### 2. Game programming pattern
 **Contexto do Problema:**
@@ -85,7 +87,7 @@ while (true) {
 
 **Implementação**
 
-A implementação deste pattern consiste na divisão das funções principais do jogo em 3 dimensões principais: renderização, processamento de inputs e atualização. A função render() trata de, a cada mudança no jogo, limpar o screen do estado anterior, criar um novo objeto TextGraphics e desenhar os vários elementos do jogo para visualização do utilizador. Possui além disso uma condicional para quando o labirinto sofre um reload, se o pacman perder uma vida ou o labirinto anterior ficar sem pellets, o jogo parar durante um equeno intervalo de temo.A função processInput(Game game) efetua a leitura e processamento de KeyStrokes, de forma a atualizar o movimento do PacMan conforme o utilizador pressione teclas. A função updateGhosts(Game game) faz atualização do movimento dos fantasmas, que precisam ser atualizados a cada frame, usando o tempo desde que a ronda foi iniciada para ditar se os fantasmas estão em modo de Scatter ou de Chase.
+A implementação deste pattern consiste na divisão das funções principais do jogo em 3 dimensões principais: renderização, processamento de inputs e atualização. A função render() trata de, a cada mudança no jogo, limpar o screen do estado anterior, criar um novo objeto TextGraphics e desenhar os vários elementos do jogo para visualização do utilizador. Possui além disso uma condicional (if (!Maze.alreadyExecuted)) para quando o labirinto sofre um reload, se o pacman perder uma vida ou o labirinto anterior ficar sem pellets, o jogo parar durante um pequeno intervalo de tempo. A função processInput(Game game) efetua a leitura e processamento de KeyStrokes, de forma a atualizar o movimento do PacMan conforme o utilizador pressione teclas. A função updateGhosts(Game game) faz atualização do movimento dos fantasmas, que precisam ser atualizados a cada frame, usando o tempo desde que a ronda foi iniciada para ditar se os fantasmas estão em modo de Scatter ou de Chase.
 
 ```
 private void render() throws IOException, InterruptedException {
@@ -216,11 +218,11 @@ Fragmento do código de Element antes de detetarmos o code smell
 
 #### Switch Statements
 
-No caso das estratégias de movimento, o nosso código possui uma combinação grande de Switch Cases e If's no código das estratégias de movimento. Apesar de não termos conseguido alterar o código de forma a resolver este code smell, o processo de refactoring que aplicaríamos se houvesse mais tempo seria subdividir cada direção de movimento (esquerda,direita, cima e baixo) de cada estratégia num método próprio da estratégia em questão e, possivelmente, aplicar novamente o Strategy Pattern a partir dessa estratégia de movimento, criando uma estratégia para cada direção. Este code smell torna-se incómodo na medida em que é complicado efetuar alterações ao código afetado por este se tornar difícil de ler e bastante longo, sendo difícil de detetar erros no meio dele. Possivelmente, os erros do movimento dos fantasmas que tivemos poderiam ter a sua correção facilitada se não fosse por este code smell.
+No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's. Apesar de não termos conseguido corrigir este code smell, percebemos que ele afeta a legibilidade do código, tornando-o ainda mais propenso a erros.
 
-#### Single Responsability Principle
-Reparamos também que temos classes que estão encarregues de mais do que uma função específica no jogo. Por exemplo, o PacMan tem como função guardar o movimento, verificar o movimento e desenhar-se.
-Uma forma de corrigir este code smell é dividir o Projeto em packages onde se separava as principais funções disponíveis no jogo.
+#### Long class
+Reparamos também que temos classes que estão encarregues de mais do que uma função específica no jogo. Por exemplo, o PacMan tem como função atualizar a sua posição e desenhar-se, o que viola o Single Responsability Principle.
+Uma forma de corrigir este code smell seria implementar o design pattern MVC (model-view-controller) explicado em cima. Porém, tal como já referimos anteriormente, não nos foi possível aplicar este pattern.
 
 ### Testagem
 
