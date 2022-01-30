@@ -193,6 +193,9 @@ Uma forma de corrigir este code smell é dividir o Projeto em packages onde se s
 ![img_13.png](img_13.png)
 
 ### Auto-Avaliação
+
 Pedro Gomes: 33,3%
+
 Inês Gaspar: 33,3%
-Marcos Airea: 33,3%
+
+Marcos Aires: 33,3%
