@@ -42,8 +42,6 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   
   De modo a conseguirmos ter um jogo funcional, dividimos o código todo em classes da forma que consideramos mais adequada até ao momento. Porém, é facto de que o código ainda não se encontra dividido em pacotes, sendo notório também que ainda não há uma distinção totalmente clara sobre o que algumas classes fazem (temos, por exemplo, o caso do Pacman, que se desenha a si próprio, atualiza a sua posição e ainda guarda a sua informação, nomeadamente a posição em que se encontra). Isto, porém viola o Single Responsibilty Principle, que refere que, segundo Robert C. Martin: "A class should have one, and only one, reason to change.", ou seja, a cada classe deve caber apenas uma responsabilidade específica.
 
-
-  
 **O Pattern:** 
   
   Assim, pretendemos depois implementar, visando já as entregas que se avizinham, este MVC (Model-View-Control), que se foca, acima de tudo, no princípio de que a parte de interação com o utilizador (input e apresentação) deve ser separada da parte dos dados do programa e sua manipulação. 
@@ -117,14 +115,27 @@ private void render() throws IOException, InterruptedException {
          //continue
     }     
 ```
-
 **Impacto**
 
-Ao utilizarmos este pattern o código ficou mais organizado e simples de compreender, bem como permitiu que o jogo corresse a uma velocidade mais natural e adequada para o jogador. Por outro lado, o jogo também pode atualizar devagar demais, porque dependendo do computador pode demorar mais tempo a processor o ciclo.
+A aplicação deste pattern permitiu-nos manter o código mais organizado e simples de compreender, bem como pemritiu que o jogo tivesse uma velocidade adequada. Porém, em alguns computadores este pattern pode tornar o jogo mais lento do que o desejável.
 
- ### 3. Strategy pattern
+### 3. Strategy pattern
 **Contexto do Problema:**
   
+  Ao nos depararmos com a complexidade elevada do movimento dos fantasmas no jogo, apercebemo-nos de que uma estratégia de programar para uma implementação não seria a mais adequada para a resolução do nosso problema, dado que tal abordagem não seria nada reutilizável, implicando portanto mudanças bruscas no código caso houvesse a hipotética necessidade de, por exemplo, mudar a estratégia de movimento dos fantasmas, o que levaria a uma maior probabilidade de ocorrência de falhas no código. Sendo assim, e pesando todos os prós e contras desta abordagem, chegamos a um consenso que seria de maior proveito aplicar o strategy pattern, que se alinha com o princípio de programar para uma interface, em detrimento de programar para uma implementação. Neste sentido, decidimos criar três interfaces diferentes, sendo que cada uma representa um dos tipos de movimento dos fantasmas (scatter, que corresponde a um movimento caracterizado pelo deslocamento dos fantasmas para os respetivos cantos do mapa; frightened, que corresponde ao movimento em que os fantasmas fogem do pacman e chase, em que os fantasmas perseguem o pacman). Cada uma destas interfaces tem uma ou mais classes que representam uma ou mais implementações de cada um dos modos do movimento dos fantasmas (contamos com quatro modos de scatter, um modo de chase e um modo de frightened).
+  
+  **O Pattern:**
+  *Inserir esquema do design pattern
+  
+  **Implementação:**
+  
+  Como se pode observar pela imagem abaixo, temos as três interfaces (chase, scatter e frightened) e temos cada uma das classes respetivas que implementam essas interfaces e que se encarregam por tratar de cada um desses movimentos dos fantasmas
+
+  ![image](https://user-images.githubusercontent.com/93000291/151681138-0009376f-5a36-43eb-9fad-d360a275b71a.png)
+
+  **Impacto:**
+  
+  A implementação deste strategy pattern permite tornar o código mais reutilizável e permitiu-nos implementar um tipo de chase apenas para todos os fantasmas (o frightened já é o mesmo originalmente para todos, e cada fantasma no nosso jogo tem um tipo de scatter). Caso queiramos mudar a estratégia de movimento temos apenas que, em vez de mudar o código todo, manipular a interface respetiva e implementar esse outro tipo de estratégia de movimento.
   
 ### Code Smells Detetados e Soluções de Refactoring
 
