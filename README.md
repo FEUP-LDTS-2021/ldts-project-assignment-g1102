@@ -87,18 +87,6 @@ while (true) {
   
   Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
 
-**O Pattern**
-```
-while (true)
-{
-  double start = getCurrentTime();
-  processInput();
-  update();
-  render();
-
-  sleep(start + MS_PER_FRAME - getCurrentTime());
-}
-```
 **Implementação**
 
 Para implementar o game loop usamos um ciclo while(true), onde são invocadas as funções que permitem que o tempo controlar o tempo do jogo.
