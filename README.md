@@ -54,7 +54,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   
 **Implementação:**
 
-  Embora não tenhamos conseguido implementar este pattern, entendemos como o poderíamos fazer. De uma forma geral, a estrutura do código estaria dividida por três packages, sendo cada um deles referente a uma parte do MVC (um para model, outro para view e finalmente outro para controller), sendo que dentro de cada um desses packages estariam as classes (naquele em que se encaixariam melhor, tendo em conta o seu perfil e a sua funçaõ).
+  Embora não tenhamos conseguido implementar este pattern, entendemos como o poderíamos fazer. De uma forma geral, a estrutura do código estaria dividida por três packages, sendo cada um deles referente a uma parte do MVC (um para model, outro para view e finalmente outro para controller), sendo que dentro de cada um desses packages estariam as classes (naquele em que se encaixariam melhor, tendo em conta o seu perfil e a sua função).
 
 **Impacto:**
 
