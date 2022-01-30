@@ -19,7 +19,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 -**Movimento Constante do Pac Man:** O Pac Man move-se por tempo indefinido numa direção até receber outro input no teclado ou encontrar uma parede no seu caminho. Nesta segunda situação, fica imóvel até receber um novo input.
 
--**Fantasmas:** Cada fantasma possui um comportamento próprio durante o jogo, definindo os seus movimentos com base na posição atual do Pac-Man e movendo-se mesmo que o Pac-Man esteja parado. Os fantasmas devem entrar em modo de fuga quando o Pac-Man consome um Power Up. Se o Pacman tocar num fantasma sem este estar no modo de fuga, o Pac Man perde uma vida.
+-**Fantasmas:** Cada fantasma possui um comportamento próprio durante o jogo, definindo os seus movimentos com base na posição atual do Pac-Man e movendo-se mesmo que o Pac-Man esteja parado. Os fantasmas devem entrar em modo de fuga quando o Pac-Man consome um Power Up. Se o Pacman tocar num fantasma sem este estar no modo de fuga, o Pac Man perde uma vida. O programa possui um bug que não cosneguimos corrigir em que um dos fantasmas para de se mover após sair da GhostHouse.
 
 -**Power Ups:** Comer um Power Up permite ao Pac Man comer os fantasmas em que toque durante os 8 segundos seguintes. Durante a duração do Power Up, os fantasmas entram em modo de fuga, procurando fugir do Pac Man em vez de persegui-lo.
 
@@ -58,7 +58,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 **Impacto:**
 
-  Apesar de não termos implementado o model-view-controller, entendemos o impacto que ele iria ter no nosso código, nomeadamente na correção do code smell long class e na abolição da violação do Single Responsibility Principle. Isto porque esse pattern permitiria uma melhor organização do código, tal como já foi explicado em cima (divindo o código por funções executadas), permitindo que a cada classe coubesse uma e apenas uma responsabilidade específica.
+  Apesar de não termos implementado o model-view-controller, entendemos o impacto que ele iria ter no nosso código, nomeadamente na correção do code smell Large Class e na correção da violação do Single Responsibility Principle. Isto porque esse pattern permitiria uma melhor organização do código, tal como já foi explicado em cima (divindo o código por funções executadas), permitindo que a cada classe coubesse uma e apenas uma responsabilidade específica.
 
 ### 2. Game programming pattern
 **Contexto do Problema:**
@@ -218,7 +218,7 @@ Fragmento do código de Element antes de detetarmos o code smell
 
 #### Switch Statements
 
-No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's. Apesar de não termos conseguido corrigir este code smell, percebemos que ele afeta a legibilidade do código, tornando-o ainda mais propenso a erros.
+Principalmente na implementação do Strategy Pattern, o nosso código possui uma sequência extensa de Switch Statements e If's, o que torna o código difícil de ler e de modificar. Possivelmente, alguns dos erros que obtivemos ao longo do desenvolvimento teriam sido corrigidos em menos tempo se tivéssemos feito refactoring a este code smell ou se o tivéssemos evitado. No entanto, com o pouco tempo que tínhamos e que dedicamos à tentativa de correção de erros, não conseguimos dar refactor a este code smell. O processo de refactoring passaria, no entanto, por aplicar um strategy pattern a partir de cada estratégia de movimento para cada direção (esquerda,direita, cima e baixo) que o fantasma se estivesse a mover.
 
 #### Large class
 Reparamos também que temos classes que estão encarregues de mais do que uma função específica no jogo. Por exemplo, o PacMan tem como função atualizar a sua posição e desenhar-se, o que viola o Single Responsability Principle.
