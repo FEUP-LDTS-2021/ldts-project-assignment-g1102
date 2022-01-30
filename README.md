@@ -216,7 +216,7 @@ Fragmento do código de Element antes de detetarmos o code smell
 
 #### Switch Statements
 
-No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's.
+No caso das estratégias de movimento, o nosso código possui uma combinação grande de Switch Cases e If's no código das estratégias de movimento. Apesar de não termos conseguido alterar o código de forma a resolver este code smell, o processo de refactoring que aplicaríamos se houvesse mais tempo seria subdividir cada direção de movimento (esquerda,direita, cima e baixo) de cada estratégia num método próprio da estratégia em questão e, possivelmente, aplicar novamente o Strategy Pattern a partir dessa estratégia de movimento, criando uma estratégia para cada direção. Este code smell torna-se incómodo na medida em que é complicado efetuar alterações ao código afetado por este se tornar difícil de ler e bastante longo, sendo difícil de detetar erros no meio dele. Possivelmente, os erros do movimento dos fantasmas que tivemos poderiam ter a sua correção facilitada se não fosse por este code smell.
 
 #### Single Responsability Principle
 Reparamos também que temos classes que estão encarregues de mais do que uma função específica no jogo. Por exemplo, o PacMan tem como função guardar o movimento, verificar o movimento e desenhar-se.
