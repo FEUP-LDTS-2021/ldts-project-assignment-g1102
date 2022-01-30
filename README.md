@@ -81,11 +81,11 @@ while (true) {
         }
   ```
   
-  Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
+  O fragmento de código acima é o ponto onde implementamos o game loop. Este loop permite, por fases, renderizar os elementos do jogo inicialmente, receber e processar um input do jogador e atualizar os fantasmas mediante esse input. O método sleep faz a thread principal parar por 0.17 segundos para regular a velocidade do jogo.
 
 **Implementação**
 
-Para implementar o game loop usamos um ciclo while(true), onde são invocadas as funções que permitem que o tempo controlar o tempo do jogo.
+A implementação deste pattern consiste na divisão das funções principais do jogo em 3 dimensões principais: renderização, processamento de inputs e atualização. A função render() trata de, a cada mudança no jogo, limpar o screen do estado anterior, criar um novo objeto TextGraphics e desenhar os vários elementos do jogo para visualização do utilizador. Possui além disso uma condicional para quando o labirinto sofre um reload, se o pacman perder uma vida ou o labirinto anterior ficar sem pellets, o jogo parar durante um equeno intervalo de temo.A função processInput(Game game) efetua a leitura e processamento de KeyStrokes, de forma a atualizar o movimento do PacMan conforme o utilizador pressione teclas. A função updateGhosts(Game game) faz atualização do movimento dos fantasmas, que precisam ser atualizados a cada frame, usando o tempo desde que a ronda foi iniciada para ditar se os fantasmas estão em modo de Scatter ou de Chase.
 
 ```
 private void render() throws IOException, InterruptedException {
@@ -100,22 +100,56 @@ private void render() throws IOException, InterruptedException {
         screen.refresh();
     }
 
-    public void run(Game game) {
-        key = new KeyStroke(KeyType.ArrowLeft);
-        //startTimeScatter = System.currentTimeMillis();
-        while (true) {
-            try {
-                Thread.sleep(170);
-                render();
-                processInput(game);
-                updateGhosts(game);
-         
-         //continue
-    }     
+    public void processInput(Game game) throws IOException, InterruptedException {
+        keyRead = new Thread() {
+            @Override
+            public void run() {
+                KeyStroke newKey = new KeyStroke(KeyType.ArrowLeft);
+                try {
+                    newKey = screen.readInput();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (key.getKeyType() != newKey.getKeyType()) {
+                    updateKey(newKey);
+                }
+                else if (key.getKeyType() == KeyType.Character && (key.getCharacter() == 'q' || key.getCharacter() == 'Q')) {
+                    try {
+                        screen.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        keyRead.start();
+        processKey(key, gs, game);
+    }
+  private void updateGhosts(Game game) throws IOException, InterruptedException {
+        if (maze.isGhost(new Position(14, 17)) || maze.isGhost(new Position(14, 16)) || maze.isGhost(new Position(14, 15))) {
+            ghostsExitHouse();
+        }
+        else {
+            if (!countedStartTime){
+                startTimeScatter = System.currentTimeMillis();
+                countedStartTime = true;
+            }
+            elapsedTimeScatter = System.currentTimeMillis() - startTimeScatter;
+            //System.out.println(elapsedTimeScatter);
+            if ((elapsedTimeScatter >= 0 && elapsedTimeScatter <= 5000) || (elapsedTimeScatter >= 25000 && elapsedTimeScatter <= 30000) || (elapsedTimeScatter >= 50000 && elapsedTimeScatter <= 55000) || elapsedTimeScatter >= 75000 && elapsedTimeScatter <= 80000) {
+                moveGhostsScatter();
+            }
+            else {
+                moveGhostsChase();
+            }
+        }
+        nonFrightenedCollisions(gs, game);
+        frightenedCollisions(gs);
+    }   
 ```
 **Impacto**
 
-A aplicação deste pattern permitiu-nos manter o código mais organizado e simples de compreender, bem como pemritiu que o jogo tivesse uma velocidade adequada. Porém, em alguns computadores este pattern pode tornar o jogo mais lento do que o desejável.
+A aplicação deste pattern permitiu-nos manter o código mais organizado e simples de compreender, bem como permitiu que o jogo tivesse uma velocidade adequada. Porém, em alguns computadores este pattern pode tornar o jogo mais lento do que o desejável.
 
 ### 3. Strategy pattern
 **Contexto do Problema:**
