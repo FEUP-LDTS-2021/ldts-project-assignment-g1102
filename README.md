@@ -36,7 +36,6 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
 
 ![img_7.png](img_7.png)
 
-#### <Inserir problema encontrado aqui>
 ### 1. Model-View-Controller
 **Contexto do Problema:**
   
@@ -54,10 +53,10 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   Pretendemos aplicar este padrão visto que não fazer esta separação poderia causar alguns efeitos indesejados no nosso software. Explicitando, quantas mais responsabilidades couberem a só uma classe (ou seja caso uma classe tenha responsabilidades que digam respeito à parte do controller e à parte do view, como por exemplo acontece com a classe PacMan, que atualiza a sua posição- controller- e desenha-se -view) vai ser necessária alterá-la mais vezes do que seria preciso caso ela tivesse apenas uma responsabilidade em concreto, o que aumenta a probabilidade de efeitos secundários indesejados aquando da alteração e torna tudo mais propício a erros, o que apenas causaria mais trabalho do que deveria.
   
 **Implementação:**
-  
-<Esquematização de como o Pattern foi aplicado ao programa>
+Não conseguimos implementar este pattern
+
 **Impacto:**
-<Efeitos que a aplicação do pattern teve sobre o código>
+Não conseguimos aplicar este pattern, pelo que não teve impacto no nosso código
 
 ### 2. Game programming pattern
 **Contexto do Problema:**
@@ -65,7 +64,6 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   Tal como acontece na maior parte dos jogos, pretendemos também implementar um loop principal no nosso. Tal se deve ao facto de, como sabemos, um jogo não parar mesmo quando o jogador deixa de dar input à máquina, ou seja, mesmo que o jogador para de jogar, as animações do jogo continuam a atualizar, isto é, o jogo não congela, dado que os diferentes elementos de um jogo têm que ter ações independentes das ações de outros elementos.
   
 **O Pattern:**  
-  
 
 ``` java
 while (true) {
@@ -191,6 +189,8 @@ Reparamos também que temos classes que estão encarregues de mais do que uma fu
 Uma forma de corrigir este code smell é dividir o Projeto em packages onde se separava as principais funções disponíveis no jogo.
 
 ### Testagem
+
+![img_13.png](img_13.png)
 
 ### Auto-Avaliação
 
