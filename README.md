@@ -54,7 +54,7 @@ Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up20
   
 **Implementação:**
 
-  Não conseguimos implementar este pattern
+  Embora não tenhamos conseguido implementar este pattern, entendemos como o poderíamos fazer. De uma forma geral, a estrutura do código estaria dividida por três packages, sendo cada um deles referente a uma parte do MVC (um para model, outro para view e finalmente outro para controller), sendo que dentro de cada um desses packages estariam as classes (naquele em que se encaixariam melhor, tendo em conta o seu perfil e a sua funçaõ).
 
 **Impacto:**
 
@@ -220,7 +220,7 @@ Fragmento do código de Element antes de detetarmos o code smell
 
 No caso das estratégias de movimento, o nosso código possuía inicialmente uma combinação grande de Switch Cases e If's. Apesar de não termos conseguido corrigir este code smell, percebemos que ele afeta a legibilidade do código, tornando-o ainda mais propenso a erros.
 
-#### Long class
+#### Large class
 Reparamos também que temos classes que estão encarregues de mais do que uma função específica no jogo. Por exemplo, o PacMan tem como função atualizar a sua posição e desenhar-se, o que viola o Single Responsability Principle.
 Uma forma de corrigir este code smell seria implementar o design pattern MVC (model-view-controller) explicado em cima. Porém, tal como já referimos anteriormente, não nos foi possível aplicar este pattern.
 
