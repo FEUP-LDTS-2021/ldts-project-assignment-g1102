@@ -1,4 +1,4 @@
-## LDTS_1102 - Pac Man
+## LDTS_1102 - Pac Man (Final Grade: 15.23/20.00)
 O objetivo do nosso projeto é implementar em Java uma réplica do jogo clássico do Pac-Man, de 1980, usando as funcionalidades do Lanterna.
 Projeto desenvolvido por Inês Gaspar (up202007210@fe.up.pt), Marcos Aires (up202006888@fe.up.pt) e Pedro Gomes (up202006086@fe.up.pt) para a cadeira de LDTS no ano letivo 2021/2022.
 
